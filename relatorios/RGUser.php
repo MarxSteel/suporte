@@ -7,13 +7,33 @@ require_once '../QueryUser.php';
 $DataRelatorio = date('d/m/Y - H:i:s');
 
 
-$DadosUSR = $PDO->prepare("SELECT * FROM login WHERE codLogin='$UsuarioCod'");
+$DadosUSR = $PDO->prepare("SELECT * FROM login WHERE Nome='$UsuarioCod'");
 $DadosUSR->execute();
 $Qryusr = $DadosUSR->fetch();
 $UNome = $Qryusr['Nome'];
 $ULogin = $Qryusr['login'];
+$UTipo = $Qryusr['Tipo'];
+  if ($UTipo === "1") {
+    $TipoUser = "Atendente";
+  }
+  elseif ($UTipo === "2") {
+    $TipoUser = "Gestor";
+  }
+  elseif ($UTipo === "3") {
+    $TipoUser = "Administrador";
+  }
 
 
+//CHAMANDO QUANTIDADE DE ATENDIMENTOS FINALIZADOS
+$AtendFinalizado = "SELECT count(*) FROM atendimento WHERE Status='1' AND UserAtendente='$UsuarioCod'";
+ $AtFin = $PDO->prepare($AtendFinalizado);
+ $AtFin->execute();
+ $QtAtendFinal = $AtFin->fetchColumn();
+//CHAMANDO QUANTIDADE DE ATENDIMENTOS FINALIZADOS
+$AtendPendente = "SELECT count(*) FROM atendimento WHERE Status='2' AND UserAtendente='$UsuarioCod'";
+ $AtPen = $PDO->prepare($AtendPendente);
+ $AtPen->execute();
+ $QtAtendPendente = $AtPen->fetchColumn();
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,7 +65,7 @@ $ULogin = $Qryusr['login'];
       <ul class="nav navbar-nav">
        <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <span class="hidden-xs">Olá, <?php echo $NomeUserLogado; ?></span></a>
+        <span class="hidden-xs">Olá, <?php echo $QtAtendFinal; ?></span></a>
        </li>
       </ul>
      </div>
@@ -66,34 +86,37 @@ $ULogin = $Qryusr['login'];
         <!-- /.col -->
       </div>
       <div class="row invoice-info">
+
        <div class="col-sm-4 invoice-col">
         <address>
-        <h4>Usuário:</h4><?php echo $UNome; ?>
-          <strong>Admin, Inc.</strong><br>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            Phone: (804) 123-5432<br>
-            Email: info@almasaeedstudio.com
+        <h4><strong>Usuário:</strong> <br /> <?php echo $UNome; ?></h4>
+        <strong>Tipo de Usuário: </strong><br /> <?php echo $TipoUser; ?>
         </address>
+       </div>
+        <div class="col-sm-4 invoice-col">
+         <div class="box box-danger">
+          <div class="box-header with-border">
+            <h3 class="box-title">Quantidade de Atendimentos</h3>
+            </div>
+            <div class="box-body">
+             <canvas id="pieChart" style="height:250px"></canvas>
+             <strong>PENDENTES:</strong><span class="badge bg-red pull-right"><?php echo $QtAtendPendente; ?></span><br  />
+             <strong>FINALIZADOS:</strong><span class="badge bg-green pull-right"><?php echo $QtAtendFinal; ?></span>
+            </div>
+          </div>
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          To
-          <address>
-            <strong>John Doe</strong><br>
-            795 Folsom Ave, Suite 600<br>
-            San Francisco, CA 94107<br>
-            Phone: (555) 539-1037<br>
-            Email: john.doe@example.com
-          </address>
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-          <b>Invoice #007612</b><br>
-          <br>
-          <b>Order ID:</b> 4F3S8J<br>
-          <b>Payment Due:</b> 2/22/2014<br>
-          <b>Account:</b> 968-34567
+         <div class="box box-danger">
+          <div class="box-header with-border">
+            <h3 class="box-title">Quantidade de Atendimentos</h3>
+            </div>
+            <div class="box-body">
+             <canvas id="pieChart2" style="height:250px"></canvas>
+             <strong>PENDENTES:</strong><span class="badge bg-red pull-right"><?php echo $QtAtendPendente; ?></span><br  />
+             <strong>FINALIZADOS:</strong><span class="badge bg-green pull-right"><?php echo $QtAtendFinal; ?></span>
+            </div>
+          </div>
         </div>
         <!-- /.col -->
       </div>
@@ -111,5 +134,101 @@ $ULogin = $Qryusr['login'];
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../dist/js/app.min.js"></script>
+<script src="../plugins/chartjs/Chart.min.js"></script>
+
+<script>
+  $(function () {
+    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+    var pieChart = new Chart(pieChartCanvas);
+    var PieData = [
+      {
+        value: <?php echo $QtAtendPendente; ?>,
+        color: "#f56954",
+        highlight: "#f56954",
+        label: "Não Finalizados"
+      },
+      {
+        value: <?php echo $QtAtendFinal; ?>,
+        color: "#00a65a",
+        highlight: "#00a65a",
+        label: "Finalizados"
+      }
+    ];
+    var pieOptions = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke: true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor: "#fff",
+      //Number - The width of each segment stroke
+      segmentStrokeWidth: 2,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 50, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps: 100,
+      //String - Animation easing effect
+      animationEasing: "easeOutBounce",
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate: true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale: true,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive: true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio: true,
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+    };
+    pieChart.Doughnut(PieData, pieOptions);
+  });
+</script>
+<script>
+  $(function () {
+    var pieChartCanvas2 = $("#pieChart").get(0).getContext("2d");
+    var pieChart2 = new Chart(pieChartCanvas2);
+    var PieData2 = [
+      {
+        value: <?php echo $QtAtendPendente; ?>,
+        color: "#f56954",
+        highlight: "#f56954",
+        label: "Não Finalizados"
+      },
+      {
+        value: <?php echo $QtAtendFinal; ?>,
+        color: "#00a65a",
+        highlight: "#00a65a",
+        label: "Finalizados"
+      }
+    ];
+    var pieOptions2 = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke: true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor: "#fff",
+      //Number - The width of each segment stroke
+      segmentStrokeWidth: 2,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 50, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps: 100,
+      //String - Animation easing effect
+      animationEasing: "easeOutBounce",
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate: true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale: true,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive: true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio: true,
+      //String - A legend template
+      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+    };
+    pieChart2.Doughnut(PieData2, pieOptions2);
+  });
+</script>
+
+
+
+
 </body>
 </html>
