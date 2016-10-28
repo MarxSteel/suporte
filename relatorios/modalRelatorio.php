@@ -65,7 +65,6 @@ process = function()
    </div>
    <div class="modal-body">
    <?php 
-
    ?>
     <form action="UserPeriodo.php" method="get" name="ruserPeriodo" target="popup" onsubmit="process(); return false;">
      <div class="col-xs-12">Modelo
