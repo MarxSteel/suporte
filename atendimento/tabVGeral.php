@@ -11,6 +11,7 @@ $VG->execute();
    <td width="10%" >Retorno de Assist</td>
    <td width="15%">Revenda</td>
    <td width="15%">Técnico da Revenda</td>
+   <td width="15%">Técnico</td>
    <td width="30%" >Cadastro</td>
    <td width="10%" >Solicitação</td>
    <td width="15%"></td>
@@ -32,7 +33,9 @@ $VG->execute();
      }
    echo '</td>';
    echo '<td>' . $VGeral["Revenda"] . '</td>';
-   echo '<td>' . $VGeral["RevendaTecnico"] . '</td>';   
+   echo '<td>' . $VGeral["RevendaTecnico"] . '</td>'; 
+   echo '<td>' . $VGeral["UserAtendente"] . '</td>';   
+
    echo '<td>' . $VGeral["DescSolicita"] . '</td>';   
    echo '<td>' . $VGeral["DataCadastro"] . '</td>';
    echo '<td>';
