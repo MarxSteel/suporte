@@ -83,11 +83,10 @@ require_once '../QueryUser.php';
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
-      <a href="Geral.php" target="_blank" >
-       <span class="info-box-icon bg-red">
+      <a href="geral.php" >
+       <span class="info-box-icon bg-aqua">
         <i class="fa fa-newspaper-o"></i>
        </span>
-
       </a>
       <div class="info-box-content"><h4>Todos os Atendimentos</h4></div>
      </div>                  
