@@ -12,6 +12,7 @@ require_once '../QueryUser.php';
    <td width="10%" >Retorno de Assist</td>
    <td width="13%">Revenda</td>
    <td width="12%">Técnico da Revenda</td>
+   <td width="15%">Técnico</td>
    <td width="30%" >Cadastro</td>
    <td width="10%" >Solicitação</td>
    <td width="120%"></td>
@@ -34,6 +35,7 @@ require_once '../QueryUser.php';
    echo '</td>';
    echo '<td>' . $finalG["Revenda"] . '</td>';
    echo '<td>' . $finalG["RevendaTecnico"] . '</td>';   
+   echo '<td>' . $finalG["UserAtendente"] . '</td>';   
    echo '<td>' . $finalG["DescSolicita"] . '</td>';   
    echo '<td>' . $finalG["DataCadastro"] . '</td>';
    echo '<td>';
