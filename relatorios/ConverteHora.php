@@ -1,6 +1,12 @@
 <?php
 
-echo DATE_FORMAT(NOW(),'%b %d %Y %h:%i %p');
+$Data = $_GET['dtInicio'];
+
+
+
+
+$DFm = explode("/",$Data);
+echo $DFm[2].'-'.$DFm[1].'-'.$DFm[0];
 
 
 ?>
