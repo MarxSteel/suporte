@@ -56,11 +56,17 @@
      $nick = $_POST["nick"];
      $senha = $_POST["password"];
      $TipoUser = $_POST["tipo"];
+      if ($TipoUser === "1") {
+        $CriaChamado = "1";
+      }
+      else{
+       $CriaChamado = "0"; 
+      }
      $pRelatorio = $_POST["relatorio"];
      $pUser = $_POST["usuario"];
      $pReabrir = $_POST["reabre"];
       $passwd = md5($senha);
-      $CadUser = $PDO->query("INSERT INTO login (Nome, login, senha, pUsr, pRel, pReabre, Tipo) VALUES ('$NomeCompleto', '$nick', '$passwd', '$pUser', '$pRelatorio', '$pReabrir', '$TipoUser')");
+      $CadUser = $PDO->query("INSERT INTO login (Nome, login, senha, pFw, pUsr, pRel, pReabre, Tipo) VALUES ('$NomeCompleto', '$nick', '$passwd', '$CriaChamado', '$pUser', '$pRelatorio', '$pReabrir', '$TipoUser')");
         if ($CadUser) {
         echo '<script type="text/javascript">alert("Usuário Adicionado!");</script>';
         echo '<script type="text/javascript">location.href="dashboard.php"</script>';
