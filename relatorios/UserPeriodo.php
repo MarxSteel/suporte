@@ -27,26 +27,15 @@ $UTipo = $Qryusr['Tipo'];
     $TipoUser = "Administrador";
   }
 
+  //TRATANDO DATA FINAL
+  $DataFinInt = explode("/",$DataFinal);
+  $DataFinal = $DataFinInt[2].'-'.$DataFinInt[1].'-'.$DataFinInt[0] . " 00:00:00";
 
-  //PREPARANDO A DATA INICIAL:
-  $DataInicial = $DataInicio . ' 00:00:00';
-	$DtInicio date('Y-m-d H:i:s', strtotime($DataInicial)); // Convertendo para o padrão americano
+  //TRATANDO DATA DE INÍCIO
+  $DataIniInt = explode("/",$DataInicio);
+  $DataInicial = $DataIniInt[2].'-'.$DataIniInt[1].'-'.$DataIniInt[0] . " 00:00:00";
 
-  $DataFinal = $DataFinal . ' 00:00:00';
-	$DtFinal = date_format($DataFinal, 'Y-m-d H:i:s');
-
-  $AtendFinalizado = "SELECT COUNT(*) FROM atendimento WHERE UserAtendente='$UsuarioCod' AND Status='1' AND DataCadastro BETWEEN '$DtInicio' AND '$DtFinal'";
- 		$AtFin = $PDO->prepare($AtendFinalizado);
- 		$AtFin->execute();
- 		$QtAtendFinal = $AtFin->fetchColumn();
-
-
-
-//CHAMANDO QUANTIDADE DE ATENDIMENTOS FINALIZADOS
-$AtendPendente = "SELECT count(*) FROM atendimento WHERE Status='2' AND UserAtendente='$UsuarioCod'";
- $AtPen = $PDO->prepare($AtendPendente);
- $AtPen->execute();
- $QtAtendPendente = $AtPen->fetchColumn();
+require_once 'queries/UserPeriodo.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -60,6 +49,8 @@ $AtendPendente = "SELECT count(*) FROM atendimento WHERE Status='2' AND UserAten
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="../plugins/morris/morris.css">
+
  <style type="text/css">
   .texto {
     word-wrap: break-word;
@@ -78,7 +69,7 @@ $AtendPendente = "SELECT count(*) FROM atendimento WHERE Status='2' AND UserAten
       <ul class="nav navbar-nav">
        <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <span class="hidden-xs">Olá, <?php echo $QtAtendFinal; ?></span></a>
+        <span class="hidden-xs">Olá, <?php echo $NomeUserLogado; ?></span></a>
        </li>
       </ul>
      </div>
@@ -109,12 +100,18 @@ $AtendPendente = "SELECT count(*) FROM atendimento WHERE Status='2' AND UserAten
         <div class="col-sm-4 invoice-col">
          <div class="box box-danger">
           <div class="box-header with-border">
-            <h3 class="box-title">Quantidade de Atendimentos</h3>
+            <h3 class="box-title">Atendimentos do Usuário</h3>
             </div>
             <div class="box-body">
-             <canvas id="pieChart" style="height:250px"></canvas>
-             <strong>PENDENTES:</strong><span class="badge bg-red pull-right"><?php echo $QtAtendPendente; ?></span><br  />
-             <strong>FINALIZADOS:</strong><span class="badge bg-green pull-right"><?php echo $QtAtendFinal; ?></span>
+            <div id="quantUserDonut" style="height:200px"></div>
+             <strong>PENDENTES:</strong>
+             <span class="badge bg-red pull-right">
+              <?php echo $QtAtendPendente . ' - ' . $PorcentoUP . '%'; ?>
+             </span><br  />
+             <strong>FINALIZADOS:</strong>
+             <span class="badge bg-green pull-right">
+              <?php echo $QtAtendFinal . ' - ' . $PorcentoUF . '%'; ?>
+             </span>
             </div>
           </div>
         </div>
@@ -122,124 +119,66 @@ $AtendPendente = "SELECT count(*) FROM atendimento WHERE Status='2' AND UserAten
         <div class="col-sm-4 invoice-col">
          <div class="box box-danger">
           <div class="box-header with-border">
-            <h3 class="box-title">Quantidade de Atendimentos</h3>
+            <h3 class="box-title">Todos os atendimentos</h3>
             </div>
             <div class="box-body">
-             <canvas id="pieChart2" style="height:250px"></canvas>
-             <strong>PENDENTES:</strong><span class="badge bg-red pull-right"><?php echo $QtAtendPendente; ?></span><br  />
-             <strong>FINALIZADOS:</strong><span class="badge bg-green pull-right"><?php echo $QtAtendFinal; ?></span>
+            <div id="quantGerDonut" style="height:200px"></div>
+             <strong>PENDENTES:</strong>
+             <span class="badge bg-red pull-right">
+             <?php echo $GQtAtendPendente; ?></span><br  />
+             <strong>FINALIZADOS:</strong><span class="badge bg-green pull-right"><?php echo $GQtAtendFinal; ?></span>
             </div>
           </div>
         </div>
-        <!-- /.col -->
       </div>
-    </section>
-    <section class="content">
-     <div class="box box-default">
-     <div class="box-header with-border">
-     </div>
-     <div class="box-body">
-     </div>
     </section>
   </div>
  </div>
 <?php include_once '../footer.php'; ?></div>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
 <script src="../bootstrap/js/bootstrap.min.js"></script>
+<!-- Morris.js charts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="../plugins/morris/morris.min.js"></script>
+<!-- FastClick -->
+<script src="../plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
 <script src="../dist/js/app.min.js"></script>
-<script src="../plugins/chartjs/Chart.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../dist/js/demo.js"></script>
 
 <script>
   $(function () {
-    var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
-    var pieChart = new Chart(pieChartCanvas);
-    var PieData = [
-      {
-        value: <?php echo $QtAtendPendente; ?>,
-        color: "#f56954",
-        highlight: "#f56954",
-        label: "Não Finalizados"
-      },
-      {
-        value: <?php echo $QtAtendFinal; ?>,
-        color: "#00a65a",
-        highlight: "#00a65a",
-        label: "Finalizados"
-      }
-    ];
-    var pieOptions = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke: true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor: "#fff",
-      //Number - The width of each segment stroke
-      segmentStrokeWidth: 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps: 100,
-      //String - Animation easing effect
-      animationEasing: "easeOutBounce",
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate: true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale: true,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive: true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio: true,
-      //String - A legend template
-      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-    };
-    pieChart.Doughnut(PieData, pieOptions);
-  });
-</script>
-<script>
-  $(function () {
-    var pieChartCanvas2 = $("#pieChart").get(0).getContext("2d");
-    var pieChart2 = new Chart(pieChartCanvas2);
-    var PieData2 = [
-      {
-        value: <?php echo $QtAtendPendente; ?>,
-        color: "#f56954",
-        highlight: "#f56954",
-        label: "Não Finalizados"
-      },
-      {
-        value: <?php echo $QtAtendFinal; ?>,
-        color: "#00a65a",
-        highlight: "#00a65a",
-        label: "Finalizados"
-      }
-    ];
-    var pieOptions2 = {
-      //Boolean - Whether we should show a stroke on each segment
-      segmentShowStroke: true,
-      //String - The colour of each segment stroke
-      segmentStrokeColor: "#fff",
-      //Number - The width of each segment stroke
-      segmentStrokeWidth: 2,
-      //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 50, // This is 0 for Pie charts
-      //Number - Amount of animation steps
-      animationSteps: 100,
-      //String - Animation easing effect
-      animationEasing: "easeOutBounce",
-      //Boolean - Whether we animate the rotation of the Doughnut
-      animateRotate: true,
-      //Boolean - Whether we animate scaling the Doughnut from the centre
-      animateScale: true,
-      //Boolean - whether to make the chart responsive to window resizing
-      responsive: true,
-      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
-      maintainAspectRatio: true,
-      //String - A legend template
-      legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-    };
-    pieChart2.Doughnut(PieData2, pieOptions2);
-  });
-</script>
+/*
+ * Play with this code and it'll update in the panel opposite.
+ *
+ * Why not try some of the options above?
+ */
+Morris.Donut({
+  element: 'quantUserDonut',
+  resize: true,
+  colors: ["#00a65a", "#f56954"],
+  data: [
+    {label: "Finalizados", value: <?php echo $QtAtendFinal; ?>},
+    {label: "pendentes", value: <?php echo $QtAtendPendente; ?>}
+  ],
+  hideHover: 'auto'
 
+});
+Morris.Donut({
+  element: 'quantGerDonut',
+  resize: true,
+  colors: ["#063951", "#f36f13"],
+  data: [
+    {label: "Finalizados", value: <?php echo $GQtAtendFinal; ?>},
+    {label: "pendentes", value: <?php echo $GQtAtendPendente; ?>}
+  ],
+  hideHover: 'auto'
+
+});
+  });
+</script>
 
 
 
