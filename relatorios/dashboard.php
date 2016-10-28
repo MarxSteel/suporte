@@ -83,6 +83,16 @@ $QryUser->execute();
       <div class="info-box-content"><br /><h4>Relatório por Usuário</h4></div>
      </div>
     </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#ruserPeriodo"">
+       <span class="info-box-icon bg-yellow">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><br /><h4>Relatório por Usuário e Período</h4></div>
+     </div>
+    </div>
   <?php  include_once 'modalRelatorio.php'; } else{ ?>
    <div class="col-md-12 col-sm-6 col-xs-12">
     <div class="info-box">
