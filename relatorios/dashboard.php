@@ -118,21 +118,6 @@ $QryUser->execute();
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
-<script>
-  $(function () {
-    $('#cadREP').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-    $("#cad373").DataTable();
-    $("#cadACESSO").DataTable();
-    $("#carto").DataTable();
-  });
-</script>
 <script language="JavaScript">
 function abrir(URL) { 
   var width = 1200;
@@ -142,4 +127,18 @@ function abrir(URL) {
   window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
 }
 </script>
+<!-- SCRIPT PARA FORMATAR A DATA -->
+<script>
+function formatar(mascara, documento){
+  var i = documento.value.length;
+  var saida = mascara.substring(0,1);
+  var texto = mascara.substring(i)
+  
+  if (texto.substring(0,1) != saida){
+            documento.value += texto.substring(0,1);
+  }
+  
+}
+</script>
+
 </html>
