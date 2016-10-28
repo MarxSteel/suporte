@@ -11,6 +11,7 @@ $PG->execute();
    <td width="10%" >Retorno de Assist</td>
    <td width="12%">Revenda</td>
    <td width="15%">Técnico da Revenda</td>
+   <td width="15%">Técnico</td>
    <td width="28%" >Cadastro</td>
    <td width="10%" >Solicitação</td>
    <td width="20%"></td>
@@ -33,6 +34,7 @@ $PG->execute();
    echo '</td>';
    echo '<td>' . $Pgeral["Revenda"] . '</td>';
    echo '<td>' . $Pgeral["RevendaTecnico"] . '</td>';   
+   echo '<td>' . $Pgeral["UserAtendente"] . '</td>';   
    echo '<td>' . $Pgeral["DescSolicita"] . '</td>';   
    echo '<td>' . $Pgeral["DataCadastro"] . '</td>';
    $Atendente = $Pgeral["UserAtendente"];
