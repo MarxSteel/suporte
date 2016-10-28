@@ -121,7 +121,7 @@ require_once 'QueryUser.php';
      <div class="info-box">
       <a href="admin/dashboard.php" >
        <span class="info-box-icon bg-purple ">
-        <i class="fa fa-users"></i>
+        <i class="fa fa-whrench"></i>
        </span>
       </a>
       <div class="info-box-content"><h4>ADMINISTRAÇÃO</h4></div>
