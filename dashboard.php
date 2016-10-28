@@ -119,12 +119,12 @@ require_once 'QueryUser.php';
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
-      <a href="usuarios/dashboard.php" >
+      <a href="admin/dashboard.php" >
        <span class="info-box-icon bg-purple ">
         <i class="fa fa-users"></i>
        </span>
       </a>
-      <div class="info-box-content"><h4>USUÁRIOS</h4></div>
+      <div class="info-box-content"><h4>ADMINISTRAÇÃO</h4></div>
      </div>                  
     </div>
    </div> 
