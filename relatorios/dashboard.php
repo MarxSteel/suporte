@@ -75,7 +75,7 @@ $QryUser->execute();
   <?php if ($permRel === "1") { ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#rguser"">
+      <a data-toggle="modal" data-target="#ruserPeriodo"">
        <span class="info-box-icon bg-yellow">
         <i class="fa fa-plus"></i>
        </span>
@@ -85,12 +85,12 @@ $QryUser->execute();
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#ruserPeriodo"">
+      <a data-toggle="modal" data-target="#RelModelo"">
        <span class="info-box-icon bg-yellow">
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content"><br /><h4>Relatório por Usuário e Período</h4></div>
+      <div class="info-box-content"><br /><h4>Relatório por Modelo</h4></div>
      </div>
     </div>
   <?php  include_once 'modalRelatorio.php'; } else{ ?>
