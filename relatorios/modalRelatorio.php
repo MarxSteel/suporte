@@ -55,3 +55,35 @@ process = function()
  </div>
 </div>
 <!-- MODAL DE CADASTRO DE FIRMWARE -->
+<!-- MODAL DE CADASTRO DE FIRMWARE -->
+<div id="ruserPeriodo" class="modal fade" role="dialog">
+ <div class="modal-dialog">
+  <div class="modal-content">
+   <div class="modal-header bg-orange">
+    <button type="button" class="close" data-dismiss="modal">X</button>
+     <h4 class="modal-title">Relatório por Usuário</h4>
+   </div>
+   <div class="modal-body">
+   <?php 
+
+   ?>
+    <form action="UserPeriodo.php" method="get" name="ruserPeriodo" target="popup" onsubmit="process(); return false;">
+     <div class="col-xs-12">Modelo
+      <select class="form-control" name="usuario" id="username" required="required">
+       <option value="" selected="selected">SELECIONE</option>
+       <?php while ($Chuu = $Chu->fetch(PDO::FETCH_ASSOC)): ?>
+       <option value="<?php echo $Chuu['Nome'] ?>"><?php echo $Chuu['Nome'] ?>
+       </option>
+       <?php endwhile; ?>
+      </select>
+     </div>
+     <div class="pull-right"><br />
+      <input name="ruserPeriodo" type="submit" class="btn btn-success btn-flat" id="ruserPeriodo" value="Visualizar"  /> 
+     </div>
+    </form>
+   </div>
+   <div class="modal-footer"></div>
+  </div>
+ </div>
+</div>
+<!-- MODAL DE CADASTRO DE FIRMWARE -->
