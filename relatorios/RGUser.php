@@ -4,7 +4,9 @@ require_once '../init.php';
 $UsuarioCod = $_GET['usuario']; 
 $PDO = db_connect();
 require_once '../QueryUser.php';
-$DataRelatorio = date('d/m/Y - H:i:s');
+$DataRelatorio = date('Y-m-d H:i:s');
+$DataCorrigida = date('d/m/Y H:i:s', strtotime($DataRelatorio));
+
 
 
 $DadosUSR = $PDO->prepare("SELECT * FROM login WHERE Nome='$UsuarioCod'");
@@ -80,7 +82,7 @@ $AtendPendente = "SELECT count(*) FROM atendimento WHERE Status='2' AND UserAten
         <div class="col-xs-12">
           <h2 class="page-header">
            Henry Equipamentos e Sistemas
-            <small class="pull-right">Data do Relatório: <?php echo $DataRelatorio; ?></small>
+            <small class="pull-right">Data do Relatório: <?php echo $DataCorrigida; ?></small>
           </h2>
         </div>
         <!-- /.col -->
