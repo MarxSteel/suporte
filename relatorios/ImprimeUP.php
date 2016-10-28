@@ -123,13 +123,9 @@ require_once 'queries/UserPeriodo.php';
           </span>      
         </li>
       </div>
-
-      <!-- /.col -->
     </div>
     </div>
-    <!-- /.row -->
   </section>
-  <!-- /.content -->
 </div>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
