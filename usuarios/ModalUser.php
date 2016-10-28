@@ -88,6 +88,8 @@
     <button type="button" class="close" data-dismiss="modal">X</button>
      <h4 class="modal-title">Cadastrar Usuário Produção</h4>
    </div>
+   <?php
+   ?>
    <div class="modal-body">
     <form name="nUser" id="name" method="post" action="" enctype="multipart/form-data">
      <div class="col-xs-12">Nome Completo
