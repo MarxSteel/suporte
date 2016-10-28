@@ -19,7 +19,7 @@
 <script>
 process = function()
  {
-    window.open('about:blank', 'popup', 'width=950,height=700,resizeable=no');
+    window.open('about:blank', 'popup', 'width=1100,height=700,resizeable=no');
     document.login.setAttribute('target', 'popup');
     document.login.setAttribute('onsubmit', '');
     document.login.submit();
@@ -40,7 +40,7 @@ process = function()
       <select class="form-control" name="usuario" id="username" required="required">
        <option value="" selected="selected">SELECIONE</option>
        <?php while ($Chuu = $Chu->fetch(PDO::FETCH_ASSOC)): ?>
-       <option value="<?php echo $Chuu['codLogin'] ?>"><?php echo $Chuu['Nome'] ?>
+       <option value="<?php echo $Chuu['Nome'] ?>"><?php echo $Chuu['Nome'] ?>
        </option>
        <?php endwhile; ?>
       </select>
