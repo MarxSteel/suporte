@@ -1,5 +1,5 @@
 <?php 
-$server = 'http://localhost:8888/HSuporte';
+$server = 'http://localhost:8888/suporte';
 $endereco = $_SERVER ['SERVER_ADDR']; 
 ?>
 <ul class="sidebar-menu">
@@ -20,7 +20,7 @@ $endereco = $_SERVER ['SERVER_ADDR'];
    </a>
   </li>
   <li class="<?php echo $cDoc; ?>">
-   <a href="<?php echo $server; ?>/engenharia/dashboard">
+   <a href="<?php echo $server; ?>/engenharia/dashboard.php">
     <i class="fa fa-file-code-o"></i> <span>Documentação</span>
    </a>
   </li>
