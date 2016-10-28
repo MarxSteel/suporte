@@ -2,8 +2,8 @@
 require("../restritos.php"); 
 require_once '../init.php';
 $UsuarioCod = $_GET['usuario'];
-$DataInicio = $_GET['dtInicio'];				// DATA DE INICIO DA PESQUISA (DD/MM/AAAA)
-$DataFinal = $_GET['dtFinal'];					// DATA DE FIM DA PESQUISA (DD/MM/AAAA)
+$DataIni = $_GET['dtInicio'];				// DATA DE INICIO DA PESQUISA (DD/MM/AAAA)
+$DataFim = $_GET['dtFinal'];					// DATA DE FIM DA PESQUISA (DD/MM/AAAA)
 $PDO = db_connect();
 require_once '../QueryUser.php';
 $DataRelatorio = date('Y-m-d H:i:s');
@@ -28,11 +28,10 @@ $UTipo = $Qryusr['Tipo'];
   }
 
   //TRATANDO DATA FINAL
-  $DataFinInt = explode("/",$DataFinal);
+  $DataFinInt = explode("/",$DataFim);
   $DataFinal = $DataFinInt[2].'-'.$DataFinInt[1].'-'.$DataFinInt[0] . " 00:00:00";
-
   //TRATANDO DATA DE INÍCIO
-  $DataIniInt = explode("/",$DataInicio);
+  $DataIniInt = explode("/",$DataIni);
   $DataInicial = $DataIniInt[2].'-'.$DataIniInt[1].'-'.$DataIniInt[0] . " 00:00:00";
 
 require_once 'queries/UserPeriodo.php';
@@ -84,17 +83,32 @@ require_once 'queries/UserPeriodo.php';
         <div class="col-xs-12">
           <h2 class="page-header">
            Henry Equipamentos e Sistemas
-            <small class="pull-right">Data do Relatório: <?php echo $DataCorrigida; ?></small>
+            <small class="pull-right">Data do Relatório: <?php echo $DataCorrigida; ?> 
+              <a href="ImprimeUP.php?usuario=<?php echo $UsuarioCod; ?>&dtInicio=<?php echo $DataIni; ?>&dtFinal=<?php echo $DataFim; ?>" target="_blank" class="btn btn-default">
+               <i class="fa fa-print"></i> Imprimir</a></small>
           </h2>
         </div>
         <!-- /.col -->
       </div>
       <div class="row invoice-info">
-
        <div class="col-sm-4 invoice-col">
         <address>
-        <h4><strong>Usuário:</strong> <br /> <?php echo $UNome; ?></h4>
-        <strong>Tipo de Usuário: </strong><br /> <?php echo $TipoUser; ?>
+         <h4>Usuário: </h4>
+          <li class="list-group-item">
+           <?php echo $UNome; ?>
+          </li>
+         <h4>Tipo de Usuário: </h4>
+          <li class="list-group-item">
+           <?php echo $TipoUser; ?>
+          </li>
+         <h4>Data Inicial da Busca: </h4>
+          <li class="list-group-item">
+           <?php echo $DataIni; ?>
+          </li>
+         <h4>Data Final da Busca: </h4>
+          <li class="list-group-item">
+           <?php echo $DataFim; ?>
+          </li>
         </address>
        </div>
         <div class="col-sm-4 invoice-col">

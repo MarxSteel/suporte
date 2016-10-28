@@ -1,7 +1,7 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
-$cAtend = "active";
+$cRev = "active";
 $PDO = db_connect();
 require_once '../QueryUser.php';
 ?>
@@ -65,54 +65,18 @@ require_once '../QueryUser.php';
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Suporte Técnico - Controle de Atendimentos por Técnico<small><?php echo $titulo; ?></small></h1>
+  <h1>Suporte Técnico - Cadastro de Revendas<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
   <?php if ($permFw === "1") { ?>
-   <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
-     <a data-toggle="modal" data-target="#nAtend"">
-      <span class="info-box-icon bg-blue">
-       <i class="fa fa-plus"></i>
-      </span>
-     </a>
-     <div class="info-box-content"><br /><h4>Adicionar Atendimento</h4></div>
-    </div>
-   </div>
-   <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="box box-widget widget-user">
-     <div class="info-box">
-      <a href="geral.php" >
-       <span class="info-box-icon bg-aqua">
-        <i class="fa fa-newspaper-o"></i>
-       </span>
-      </a>
-      <div class="info-box-content"><h4>Todos os Atendimentos</h4></div>
-     </div>                  
-    </div>
-   </div> 
+
+
     <?php } else { } ?>
    <div class="col-md-12">
-    <div class="nav-tabs-custom">
-     <ul class="nav nav-tabs pull-right">
-      <li class="active"><a href="#pendentes" data-toggle="tab">PENDENTES</a></li>
-      <li><a href="#finalizados" data-toggle="tab">FINALIZADOS</a></li>
-      <li>
-       <button type="button" class="btn bg-navy btn-sm" data-toggle="modal" data-target="#help"><i class="fa fa-question"></i> AJUDA</button></li>
-     </ul>
-     <div class="tab-content">
-      <div class="tab-pane active" id="pendentes">
-      <?php include_once 'TPUser.php'; ?>
-      </div>
-      <div class="tab-pane" id="finalizados">
-      <?php include_once 'TFUser.php'; ?>
-      </div>
-     </div>
-    </div>
+
    </div>
   </div><!-- CLASS ROW -->
-  <?php include_once 'modalSup.php'; ?>
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once '../footer.php'; ?>

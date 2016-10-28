@@ -80,6 +80,18 @@ require_once '../QueryUser.php';
      <div class="info-box-content"><br /><h4>Adicionar Atendimento</h4></div>
     </div>
    </div>
+   <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="box box-widget widget-user">
+     <div class="info-box">
+      <a href="dashboard.php" >
+       <span class="info-box-icon bg-aqua">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content"><h4>ATENDIMENTOS</h4></div>
+     </div>                  
+    </div>
+   </div> 
     <?php } else { } ?>
    <div class="col-md-12">
     <div class="nav-tabs-custom">
