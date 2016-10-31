@@ -8,7 +8,7 @@ $PU->execute();
  <thead>
   <tr>
    <td width="5%">Chamado</td>
-   <td width="10%" >Retorno de Assist</td>
+   <td width="10%" >Modelo</td>
    <td width="15%">Revenda</td>
    <td width="15%">Técnico da Revenda</td>
    <td width="30%" >Cadastro</td>
@@ -20,17 +20,7 @@ $PU->execute();
   <?php while ($PUser = $PU->fetch(PDO::FETCH_ASSOC)): 
    echo '<tr>';
    echo '<td>' . $PUser["id"] . '</td>';
-   echo '<td>';
-    $PUserTpAtend = $PUser["TipoAtendimento"];
-     if ($PUserTpAtend === "1") {
-      echo '<span class="badge bg-blue">NÃO</span>';
-     }
-     elseif ($PUserTpAtend === "2") {
-      echo '<span class="badge bg-red">SIM</span>';
-     }
-     else{
-     }
-   echo '</td>';
+   echo '<td>' . $PUser["Equip"] . '</td>';
    echo '<td>' . $PUser["Revenda"] . '</td>';
    echo '<td>' . $PUser["RevendaTecnico"] . '</td>';   
    echo '<td>' . $PUser["DescSolicita"] . '</td>';   
