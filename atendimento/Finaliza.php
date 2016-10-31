@@ -66,7 +66,7 @@ word-wrap: break-word;
        </h2>
        <h4>
        Ao finalizar, não é possivel mais abrir o chamado. Caso necessite reabri-lo será necessário entrar em contato com a Engenharia, para que possa ser reaberto. 
-       </h>
+       </h4>
        <h3>TEM CERTEZA QUE DESEJA FINALIZAR ?</h3>  
       </div>
       <form name="finaliza" id="name" method="post" action="" enctype="multipart/form-data">
