@@ -68,6 +68,7 @@ require_once 'QueryUser.php';
  </section>
  <section class="content">
   <div class="row">
+  <?php if ($permSup === "1") { ?>  
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
@@ -92,6 +93,7 @@ require_once 'QueryUser.php';
      </div>                  
     </div>
    </div> 
+  <?php } else { } if ($permFw === "1") { ?>
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
@@ -103,7 +105,8 @@ require_once 'QueryUser.php';
       <div class="info-box-content"><h4>DOCUMENTAÇÃO</h4></div>
      </div>                  
     </div>
-   </div>    
+   </div>
+   <?php } else { } if ($permRel === "1") { ?>
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
@@ -115,7 +118,8 @@ require_once 'QueryUser.php';
       <div class="info-box-content"><h4>RELATÓRIOS</h4></div>
      </div>                  
     </div>
-   </div> 
+   </div>
+  <?php } else { } if ($permUsr === "1") { ?>
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
@@ -128,7 +132,7 @@ require_once 'QueryUser.php';
      </div>                  
     </div>
    </div> 
-
+  <?php } else { } ?>
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once 'footer.php'; ?>

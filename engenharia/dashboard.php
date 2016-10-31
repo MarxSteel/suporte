@@ -70,26 +70,6 @@ require_once '../QueryUser.php';
  <section class="content">
   <div class="row">
   <?php if ($permFw === "1") { ?>
-   <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
-     <a data-toggle="modal" data-target="#nfw"">
-      <span class="info-box-icon bg-red">
-       <i class="fa fa-plus"></i>
-      </span>
-     </a>
-     <div class="info-box-content"><br /><h4>Adicionar Firmware</h4></div>
-    </div>
-   </div>
-   <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
-     <a data-toggle="modal" data-target="#nmanual"">
-      <span class="info-box-icon bg-green">
-       <i class="fa fa-plus"></i>
-      </span>
-     </a>
-     <div class="info-box-content"><br /><h4>Adicionar Manual</h4></div>
-    </div>
-   </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
       <a data-toggle="modal" data-target="#NovoProduto"">
@@ -101,24 +81,7 @@ require_once '../QueryUser.php';
      </div>
     </div>
     <?php } else { } ?>
-   <div class="col-md-8">
-    <div class="nav-tabs-custom">
-     <ul class="nav nav-tabs pull-right">
-      <li class="active"><a href="#firmware" data-toggle="tab">FIRMWARE</a></li>
-      <li><a href="#manual" data-toggle="tab">MANUAIS</a></li>
-     </ul>
-     <div class="tab-content">
-      <div class="tab-pane active" id="firmware">
-      <?php include_once 'tabelaFw.php'; ?>
-      </div>
-      <div class="tab-pane" id="manual">
-        <?php include_once 'tabelaManual.php'; ?>
-
-         </div>
-        </div>
-       </div>
-      </div>
-      <div class="col-md-4">
+      <div class="col-md-12">
        <div class="nav-tabs-custom">
         <div class="box-header with-border">
          <i class="fa fa-warning"></i>
@@ -128,10 +91,6 @@ require_once '../QueryUser.php';
        </div>
       </div>
       <?php include_once 'modalEng.php'; ?>
-<!-- MODAL DE CADASTRO DE FIRMWARE DE LINHA -->
-
-<!-- FINAL DO MODAL DE CADASTRO DE FIRMWARE DE LINHA -->
-  
   </div><!-- CLASS ROW -->
  </section>
 </div><!-- CONTENT-WRAPPER -->
@@ -146,15 +105,7 @@ require_once '../QueryUser.php';
 <script src="../dist/js/demo.js"></script>
 <script>
   $(function () {
-    $('#tabfw').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-    $('#tabMan').DataTable({
+    $('#tabprod').DataTable({
       "paging": true,
       "lengthChange": false,
       "searching": true,
