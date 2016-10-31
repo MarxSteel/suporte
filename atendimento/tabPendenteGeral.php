@@ -8,7 +8,7 @@ $PG->execute();
  <thead>
   <tr>
    <td width="5%">Chamado</td>
-   <td width="10%" >Retorno de Assist</td>
+   <td width="10%" >Modelo</td>
    <td width="12%">Revenda</td>
    <td width="15%">Técnico da Revenda</td>
    <td width="15%">Técnico</td>
@@ -21,17 +21,7 @@ $PG->execute();
   <?php while ($Pgeral = $PG->fetch(PDO::FETCH_ASSOC)): 
    echo '<tr>';
    echo '<td>' . $Pgeral["id"] . '</td>';
-   echo '<td>';
-    $PgeralTpAtend = $Pgeral["TipoAtendimento"];
-     if ($PgeralTpAtend === "1") {
-      echo '<span class="badge bg-blue">NÃO</span>';
-     }
-     elseif ($PgeralTpAtend === "2") {
-      echo '<span class="badge bg-red">SIM</span>';
-     }
-     else{
-     }
-   echo '</td>';
+   echo '<td><span class="badge bg-blue">' . $Pgeral["Equip"] . '</span></td>';
    echo '<td>' . $Pgeral["Revenda"] . '</td>';
    echo '<td>' . $Pgeral["RevendaTecnico"] . '</td>';   
    echo '<td>' . $Pgeral["UserAtendente"] . '</td>';   
