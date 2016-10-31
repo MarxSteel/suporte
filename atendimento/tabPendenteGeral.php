@@ -4,7 +4,7 @@ $pGeral = "SELECT * FROM atendimento WHERE Status='2' ORDER BY id DESC";
 $PG = $PDO->prepare($pGeral);
 $PG->execute();
 ?>
-<table id="tabPendenteGeral" class="table table-hover table-responsive">
+<table id="tabPendenteGeral" class="table table-hover table-striped table-responsive">
  <thead>
   <tr>
    <td>Chamado</td>

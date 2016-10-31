@@ -20,6 +20,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
  <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+ <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
@@ -95,31 +96,33 @@ require_once '../QueryUser.php';
     </div>
    </div> 
     <?php } else { } ?>
-   <div class="col-md-12">
-    <div class="nav-tabs-custom">
-     <ul class="nav nav-tabs pull-right">
-      <li class="active"><a href="#vGeral" data-toggle="tab">LISTA GERAL</a></li>
-      <li><a href="#pendenteGeral" data-toggle="tab">PENDENTES GERAL</a></li>
-      <li><a href="#finalizadoGeral" data-toggle="tab">FINALIZADOS GERAL</a></li>
-      <li>
-       <button type="button" class="btn bg-navy btn-sm" data-toggle="modal" data-target="#help"><i class="fa fa-question"></i> AJUDA</button></li>
-
-
-
-     </ul>
-     <div class="tab-content">
-      <div class="tab-pane active" id="vGeral">
+    <section class="col-lg-12 connectedSortable">
+     <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs pull-right">
+       <li class="active"><a href="#geral" data-toggle="tab">Lista Geral</a></li>
+        <li><a href="#pendentes" data-toggle="tab">Atendimentos Pendentes</a></li>
+        <li><a href="#finalizados" data-toggle="tab">Atendimentos Finalizados</a></li>
+        <li class="pull-left header">
+         <i class="fa fa-inbox"></i> Lista de Atendimentos do Gerais
+        <li>
+         <button type="button" class="btn bg-navy btn-sm" data-toggle="modal" data-target="#help">
+          <i class="fa fa-question"></i> AJUDA
+         </button>
+        </li>
+      </ul>
+      <div class="tab-content no-padding">
+       <div class="tab-pane active" id="geral">
       <?php include_once 'tabVGeral.php'; ?>
-      </div>
-      <div class="tab-pane" id="pendenteGeral">
+       </div>
+       <div class="tab-pane" id="pendentes">
       <?php include_once 'tabPendenteGeral.php'; ?>
-      </div>
-      <div class="tab-pane" id="finalizadoGeral">
+       </div>
+       <div class="tab-pane" id="finalizados">
       <?php include_once 'tabFinalGeral.php'; ?>      
+       </div>
       </div>
      </div>
-    </div>
-   </div>
+    </section>
   </div><!-- CLASS ROW -->
   <?php include_once 'modalSup.php'; ?>
  </section>
@@ -137,30 +140,9 @@ require_once '../QueryUser.php';
 
 <script>
   $(function () {
-    $('#tabVGeral').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-    $('#tabFinalGeral').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-    $('#tabPendenteGeral').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
+    $('#tabVGeral').DataTable();
+    $('#tabFinalGeral').DataTable();
+    $('#tabPendenteGeral').DataTable();
   });
 </script>
 <script language="JavaScript">

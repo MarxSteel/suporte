@@ -20,6 +20,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+ <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
@@ -95,24 +96,29 @@ require_once '../QueryUser.php';
     </div>
    </div> 
     <?php } else { } ?>
-   <div class="col-md-12">
-    <div class="nav-tabs-custom">
-     <ul class="nav nav-tabs pull-right">
-      <li class="active"><a href="#pendentes" data-toggle="tab">PENDENTES</a></li>
-      <li><a href="#finalizados" data-toggle="tab">FINALIZADOS</a></li>
-      <li>
-       <button type="button" class="btn bg-navy btn-sm" data-toggle="modal" data-target="#help"><i class="fa fa-question"></i> AJUDA</button></li>
-     </ul>
-     <div class="tab-content">
-      <div class="tab-pane active" id="pendentes">
-      <?php include_once 'TPUser.php'; ?>
-      </div>
-      <div class="tab-pane" id="finalizados">
-      <?php include_once 'TFUser.php'; ?>
+    <section class="col-lg-12 connectedSortable">
+     <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs pull-right">
+       <li class="active"><a href="#pendentes" data-toggle="tab">Atendimentos Pendentes</a></li>
+        <li><a href="#finalizados" data-toggle="tab">Atendimentos Finalizados</a></li>
+        <li class="pull-left header">
+         <i class="fa fa-inbox"></i> Lista de Atendimentos do Usuário
+        <li>
+         <button type="button" class="btn bg-navy btn-sm" data-toggle="modal" data-target="#help">
+          <i class="fa fa-question"></i> AJUDA
+         </button>
+        </li>
+      </ul>
+      <div class="tab-content no-padding">
+       <div class="tab-pane active" id="pendentes">
+        <?php include_once 'TPUser.php'; ?>
+       </div>
+       <div class="tab-pane" id="finalizados">
+        <?php include_once 'TFUser.php'; ?>
+       </div>
       </div>
      </div>
-    </div>
-   </div>
+    </section>
   </div><!-- CLASS ROW -->
   <?php include_once 'modalSup.php'; ?>
  </section>

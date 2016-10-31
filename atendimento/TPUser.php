@@ -4,7 +4,12 @@ $PUsr = "SELECT * FROM atendimento WHERE Status='2' AND UserAtendente='$NomeUser
 $PU = $PDO->prepare($PUsr);
 $PU->execute();
 ?>
-<table id="pendente" class="table table-hover table-responsive">
+
+
+
+
+
+<table id="pendente" class="table table-hover table-striped table-responsive">
  <thead>
   <tr>
    <td>Cham.</td>
@@ -20,7 +25,7 @@ $PU->execute();
   <?php while ($PUser = $PU->fetch(PDO::FETCH_ASSOC)): 
    echo '<tr>';
    echo '<td>' . $PUser["id"] . '</td>';
-   echo '<td>' . $PUser["Equip"] . '</td>';
+   echo '<td><span class="badge bg-blue">' . $PUser["Equip"] . '</span></td>';
    echo '<td>' . $PUser["Revenda"] . '</td>';
    echo '<td>' . $PUser["RevendaTecnico"] . '</td>';   
    echo '<td>' . $PUser["DescSolicita"] . '</td>';   
