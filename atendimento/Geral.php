@@ -19,6 +19,8 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
+ <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -131,6 +133,8 @@ require_once '../QueryUser.php';
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
+<script src="../plugins/select2/select2.full.min.js"></script>
+
 <script>
   $(function () {
     $('#tabVGeral').DataTable({
@@ -167,5 +171,12 @@ function abrir(URL) {
   var top = 99;
   window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
 }
+</script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+
+  });
 </script>
 </html>
