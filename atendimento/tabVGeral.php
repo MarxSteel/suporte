@@ -4,7 +4,7 @@ $VGer = "SELECT * FROM atendimento ORDER BY id DESC";
 $VG = $PDO->prepare($VGer);
 $VG->execute();
 ?>
-<table id="tabVGeral" class="table table-hover table-responsive">
+<table id="tabVGeral" class="table table-hover table-striped table-responsive">
  <thead>
   <tr>
    <td>Chamado</td>
