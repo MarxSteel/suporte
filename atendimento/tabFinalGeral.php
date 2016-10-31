@@ -38,13 +38,7 @@ require_once '../QueryUser.php';
     }
     else
     {  
-    }  
-    echo '<a class="btn btn-warning btn-xs" href="';
-    echo "javascript:abrir('Atualizar.php?ID=" . $finalG["id"] . "');";
-    echo '"><i class="fa fa-refresh"></i></a>&nbsp;';    
-    echo '<a class="btn btn-success btn-xs" href="';
-    echo "javascript:abrir('Finaliza.php?ID=" . $finalG["id"] . "');";
-    echo '"><i class="fa fa-check"></i></a>';    
+    }     
    echo '</td>';
    echo '</tr>';
    endwhile;
