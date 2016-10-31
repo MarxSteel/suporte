@@ -1,7 +1,13 @@
 <?php
 $DataAtual = date('Y/m/d - H:i:s'); //TRATANDO DATA E HORA, DD/MM/YYYY - HH:MM:SS
+$ChamaProduto = "SELECT * FROM produto";
+ $prod = $PDO->prepare($ChamaProduto);
+ $prod->execute();
+ 
+
 
 ?>
+
 <!-- MODAL DE CADASTRO DE FIRMWARE -->
 <div id="nAtend" class="modal fade" role="dialog">
  <div class="modal-dialog modal-lg">
@@ -29,7 +35,14 @@ $DataAtual = date('Y/m/d - H:i:s'); //TRATANDO DATA E HORA, DD/MM/YYYY - HH:MM:S
       </select>
      </div>
      <div class="col-md-3">Equipamento:
-      <input class="form-control" type="text" name="equipamento" required="required">
+      <div class="form-group">
+       <select class="form-control select2" name="tts" style="width: 100%;">
+        <option value="" selected="selected">SELECIONE</option>
+        <?php while ($pd = $prod->fetch(PDO::FETCH_ASSOC)): ?>
+        <option value="<?php echo $pd['nome'] ?>"><?php echo $pd['nome'] ?></option>
+        <?php endwhile; ?>
+       </select>
+      </div>
      </div>
      <div class="col-md-3">Possível envio à Assistência:
       <select class="form-control" name="assist" required="required">
