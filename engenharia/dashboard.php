@@ -74,7 +74,7 @@ require_once '../QueryUser.php';
   <?php if ($permFw === "1") { ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#teste"">
+      <a data-toggle="modal" data-target="#NovoProduto"">
        <span class="info-box-icon bg-blue">
         <i class="fa fa-plus"></i>
        </span>
