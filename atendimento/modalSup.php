@@ -36,7 +36,7 @@ $ChamaProduto = "SELECT * FROM produto";
      </div>
      <div class="col-md-3">Equipamento:
       <div class="form-group">
-       <select class="form-control select2" name="tts" style="width: 100%;">
+       <select class="form-control select2" name="equip" style="width: 100%;">
         <option value="" selected="selected">SELECIONE</option>
         <?php while ($pd = $prod->fetch(PDO::FETCH_ASSOC)): ?>
         <option value="<?php echo $pd['nome'] ?>"><?php echo $pd['nome'] ?></option>
@@ -71,7 +71,7 @@ $ChamaProduto = "SELECT * FROM produto";
      $nRevenda = $_POST['revenda'];      //DESCRIÇÃO DA REVENDA
      $nTecnico = $_POST['tecnico'];      //TECNICO RESPONSÁVEL PELO ATENDIMENTO
      $nTipo = $_POST['tipo'];            //É OU NÃO RETORNO (1 - NÃO É, 2 - É)
-     $nEquip = $_POST['equipamento'];    //EQUIPAMENTO DO ATENDIMENTO
+     $nEquip = $_POST['equip'];    //EQUIPAMENTO DO ATENDIMENTO
      $nAssist = $_POST['assist'];        //INFORMA SE PRETENDE OU NÃO ENVIAR À ASSISTÊNCIA
      $nSer = $_POST['nser'];             //NÚMERO DE SÉRIE
 
@@ -82,7 +82,7 @@ $ChamaProduto = "SELECT * FROM produto";
 
      $nReq = str_replace("\r\n", "<br/>", strip_tags($_POST["requis"]));
      $nAten = str_replace("\r\n", "<br/>", strip_tags($_POST["atend"]));
-      $InsereAtendimento = $PDO->query("INSERT INTO atendimento (Status, TipoAtendimento, DescAtend, DescSolicita, UserCadastro, UserAtendente, DataCadastro, Revenda, RevendaTecnico, NumSerie) VALUES ('2', '$nTipo', '$nAten', '$nReq', '$Nome', '$Nome', '$DataAtual', '$nRevenda', '$nTecnico', '$nSer')");
+      $InsereAtendimento = $PDO->query("INSERT INTO atendimento (Status, TipoAtendimento, DescAtend, DescSolicita, UserCadastro, UserAtendente, DataCadastro, Revenda, RevendaTecnico, NumSerie, Equip) VALUES ('2', '$nTipo', '$nAten', '$nReq', '$Nome', '$Nome', '$DataAtual', '$nRevenda', '$nTecnico', '$nSer', '$nEquip')");
 
         if ($InsereAtendimento) {
           $TpLog = "Cadastrado novo Firmware";
