@@ -5,7 +5,7 @@ $FG = $PDO->prepare($FinalGeral);
 $FG->execute();
 require_once '../QueryUser.php';
 ?>
-<table id="tabFinalGeral" class="table table-hover table-responsive">
+<table id="tabFinalGeral" class="table table-hover table-striped table-responsive">
  <thead>
   <tr>
    <td>Chamado</td>
