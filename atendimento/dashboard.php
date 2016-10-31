@@ -20,6 +20,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+ <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
