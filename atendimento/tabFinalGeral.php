@@ -9,7 +9,7 @@ require_once '../QueryUser.php';
  <thead>
   <tr>
    <td width="5%">Chamado</td>
-   <td width="10%" >Retorno de Assist</td>
+   <td width="10%">Modelo</td>
    <td width="13%">Revenda</td>
    <td width="12%">Técnico da Revenda</td>
    <td width="15%">Técnico</td>
@@ -22,17 +22,8 @@ require_once '../QueryUser.php';
   <?php while ($finalG = $FG->fetch(PDO::FETCH_ASSOC)): 
    echo '<tr>';
    echo '<td>' . $finalG["id"] . '</td>';
-   echo '<td>';
-    $finalGTpAtend = $finalG["TipoAtendimento"];
-     if ($finalGTpAtend === "1") {
-      echo '<span class="badge bg-blue">NÃO</span>';
-     }
-     elseif ($finalGTpAtend === "2") {
-      echo '<span class="badge bg-red">SIM</span>';
-     }
-     else{
-     }
-   echo '</td>';
+   echo '<td><span class="badge bg-blue">' . $finalG["Equip"] . '</span></td>';
+
    echo '<td>' . $finalG["Revenda"] . '</td>';
    echo '<td>' . $finalG["RevendaTecnico"] . '</td>';   
    echo '<td>' . $finalG["UserAtendente"] . '</td>';   
