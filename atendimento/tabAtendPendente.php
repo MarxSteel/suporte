@@ -8,7 +8,7 @@ $dc->execute();
  <thead>
   <tr>
    <td width="5%">Chamado</td>
-   <td width="10%" >Retorno de Assist</td>
+   <td width="10%" >Modelo</td>
    <td width="15%">Revenda</td>
    <td width="15%">Técnico da Revenda</td>
    <td width="30%" >Cadastro</td>
@@ -20,17 +20,7 @@ $dc->execute();
   <?php while ($d = $dc->fetch(PDO::FETCH_ASSOC)): 
    echo '<tr>';
    echo '<td>' . $d["id"] . '</td>';
-   echo '<td>';
-    $TpAtend = $d["TipoAtendimento"];
-     if ($TpAtend === "1") {
-      echo '<span class="badge bg-blue">NÃO</span>';
-     }
-     elseif ($TpAtend === "2") {
-      echo '<span class="badge bg-red">SIM</span>';
-     }
-     else{
-     }
-   echo '</td>';
+   echo '<td>' . $d["Equip"] . '</td>';
    echo '<td>' . $d["Revenda"] . '</td>';
    echo '<td>' . $d["RevendaTecnico"] . '</td>';   
    echo '<td>' . $d["DescSolicita"] . '</td>';   
