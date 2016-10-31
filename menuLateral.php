@@ -9,6 +9,7 @@ $endereco = $_SERVER ['SERVER_ADDR'];
     <i class="fa fa-home"></i> <span>Início</span>
    </a>
   </li>
+  <?php if ($permSup === "1") { ?>  
   <li class="<?php echo $cAtend; ?>">
    <a href="<?php echo $server; ?>/atendimento/dashboard.php">
     <i class="fa fa-plus"></i> <span>Atendimentos</span>
@@ -19,7 +20,7 @@ $endereco = $_SERVER ['SERVER_ADDR'];
     <i class="fa fa-newspaper-o"></i> <span>Cadastro de Revendas</span>
    </a>
   </li>
-  <?php if ($permFw === "1") { ?>
+  <?php } else { } if ($permFw === "1") { ?>
   <li class="<?php echo $cDoc; ?>">
    <a href="<?php echo $server; ?>/engenharia/dashboard.php">
     <i class="fa fa-file-code-o"></i> <span>Documentação</span>
