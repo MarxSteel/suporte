@@ -52,7 +52,7 @@ $ChamaProduto = "SELECT * FROM produto";
       </select>     
      </div>
      <div class="col-md-3">Número de Série:
-      <input class="form-control" type="text" name="nser" required="required">
+      <input class="form-control" type="text" name="nser">
      </div>
      <div class="col-xs-12">Solicitação do Cliente (Descreva aqui o item que o cliente quer solução):
       <textarea name="requis" cols="45" rows="3" class="form-control" required="required"></textarea>
