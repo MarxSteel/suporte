@@ -4,7 +4,7 @@ $FUsr = "SELECT * FROM atendimento WHERE Status='1' AND UserAtendente='$NomeUser
 $FU = $PDO->prepare($FUsr);
 $FU->execute();
 ?>
-<table id="finalizadosUser" class="table table-hover table-responsive">
+<table id="finalizadosUser" class="table table-hover table-striped table-responsive">
  <thead>
   <tr>
    <td>Cham.</td>
