@@ -20,7 +20,7 @@ $PU->execute();
   <?php while ($PUser = $PU->fetch(PDO::FETCH_ASSOC)): 
    echo '<tr>';
    echo '<td>' . $PUser["id"] . '</td>';
-   echo '<td>' . $PUser["Equip"] . '</td>';
+   echo '<td><span class="badge bg-blue">' . $PUser["Equip"] . '</span></td>';
    echo '<td>' . $PUser["Revenda"] . '</td>';
    echo '<td>' . $PUser["RevendaTecnico"] . '</td>';   
    echo '<td>' . $PUser["DescSolicita"] . '</td>';   
