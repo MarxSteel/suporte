@@ -163,7 +163,7 @@ word-wrap: break-word;
         $dataFin = date('d/m/Y - H:i:s');
           $V1 = "<br /><strong>Nova Atualização</strong>";
           $V2 = "<br />Data: " . $dataFin;
-          $V3 = "<br />Usuário: " . $NomeUserLogado . "<br />";
+          $V3 = "<br /><strong>Usuário: " . $NomeUserLogado . "<strong><br />";
           $Observa = str_replace("\r\n", "<br/>", strip_tags($_POST["final"]));
           $Obs = $Resumo . $V1 . $V2 . $V3 . $Observa;
         $Finalizar = $PDO->query("UPDATE atendimento SET DescAtend='$Obs', UserAtendente='$NomeUserLogado' WHERE id='$id'");

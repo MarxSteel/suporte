@@ -22,6 +22,17 @@ $QryUser->execute();
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
+    <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+
+  <!-- bootstrap datepicker -->
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="../../plugins/iCheck/all.css">
+  <!-- Bootstrap Color Picker -->
+  <!-- Bootstrap time Picker -->
+  <!-- Select2 -->
+
+
+
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -85,7 +96,7 @@ $QryUser->execute();
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#RelModelo"">
+      <a data-toggle="modal" data-target="#modalModelo"">
        <span class="info-box-icon bg-yellow">
         <i class="fa fa-plus"></i>
        </span>
@@ -118,6 +129,7 @@ $QryUser->execute();
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
+<script src="../plugins/select2/select2.full.min.js"></script>
 <script language="JavaScript">
 function abrir(URL) { 
   var width = 1200;
@@ -140,5 +152,10 @@ function formatar(mascara, documento){
   
 }
 </script>
-
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select2").select2();
+  });
+</script>
 </html>

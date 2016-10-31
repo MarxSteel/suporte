@@ -95,7 +95,7 @@ word-wrap: break-word;
           if ($InsereLog) 
           {
            echo '<script type="text/JavaScript">alert("Finalizado com Sucesso");</script>';
-           echo '<script type="text/javascript">window.close();</script>';
+           echo '<script type="text/javascript">window.close();history.back();</script>';
           }
           else
           {

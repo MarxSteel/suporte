@@ -108,7 +108,7 @@ word-wrap: break-word;
         <?php echo $UserAtendente; ?>
        </li>
       </div>
-      <div class="col-xs-3">USER. CADASTRO
+      <div class="col-xs-2">USER. CADASTRO
        <li class="list-group-item">
         <?php echo $UserCadastro; ?>
        </li>
@@ -123,7 +123,7 @@ word-wrap: break-word;
         <?php echo $RStatus; ?>
        </li>
       </div>
-      <div class="col-xs-2">Num. Serie
+      <div class="col-xs-3">Num. Serie
        <li class="list-group-item">
         <?php echo $NumSerie; ?>
        </li>

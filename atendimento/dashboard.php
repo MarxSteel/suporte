@@ -85,7 +85,7 @@ require_once '../QueryUser.php';
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
-      <a href="geral.php" >
+      <a href="Geral.php" >
        <span class="info-box-icon bg-aqua">
         <i class="fa fa-newspaper-o"></i>
        </span>

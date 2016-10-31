@@ -105,3 +105,59 @@ process = function()
  </div>
 </div>
 <!-- MODAL DE CADASTRO DE FIRMWARE -->
+
+
+
+
+
+<!-- MODAL DE RELATORIO POR MODELO -->
+<div id="modalModelo" class="modal fade" role="dialog">
+ <div class="modal-dialog modal-lg">
+  <div class="modal-content">
+   <div class="modal-header bg-primary">
+    <button type="button" class="close" data-dismiss="modal">X</button>
+     <h4 class="modal-title">Relatório por Modelo</h4>
+   </div>
+   <div class="modal-body">
+   <?php 
+      $ChamaProduto = "SELECT * FROM produto";
+      $prod = $PDO->prepare($ChamaProduto);
+      $prod->execute();
+   ?>
+    <form action="ModeloPeriodo.php" method="get" name="ModeloPeriodo" target="popup" onsubmit="process(); return false;">
+     <div class="col-md-4">Modelo de Equipamento:
+      <div class="form-group">
+       <select class="form-control select2" name="equip" style="width: 100%;">
+        <option value="" selected="selected">SELECIONE</option>
+        <?php while ($pd = $prod->fetch(PDO::FETCH_ASSOC)): ?>
+        <option value="<?php echo $pd['nome'] ?>"><?php echo $pd['nome'] ?></option>
+        <?php endwhile; ?>
+       </select>
+      </div>
+     </div>
+     <div class="col-xs-4">Data Inicial
+      <div class="input-group">
+       <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+       </div>
+        <input type="text" name="dtInicio" class="form-control" minlength="10" maxlength="10" OnKeyPress="formatar('##/##/####', this)" required="required">
+      </div>
+     </div>
+     <div class="col-xs-4">Data Final
+      <div class="input-group">
+       <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+       </div>
+        <input type="text" name="dtFinal" class="form-control" minlength="10" maxlength="10" OnKeyPress="formatar('##/##/####', this)" required="required">
+      </div>
+     </div>
+     <div class="pull-right"><br />
+      <input name="ModeloPeriodo" type="submit" class="btn btn-success btn-flat" id="ModeloPeriodo" value="Visualizar"  /> 
+     </div>
+    </form>
+   </div>
+   <div class="modal-footer"></div>
+  </div>
+ </div>
+</div>
+<!-- MODAL DE RELATORIO POR MODELO -->
