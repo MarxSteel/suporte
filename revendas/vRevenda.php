@@ -103,9 +103,27 @@ word-wrap: break-word;
        </li>
       </div>
       <h4>Dados de Endereço</h4>
-      <div class="col-xs-2">CHAMADO
+      <div class="col-xs-6">ENDEREÇO
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['ENDERECO']; ?>
+       </li>
+      </div>
+      <div class="col-xs-2">Nº
+       <li class="list-group-item">
+        <?php echo $campo['NUMERO_END']; ?>
+       </li>
+      </div>
+      <div class="col-xs-4">COMPLEMENTO
+       <li class="list-group-item">
+        <?php 
+          $COMPLEMENTO = $campo['COMPLEMENTO_END'];
+            if ($COMPLEMENTO == "") {
+              echo "N";
+            }
+            else{
+              echo $campo['COMPLEMENTO_END'];
+            }
+         ?>
        </li>
       </div>
       <div class="col-xs-3">USER. ATENDENTE
