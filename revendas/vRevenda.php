@@ -102,7 +102,7 @@ word-wrap: break-word;
        <strong>(<?php echo $campo['DDD4']; ?>) - <?php echo $campo['TELEFONE4']; ?></strong>
        </li>
       </div>
-      <h3>ENDEREÇO</h3>
+      <h4>Dados de Endereço</h4>
       <div class="col-xs-2">CHAMADO
        <li class="list-group-item">
         <?php echo $Resumo; ?>
