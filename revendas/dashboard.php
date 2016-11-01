@@ -4,6 +4,10 @@ require_once '../init.php';
 $cRev = "active";
 $PDO = db_connect();
 require_once '../QueryUser.php';
+
+  $ChamaRevendas = "SELECT * FROM revenda";
+  $cRevenda = $PDO->prepare($ChamaRevendas);
+  $cRevenda->execute();
 ?>
 <!DOCTYPE html>
 <html>
@@ -77,24 +81,25 @@ require_once '../QueryUser.php';
        <h3 class="box-title">Lista de Revendas</h3>
      </div>
      <div class="box-body">
-      <table id="revenda" class="table table-hover table-striped table-responsive">
+      <table id="revenda" class="table table-hover table-striped">
        <thead>
         <tr>
-         <td>Nome</td>
+         <td>Razão Social</td>
          <td>Nome Fantasia</td>
          <td>E-Mail</td>
-         <td>Telefone</td>
-         <td></td>
+         <td width="15%">Telefone</td>
         </tr>
        </thead>
        <tbody>
-        <tr>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-         <td></td>
-        </tr>
+        <?php while ($R = $cRevenda->fetch(PDO::FETCH_ASSOC)): 
+        echo '<tr>';
+         echo '<td>' . $R["RAZAO_SOCIAL"] . '</td>';
+         echo '<td>' . $R["NOME_FANTASIA"] . '</td>';
+         echo '<td>' . $R["EMAIL"] . '</td>';
+         echo '<td>' . $R["DDD1"] . ' - ' . $R["TELEFONE1"] . '</td>';
+        echo '</tr>';
+        endwhile;
+        ?>    
        </tbody>
       </table>
 
