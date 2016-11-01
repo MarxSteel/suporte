@@ -24,7 +24,6 @@ require_once '../QueryUser.php';
        $Retorno = '<button class="btn btn-danger btn-block btn-xs">SIM</button>';
      }
      else{
-
      }
     $Status = $campo['Status'];
     if ($Status === "1") {
@@ -93,14 +92,19 @@ word-wrap: break-word;
         <?php echo $Revenda; ?>
        </li>
       </div>
-      <div class="col-xs-4">TÉCNICO RESPONSÁVEL (REVENDA)
+      <div class="col-xs-3">TÉCNICO RESPONSÁVEL (REVENDA)
        <li class="list-group-item">
         <?php echo $RevendaTecnico; ?>
        </li>
       </div>
-      <div class="col-xs-4">DATA DE CADASTRO
+      <div class="col-xs-3">DATA DE CADASTRO
        <li class="list-group-item">
         <?php echo $DataCadastro; ?>
+       </li>
+      </div>
+      <div class="col-xs-2">CHAMADO
+       <li class="list-group-item">
+        <?php echo $id; ?>
        </li>
       </div>
       <div class="col-xs-3">USER. ATENDENTE
