@@ -86,6 +86,7 @@ require_once '../QueryUser.php';
         <tr>
          <td>Razão Social</td>
          <td>Nome Fantasia</td>
+         <td>Cidade</td>
          <td>E-Mail</td>
          <td width="15%">Telefone</td>
          <td></td>
@@ -96,6 +97,7 @@ require_once '../QueryUser.php';
         echo '<tr>';
          echo '<td>' . $R["RAZAO_SOCIAL"] . '</td>';
          echo '<td>' . $R["NOME_FANTASIA"] . '</td>';
+         echo '<td>' . $R["CIDADE"] . '</td>';
          echo '<td>' . $R["EMAIL"] . '</td>';
          echo '<td>' . $R["DDD1"] . ' - ' . $R["TELEFONE1"] . '</td>';
          echo '<td>';
