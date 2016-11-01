@@ -61,6 +61,7 @@ word-wrap: break-word;
    <section class="content">
     <div class="box box-default">
      <div class="box-body">
+      <h4>Dados da Revenda</h4>
       <div class="col-xs-9">RAZÃO SOCIAL
        <li class="list-group-item">
         <?php echo $campo['RAZAO_SOCIAL']; ?>
@@ -101,6 +102,7 @@ word-wrap: break-word;
        <strong>(<?php echo $campo['DDD4']; ?>) - <?php echo $campo['TELEFONE4']; ?></strong>
        </li>
       </div>
+      <h3>ENDEREÇO</h3>
       <div class="col-xs-2">CHAMADO
        <li class="list-group-item">
         <?php echo $Resumo; ?>
