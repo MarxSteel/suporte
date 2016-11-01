@@ -61,24 +61,44 @@ word-wrap: break-word;
    <section class="content">
     <div class="box box-default">
      <div class="box-body">
-      <div class="col-xs-8">RAZÃO SOCIAL
+      <div class="col-xs-9">RAZÃO SOCIAL
        <li class="list-group-item">
         <?php echo $campo['RAZAO_SOCIAL']; ?>
        </li>
       </div>
-      <div class="col-xs-4">NOME FANTASIA
+      <div class="col-xs-3">CNPJ
        <li class="list-group-item">
-        <?php echo $campo['NOME_FANTASIA']; ?>
+        <?php echo $campo['CNPJ']; ?>
        </li>
       </div>
-      <div class="col-xs-3">E-MAIL
+      <div class="col-xs-4">E-MAIL
        <li class="list-group-item">
         <?php echo $campo['EMAIL']; ?>
        </li>
       </div>
-      <div class="col-xs-3">DATA DE CADASTRO
+      <div class="col-xs-8">NOME FANTASIA
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['NOME_FANTASIA']; ?>
+       </li>
+      </div>
+      <div class="col-xs-3">TELEFONE 1
+       <li class="list-group-item">
+       <strong>(<?php echo $campo['DDD1']; ?>) - <?php echo $campo['TELEFONE1']; ?></strong>
+       </li>
+      </div>
+      <div class="col-xs-3">TELEFONE 2
+       <li class="list-group-item">
+       <strong>(<?php echo $campo['DDD2']; ?>) - <?php echo $campo['TELEFONE2']; ?></strong>
+       </li>
+      </div>
+      <div class="col-xs-3">TELEFONE 3
+       <li class="list-group-item">
+       <strong>(<?php echo $campo['DDD3']; ?>) - <?php echo $campo['TELEFONE3']; ?></strong>
+       </li>
+      </div>
+      <div class="col-xs-3">TELEFONE 4
+       <li class="list-group-item">
+       <strong>(<?php echo $campo['DDD4']; ?>) - <?php echo $campo['TELEFONE4']; ?></strong>
        </li>
       </div>
       <div class="col-xs-2">CHAMADO
