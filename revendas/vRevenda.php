@@ -6,10 +6,7 @@ require_once '../QueryUser.php';
    $id = $_GET['ID'];
    $dFor = $PDO->prepare("SELECT * FROM revenda WHERE EMPRESA_ID='$id'");
    $dFor->execute();
-    $campo = $dFor->fetch();
-    $Resumo = $campo['RAZAO_SOCIAL'];
-    
-
+    $campo = $dFor->fetch();    
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,12 +61,22 @@ word-wrap: break-word;
       <h4>Dados da Revenda</h4>
       <div class="col-xs-9">RAZÃO SOCIAL
        <li class="list-group-item">
-        <?php echo $campo['RAZAO_SOCIAL']; ?>
+        <strong><?php echo $campo['RAZAO_SOCIAL']; ?></strong>
        </li>
       </div>
       <div class="col-xs-3">CNPJ
        <li class="list-group-item">
-        <?php echo $campo['CNPJ']; ?>
+        <code>
+        <?php 
+          $CNPJ1 = substr($campo['CNPJ'], 0, 2);
+          $CNPJ2 = substr($campo['CNPJ'], 2, 3);
+          $CNPJ3 = substr($campo['CNPJ'], 5, 3);
+          $CNPJ4 = substr($campo['CNPJ'], 8, 4);
+          $CNPJ5 = substr($campo['CNPJ'], 12, 2);
+          $ValorCNPJ = $CNPJ1 . '.' . $CNPJ2 . '.' . $CNPJ3 . '/' . $CNPJ4 . '-' . $CNPJ5;
+          echo $ValorCNPJ;
+        ?>
+        </code>
        </li>
       </div>
       <div class="col-xs-4">E-MAIL
@@ -126,40 +133,37 @@ word-wrap: break-word;
          ?>
        </li>
       </div>
-      <div class="col-xs-3">USER. ATENDENTE
+      <div class="col-xs-4">BAIRRO
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['BAIRRO']; ?>
        </li>
       </div>
-      <div class="col-xs-2">USER. CADASTRO
+      <div class="col-xs-2">CEP
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+       <code>
+       <?php
+        $CEP1 = substr($campo['CEP'], 0, 2);
+        $CEP2 = substr($campo['CEP'], 2, 3);
+        $CEP3 = substr($campo['CEP'], 5, 6);
+        echo $CEP1 . '.' . $CEP2 . '-' . $CEP3;
+        ?>
+        </code>
        </li>
       </div>
-      <div class="col-xs-2">RETORNO DE ASSIST.
+      <div class="col-xs-4">CIDADE
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['CIDADE']; ?>
        </li>
       </div>
-      <div class="col-xs-2">STATUS
+      <div class="col-xs-2">ESTADO
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['UF']; ?>
        </li>
       </div>
-      <div class="col-xs-3">Num. Serie
+      <div class="col-xs-12">OBSERVAÇÕES
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
-       </li>
-      </div>
-      <div class="col-xs-12">ATENDIMENTO
-       <li class="list-group-item">
-       <h4>Solicitação do Cliente:</h4>
         <i class="texto">
-         <?php echo $Resumo; ?>
-        </i>
-       <h4>Resumo do Atendimento:</h4>
-        <i class="texto">
-         <?php echo $Resumo; ?>
+        <?php echo $campo['OBSERVACOES']; ?>
         </i>
        </li>
       </div>
