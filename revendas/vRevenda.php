@@ -4,37 +4,11 @@
  $PDO = db_connect();
 require_once '../QueryUser.php';
    $id = $_GET['ID'];
-   $dFor = $PDO->prepare("SELECT * FROM atendimento WHERE id='$id'");
+   $dFor = $PDO->prepare("SELECT * FROM revenda WHERE EMPRESA_ID='$id'");
    $dFor->execute();
     $campo = $dFor->fetch();
-    $Resumo = $campo['DescAtend'];
-    $Revenda = $campo['Revenda'];
-    $RevendaTecnico = $campo['RevendaTecnico'];
-    $DataCadastro = $campo['DataCadastro'];
-    $UserAtendente = $campo['UserAtendente'];
-    $UserCadastro = $campo['UserCadastro'];
-    $DescSolicita = $campo['DescSolicita'];
-    $DescAtend = $campo['DescAtend'];
-    $NumSerie = $campo['NumSerie'];
-    $TipoAtendimento = $campo['TipoAtendimento'];
-     if ($TipoAtendimento === "1") {
-       $Retorno = '<button class="btn btn-success btn-block btn-xs">NÃO</button>';
-     }
-     elseif ($TipoAtendimento === "2") {
-       $Retorno = '<button class="btn btn-danger btn-block btn-xs">SIM</button>';
-     }
-     else{
-     }
-    $Status = $campo['Status'];
-    if ($Status === "1") {
-       $RStatus = '<button class="btn btn-success btn-block btn-xs">FINALIZADO</button>';
-     }
-     elseif ($Status === "2") {
-       $RStatus = '<button class="btn btn-danger btn-block btn-xs">PENDENTE</button>';
-     }
-     else{
-
-     }
+    $Resumo = $campo['RAZAO_SOCIAL'];
+    
 
 ?>
 <!DOCTYPE html>
@@ -87,60 +61,65 @@ word-wrap: break-word;
    <section class="content">
     <div class="box box-default">
      <div class="box-body">
-      <div class="col-xs-4">REVENDA
+      <div class="col-xs-8">RAZÃO SOCIAL
        <li class="list-group-item">
-        <?php echo $Revenda; ?>
+        <?php echo $campo['RAZAO_SOCIAL']; ?>
        </li>
       </div>
-      <div class="col-xs-3">TÉCNICO RESPONSÁVEL (REVENDA)
+      <div class="col-xs-4">NOME FANTASIA
        <li class="list-group-item">
-        <?php echo $RevendaTecnico; ?>
+        <?php echo $campo['NOME_FANTASIA']; ?>
+       </li>
+      </div>
+      <div class="col-xs-3">E-MAIL
+       <li class="list-group-item">
+        <?php echo $campo['EMAIL']; ?>
        </li>
       </div>
       <div class="col-xs-3">DATA DE CADASTRO
        <li class="list-group-item">
-        <?php echo $DataCadastro; ?>
+        <?php echo $Resumo; ?>
        </li>
       </div>
       <div class="col-xs-2">CHAMADO
        <li class="list-group-item">
-        <?php echo $id; ?>
+        <?php echo $Resumo; ?>
        </li>
       </div>
       <div class="col-xs-3">USER. ATENDENTE
        <li class="list-group-item">
-        <?php echo $UserAtendente; ?>
+        <?php echo $Resumo; ?>
        </li>
       </div>
       <div class="col-xs-2">USER. CADASTRO
        <li class="list-group-item">
-        <?php echo $UserCadastro; ?>
+        <?php echo $Resumo; ?>
        </li>
       </div>
       <div class="col-xs-2">RETORNO DE ASSIST.
        <li class="list-group-item">
-        <?php echo $Retorno; ?>
+        <?php echo $Resumo; ?>
        </li>
       </div>
       <div class="col-xs-2">STATUS
        <li class="list-group-item">
-        <?php echo $RStatus; ?>
+        <?php echo $Resumo; ?>
        </li>
       </div>
       <div class="col-xs-3">Num. Serie
        <li class="list-group-item">
-        <?php echo $NumSerie; ?>
+        <?php echo $Resumo; ?>
        </li>
       </div>
       <div class="col-xs-12">ATENDIMENTO
        <li class="list-group-item">
        <h4>Solicitação do Cliente:</h4>
         <i class="texto">
-         <?php echo $DescSolicita; ?>
+         <?php echo $Resumo; ?>
         </i>
        <h4>Resumo do Atendimento:</h4>
         <i class="texto">
-         <?php echo $DescAtend; ?>
+         <?php echo $Resumo; ?>
         </i>
        </li>
       </div>

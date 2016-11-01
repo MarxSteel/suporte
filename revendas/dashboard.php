@@ -4,6 +4,10 @@ require_once '../init.php';
 $cRev = "active";
 $PDO = db_connect();
 require_once '../QueryUser.php';
+
+  $ChamaRevendas = "SELECT * FROM revenda";
+  $cRevenda = $PDO->prepare($ChamaRevendas);
+  $cRevenda->execute();
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,6 +23,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
+ <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -69,12 +74,55 @@ require_once '../QueryUser.php';
  </section>
  <section class="content">
   <div class="row">
-  <?php if ($permFw === "1") { ?>
-
-
-    <?php } else { } ?>
    <div class="col-md-12">
+    <div class="box box-primary">
+     <div class="box-header">
+      <i class="ion ion-clipboard"></i>
+       <h3 class="box-title">Lista de Revendas</h3>
+     </div>
+     <div class="box-body">
+      <table id="revenda" class="table table-hover table-striped">
+       <thead>
+        <tr>
+         <td>Razão Social</td>
+         <td>Nome Fantasia</td>
+         <td>E-Mail</td>
+         <td width="15%">Telefone</td>
+         <td></td>
+        </tr>
+       </thead>
+       <tbody>
+        <?php while ($R = $cRevenda->fetch(PDO::FETCH_ASSOC)): 
+        echo '<tr>';
+         echo '<td>' . $R["RAZAO_SOCIAL"] . '</td>';
+         echo '<td>' . $R["NOME_FANTASIA"] . '</td>';
+         echo '<td>' . $R["EMAIL"] . '</td>';
+         echo '<td>' . $R["DDD1"] . ' - ' . $R["TELEFONE1"] . '</td>';
+         echo '<td>';
 
+
+
+   
+      echo '<a class="btn btn-default btn-xs" href="';
+      echo "javascript:abrir('vRevenda.php?ID=" . $R["EMPRESA_ID"] . "');";
+      echo '"><i class="fa fa-search"></i></a>';  
+
+   echo '</td>';
+
+
+        echo '</tr>';
+        endwhile;
+        ?>    
+       </tbody>
+      </table>
+
+
+
+
+
+
+     </div>
+    </div>
    </div>
   </div><!-- CLASS ROW -->
  </section>
@@ -90,14 +138,7 @@ require_once '../QueryUser.php';
 <script src="../dist/js/demo.js"></script>
 <script>
   $(function () {
-    $('#pendente').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
+    $('#revenda').DataTable();
     $('#finalizadosUser').DataTable({
       "paging": true,
       "lengthChange": false,
