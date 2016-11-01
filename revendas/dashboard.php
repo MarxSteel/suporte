@@ -88,6 +88,7 @@ require_once '../QueryUser.php';
          <td>Nome Fantasia</td>
          <td>E-Mail</td>
          <td width="15%">Telefone</td>
+         <td></td>
         </tr>
        </thead>
        <tbody>
@@ -97,6 +98,18 @@ require_once '../QueryUser.php';
          echo '<td>' . $R["NOME_FANTASIA"] . '</td>';
          echo '<td>' . $R["EMAIL"] . '</td>';
          echo '<td>' . $R["DDD1"] . ' - ' . $R["TELEFONE1"] . '</td>';
+         echo '<td>';
+
+
+
+   
+      echo '<a class="btn btn-default btn-xs" href="';
+      echo "javascript:abrir('vRevenda.php?ID=" . $R["EMPRESA_ID"] . "');";
+      echo '"><i class="fa fa-search"></i></a>';  
+
+   echo '</td>';
+
+
         echo '</tr>';
         endwhile;
         ?>    
