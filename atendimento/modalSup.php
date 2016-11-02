@@ -5,6 +5,10 @@ $ChamaProduto = "SELECT * FROM produto";
  $prod->execute();
  
 
+$ChamaRevenda = "SELECT NOME_FANTASIA FROM cad_empresa";
+ $Rev = $PDO2->prepare($ChamaRevenda);
+ $Rev->execute();
+
 
 ?>
 
@@ -21,18 +25,15 @@ $ChamaProduto = "SELECT * FROM produto";
      <div class="col-md-3">Data de Cadastro:
       <input class="form-control" type="text" disabled="disabled" placeholder="<?php echo $DataAtual; ?>">
       </div>
-     <div class="col-md-5">Revenda:
-      <input class="form-control" type="text" name="revenda" required="required">
-     </div>
-     <div class="col-md-4">Técnico da Revenda:
-      <input class="form-control" type="text" name="tecnico" required="required">
-     </div>
-     <div class="col-xs-3">Retorno de Assistência?
-      <select class="form-control" name="tipo" required="required">
-       <option value="" selected="selected">SELECIONE</option>
-       <option value="1">NÃO É RETORNO</option>
-       <option value="2">RETORNO DE ASSISTÊNCIA</option>
-      </select>
+     <div class="col-md-6">Revenda:
+      <div class="form-group">
+       <select class="form-control select3" name="revenda" style="width: 100%;">
+        <option value="" selected="selected">SELECIONE</option>
+        <?php while ($r = $Rev->fetch(PDO::FETCH_ASSOC)): ?>
+        <option value="<?php echo $r['NOME_FANTASIA'] ?>"><?php echo $r['NOME_FANTASIA'] ?></option>
+        <?php endwhile; ?>
+       </select>
+      </div>
      </div>
      <div class="col-md-3">Equipamento:
       <div class="form-group">
@@ -44,6 +45,17 @@ $ChamaProduto = "SELECT * FROM produto";
        </select>
       </div>
      </div>
+     <div class="col-md-3">Técnico da Revenda:
+      <input class="form-control" type="text" name="tecnico" required="required">
+     </div>
+     <div class="col-xs-3">Retorno de Assistência?
+      <select class="form-control" name="tipo" required="required">
+       <option value="" selected="selected">SELECIONE</option>
+       <option value="1">NÃO É RETORNO</option>
+       <option value="2">RETORNO DE ASSISTÊNCIA</option>
+      </select>
+     </div>
+
      <div class="col-md-3">Possível envio à Assistência:
       <select class="form-control" name="assist" required="required">
        <option value="" selected="selected">SELECIONE</option>
@@ -52,7 +64,7 @@ $ChamaProduto = "SELECT * FROM produto";
       </select>     
      </div>
      <div class="col-md-3">Número de Série:
-      <input class="form-control" type="text" name="nser">
+      <input class="form-control" type="text" name="nser" maxlength="17">
      </div>
      <div class="col-xs-12">Solicitação do Cliente (Descreva aqui o item que o cliente quer solução):
       <textarea name="requis" cols="45" rows="3" class="form-control" required="required"></textarea>
