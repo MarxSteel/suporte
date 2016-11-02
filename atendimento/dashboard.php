@@ -3,6 +3,7 @@ require("../restritos.php");
 require_once '../init.php';
 $cAtend = "active";
 $PDO = db_connect();
+$PDO2 = db_connect2();
 require_once '../QueryUser.php';
 ?>
 <!DOCTYPE html>
@@ -173,6 +174,12 @@ function abrir(URL) {
   $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
+  });
+</script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select3").select2();
   });
 </script>
 <script type="text/javascript">
