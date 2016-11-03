@@ -1,9 +1,15 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
-$cAtend = "active";
+$cRev = "active";
 $PDO = db_connect();
+$PDO2 = db_connect2();
+
 require_once '../QueryUser.php';
+
+  $ChamaRevendas = "SELECT RAZAO_SOCIAL, CIDADE, EMAIL, DDD1, TELEFONE1, EMPRESA_ID FROM cad_empresa WHERE RAZAO_SOCIAL != ''";
+  $cRevenda = $PDO2->prepare($ChamaRevendas);
+  $cRevenda->execute();
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,9 +25,15 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
+ <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+ <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+ <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
+ <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 
+ 
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -68,83 +80,92 @@ require_once '../QueryUser.php';
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Suporte Técnico - Controle de Atendimentos Geral<small><?php echo $titulo; ?></small></h1>
+  <h1>Suporte Técnico - Cadastro de Revendas<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
-  <?php if ($permSup === "1") { ?>
-   <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="info-box">
-     <a data-toggle="modal" data-target="#nAtend"">
-      <span class="info-box-icon bg-blue">
-       <i class="fa fa-plus"></i>
-      </span>
-     </a>
-     <div class="info-box-content"><br /><h4>Adicionar Atendimento</h4></div>
+   <div class="col-md-12">
+    <div class="box box-primary">
+     <div class="box-header">
+      <i class="ion ion-clipboard"></i>
+       <h3 class="box-title">Lista de Revendas</h3>
+     </div>
+     <div class="box-body">
+      <table id="revenda" class="table table-hover table-striped">
+       <thead>
+        <tr>
+         <td>Razão Social</td>
+         <td>Cidade</td>
+         <td width="15%">E-Mail</td>
+         <td width="15%">Telefone</td>
+         <td></td>
+        </tr>
+       </thead>
+       <tbody>
+        <?php while ($R = $cRevenda->fetch(PDO::FETCH_ASSOC)): 
+        echo '<tr>';
+         echo '<td>' . $R["RAZAO_SOCIAL"] . '</td>';
+         echo '<td>' . $R["CIDADE"] . '</td>';
+         echo '<td>' . $R["EMAIL"] . '</td>';
+         echo '<td>' . $R["DDD1"] . ' - ' . $R["TELEFONE1"] . '</td>';
+         echo '<td>';
+
+
+
+   
+      echo '<a class="btn btn-default btn-xs" href="';
+      echo "javascript:abrir('vRevenda.php?ID=" . $R["EMPRESA_ID"] . "');";
+      echo '"><i class="fa fa-search"></i></a>';  
+
+   echo '</td>';
+
+
+        echo '</tr>';
+        endwhile;
+        ?>    
+       </tbody>
+      </table>
+
+
+
+
+
+
+     </div>
     </div>
    </div>
-   <div class="col-md-4 col-sm-6 col-xs-12">
-    <div class="box box-widget widget-user">
-     <div class="info-box">
-      <a href="dashboard.php" >
-       <span class="info-box-icon bg-aqua">
-        <i class="fa fa-plus"></i>
-       </span>
-      </a>
-      <div class="info-box-content"><h4>ATENDIMENTOS</h4></div>
-     </div>                  
-    </div>
-   </div> 
-    <?php } else { } ?>
-    <section class="col-lg-12 connectedSortable">
-     <div class="nav-tabs-custom">
-      <ul class="nav nav-tabs pull-right">
-       <li class="active"><a href="#geral" data-toggle="tab">Lista Geral</a></li>
-        <li><a href="#pendentes" data-toggle="tab">Atendimentos Pendentes</a></li>
-        <li><a href="#finalizados" data-toggle="tab">Atendimentos Finalizados</a></li>
-        <li class="pull-left header">
-         <i class="fa fa-inbox"></i> Lista de Atendimentos do Gerais
-        <li>
-         <button type="button" class="btn bg-navy btn-sm" data-toggle="modal" data-target="#help">
-          <i class="fa fa-question"></i> AJUDA
-         </button>
-        </li>
-      </ul>
-      <div class="tab-content no-padding">
-       <div class="tab-pane active" id="geral">
-      <?php include_once 'tabVGeral.php'; ?>
-       </div>
-       <div class="tab-pane" id="pendentes">
-      <?php include_once 'tabPendenteGeral.php'; ?>
-       </div>
-       <div class="tab-pane" id="finalizados">
-      <?php include_once 'tabFinalGeral.php'; ?>      
-       </div>
-      </div>
-     </div>
-    </section>
   </div><!-- CLASS ROW -->
-  <?php include_once 'modalSup.php'; ?>
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once '../footer.php'; ?>
-<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/tabela/jquery-1.12.3.js"></script>
+<script src="../plugins/tabela/jquery.dataTables.min.js"></script>
+<script src="../plugins/tabela/dataTables.scroller.min.js"></script>
+
+
 <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+
+
+
+
+<script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
-<script src="../plugins/select2/select2.full.min.js"></script>
-
 <script>
   $(function () {
-    $('#tabVGeral').DataTable();
-    $('#tabFinalGeral').DataTable();
-    $('#tabPendenteGeral').DataTable();
+    $('#revenda').DataTable();
+    $('#finalizadosUser').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });
   });
 </script>
+
 <script language="JavaScript">
 function abrir(URL) { 
   var width = 1200;
@@ -154,32 +175,4 @@ function abrir(URL) {
   window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
 }
 </script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-  });
-</script>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select3").select2();
-  });
-</script>
-<script type="text/javascript">
-$('#exampleModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever')
-  var idvalor = button.data('idvalue') 
-  var botao = button.data('botao')
-  var modal = $(this)
-  modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body input').val(recipient)
-  modal.find('.modal-valor input').val(idvalor)
-  modal.find('.modal-botao input').val(botao)
-  modal.find('.modal-titulo input').val(recipient)
-})
-
-</script>
-
 </html>

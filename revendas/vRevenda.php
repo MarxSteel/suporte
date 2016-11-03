@@ -4,12 +4,9 @@
  $PDO = db_connect();
 require_once '../QueryUser.php';
    $id = $_GET['ID'];
-   $dFor = $PDO->prepare("SELECT * FROM revenda WHERE EMPRESA_ID='$id'");
+   $dFor = $PDO->prepare("SELECT * FROM cad_empresa WHERE EMPRESA_ID='$id'");
    $dFor->execute();
-    $campo = $dFor->fetch();
-    $Resumo = $campo['RAZAO_SOCIAL'];
-    
-
+    $campo = $dFor->fetch();    
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,65 +58,112 @@ word-wrap: break-word;
    <section class="content">
     <div class="box box-default">
      <div class="box-body">
-      <div class="col-xs-8">RAZÃO SOCIAL
+      <h4>Dados da Revenda</h4>
+      <div class="col-xs-9">RAZÃO SOCIAL
        <li class="list-group-item">
-        <?php echo $campo['RAZAO_SOCIAL']; ?>
+        <strong><?php echo $campo['RAZAO_SOCIAL']; ?></strong>
        </li>
       </div>
-      <div class="col-xs-4">NOME FANTASIA
+      <div class="col-xs-3">CNPJ
        <li class="list-group-item">
-        <?php echo $campo['NOME_FANTASIA']; ?>
+        <code>
+        <?php 
+          $CNPJ1 = substr($campo['CNPJ'], 0, 2);
+          $CNPJ2 = substr($campo['CNPJ'], 2, 3);
+          $CNPJ3 = substr($campo['CNPJ'], 5, 3);
+          $CNPJ4 = substr($campo['CNPJ'], 8, 4);
+          $CNPJ5 = substr($campo['CNPJ'], 12, 2);
+          $ValorCNPJ = $CNPJ1 . '.' . $CNPJ2 . '.' . $CNPJ3 . '/' . $CNPJ4 . '-' . $CNPJ5;
+          echo $ValorCNPJ;
+        ?>
+        </code>
        </li>
       </div>
-      <div class="col-xs-3">E-MAIL
+      <div class="col-xs-4">E-MAIL
        <li class="list-group-item">
         <?php echo $campo['EMAIL']; ?>
        </li>
       </div>
-      <div class="col-xs-3">DATA DE CADASTRO
+      <div class="col-xs-8">NOME FANTASIA
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['NOME_FANTASIA']; ?>
        </li>
       </div>
-      <div class="col-xs-2">CHAMADO
+      <div class="col-xs-3">TELEFONE 1
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+       <strong>(<?php echo $campo['DDD1']; ?>) - <?php echo $campo['TELEFONE1']; ?></strong>
        </li>
       </div>
-      <div class="col-xs-3">USER. ATENDENTE
+      <div class="col-xs-3">TELEFONE 2
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+       <strong>(<?php echo $campo['DDD2']; ?>) - <?php echo $campo['TELEFONE2']; ?></strong>
        </li>
       </div>
-      <div class="col-xs-2">USER. CADASTRO
+      <div class="col-xs-3">TELEFONE 3
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+       <strong>(<?php echo $campo['DDD3']; ?>) - <?php echo $campo['TELEFONE3']; ?></strong>
        </li>
       </div>
-      <div class="col-xs-2">RETORNO DE ASSIST.
+      <div class="col-xs-3">TELEFONE 4
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+       <strong>(<?php echo $campo['DDD4']; ?>) - <?php echo $campo['TELEFONE4']; ?></strong>
        </li>
       </div>
-      <div class="col-xs-2">STATUS
+      <h4>Dados de Endereço</h4>
+      <div class="col-xs-6">ENDEREÇO
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['ENDERECO']; ?>
        </li>
       </div>
-      <div class="col-xs-3">Num. Serie
+      <div class="col-xs-2">Nº
        <li class="list-group-item">
-        <?php echo $Resumo; ?>
+        <?php echo $campo['NUMERO_END']; ?>
        </li>
       </div>
-      <div class="col-xs-12">ATENDIMENTO
+      <div class="col-xs-4">COMPLEMENTO
        <li class="list-group-item">
-       <h4>Solicitação do Cliente:</h4>
+        <?php 
+          $COMPLEMENTO = $campo['COMPLEMENTO_END'];
+            if ($COMPLEMENTO == "") {
+              echo "N";
+            }
+            else{
+              echo $campo['COMPLEMENTO_END'];
+            }
+         ?>
+       </li>
+      </div>
+      <div class="col-xs-4">BAIRRO
+       <li class="list-group-item">
+        <?php echo $campo['BAIRRO']; ?>
+       </li>
+      </div>
+      <div class="col-xs-2">CEP
+       <li class="list-group-item">
+       <code>
+       <?php
+        $CEP1 = substr($campo['CEP'], 0, 2);
+        $CEP2 = substr($campo['CEP'], 2, 3);
+        $CEP3 = substr($campo['CEP'], 5, 6);
+        echo $CEP1 . '.' . $CEP2 . '-' . $CEP3;
+        ?>
+        </code>
+       </li>
+      </div>
+      <div class="col-xs-4">CIDADE
+       <li class="list-group-item">
+        <?php echo $campo['CIDADE']; ?>
+       </li>
+      </div>
+      <div class="col-xs-2">ESTADO
+       <li class="list-group-item">
+        <?php echo $campo['UF']; ?>
+       </li>
+      </div>
+      <div class="col-xs-12">OBSERVAÇÕES
+       <li class="list-group-item">
         <i class="texto">
-         <?php echo $Resumo; ?>
-        </i>
-       <h4>Resumo do Atendimento:</h4>
-        <i class="texto">
-         <?php echo $Resumo; ?>
+        <?php echo $campo['OBSERVACOES']; ?>
         </i>
        </li>
       </div>

@@ -175,6 +175,12 @@ function abrir(URL) {
     $(".select2").select2();
   });
 </script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select3").select2();
+  });
+</script>
 <script type="text/javascript">
 $('#exampleModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal

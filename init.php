@@ -12,6 +12,17 @@ define('DB_PASS', $pass);
 define('DB_NAME', $banco);
 
 
+
+// DECLARANDO CONEXÃO MYSQLI
+	$conn = new mysqli($host, $user, $pass, $banco);
+	//Checando a Conexão
+	if ($conn->connect_error) 
+	{
+    	die("Erro de Conexão: " . $conn->connect_error);
+	} 
+
+
+
 date_default_timezone_set('America/Sao_Paulo'); //DEFININDO O TIMEZONE PARA TODAS AS PÁGINAS
 
 

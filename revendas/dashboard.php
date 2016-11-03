@@ -4,10 +4,6 @@ require_once '../init.php';
 $cRev = "active";
 $PDO = db_connect();
 require_once '../QueryUser.php';
-
-  $ChamaRevendas = "SELECT * FROM revenda";
-  $cRevenda = $PDO->prepare($ChamaRevendas);
-  $cRevenda->execute();
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,6 +20,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -81,46 +78,46 @@ require_once '../QueryUser.php';
        <h3 class="box-title">Lista de Revendas</h3>
      </div>
      <div class="box-body">
-      <table id="revenda" class="table table-hover table-striped">
+     <?php
+      $sql = "SELECT EMPRESA_ID, CIDADE, DDD1, EMAIL, RAZAO_SOCIAL, TELEFONE1 FROM lista_revenda";
+       $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+     ?>
+      <table id="revenda" class="table table-striped" width="100%" cellspacing="0">
        <thead>
         <tr>
-         <td>Razão Social</td>
-         <td>Nome Fantasia</td>
-         <td>E-Mail</td>
+         <td width="5%"></td>
+         <td width="50%">Razão Social</td>
+         <td width="15%">Cidade</td>
          <td width="15%">Telefone</td>
-         <td></td>
+         <td width="15%">E-Mail</td>         
         </tr>
        </thead>
        <tbody>
-        <?php while ($R = $cRevenda->fetch(PDO::FETCH_ASSOC)): 
+       <?php
+        while($row = $result->fetch_assoc()) {
+
         echo '<tr>';
-         echo '<td>' . $R["RAZAO_SOCIAL"] . '</td>';
-         echo '<td>' . $R["NOME_FANTASIA"] . '</td>';
-         echo '<td>' . $R["EMAIL"] . '</td>';
-         echo '<td>' . $R["DDD1"] . ' - ' . $R["TELEFONE1"] . '</td>';
          echo '<td>';
-
-
-
-   
-      echo '<a class="btn btn-default btn-xs" href="';
-      echo "javascript:abrir('vRevenda.php?ID=" . $R["EMPRESA_ID"] . "');";
-      echo '"><i class="fa fa-search"></i></a>';  
-
-   echo '</td>';
-
-
+         echo '<a class="btn btn-default btn-xs" href="';
+         echo "javascript:abrir('vRevenda.php?ID=" . $row["EMPRESA_ID"] . "');";
+         echo '"><i class="fa fa-search"></i></a>';  
+        echo '</td>';
+         echo '<td>' . $row["RAZAO_SOCIAL"] . '</td>';
+         echo '<td>' . $row["CIDADE"] . '</td>';
+         echo '<td>' . $row["DDD1"] . '-' .  $row["TELEFONE1"] . '</td>';
+         echo '<td>' . $row["EMAIL"] . '</td>';
         echo '</tr>';
-        endwhile;
-        ?>    
+
+       }
+     }
+     else{
+
+     }
+       $conn->close();
+       ?>
        </tbody>
-      </table>
-
-
-
-
-
-
+     </table>
      </div>
     </div>
    </div>
@@ -128,25 +125,17 @@ require_once '../QueryUser.php';
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once '../footer.php'; ?>
-<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/tabela/jquery-1.12.3.js"></script>
+<script src="../plugins/tabela/jquery.dataTables.min.js"></script>
+<script src="../plugins/tabela/dataTables.scroller.min.js"></script>
 <script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
-<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
 <script>
   $(function () {
     $('#revenda').DataTable();
-    $('#finalizadosUser').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
   });
 </script>
 <script language="JavaScript">
