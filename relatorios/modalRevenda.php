@@ -29,7 +29,7 @@ process = function()
      $P1 = $PDO->prepare($ChamaRevenda);
      $P1->execute();
 	?>
-    <form action="rRevendaGeral.php" method="get" name="revg" target="popup" onsubmit="process(); return false;">
+    <form name="revg" action="rRevendaGeral.php" target="_blank">
      <div class="col-xs-12">Selecione a Revenda
        <select class="form-control revendaGeral" name="revenda" style="width: 100%;">
         <option value="" selected="selected">SELECIONE</option>
