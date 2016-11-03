@@ -8,6 +8,12 @@ require_once '../QueryUser.php';
 $DataRelatorio = date('d/m/Y H:i:s');
 $teste = "teste";
 
+
+   $dFor = $PDO->prepare("SELECT * FROM lista_revenda WHERE RAZAO_SOCIAL='$Revenda'");
+   $dFor->execute();
+    $campo = $dFor->fetch();
+    $idRevenda = $campo['EMPRESA_ID'];
+
 	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS 
   	$GeralAtende = "SELECT COUNT(*) FROM atendimento ";
   	 $qGeralAtende = $PDO->prepare($GeralAtende);
@@ -53,6 +59,9 @@ $teste = "teste";
 
 <script src="../plugins/chartist/chartist.min.js"></script>
 <link href="../plugins/chartist/chartist.min.css" rel="stylesheet" type="text/css" />
+
+ <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
+
 </head>
 <body class="hold-transition skin-blue layout-top-nav">
  <div class="wrapper">
@@ -75,27 +84,25 @@ $teste = "teste";
   </header>
   <div class="content-wrapper">
    <div class="container">
-    <section class="invoice">
-      <!-- title row -->
-      <div class="row">
-        <div class="col-xs-12">
-          <h2 class="page-header">
-           Henry Equipamentos e Sistemas
-            <small class="pull-right">Data do Relatório: <?php echo $DataRelatorio; ?> </small>
-          </h2>
-        </div>
-        <!-- /.col -->
-      </div>
-      <div class="row invoice-info">
-       <div class="col-sm-4 invoice-col">
-        <address>
-         <h4>Revenda: </h4>
-          <li class="list-group-item">
+ <section class="content">
+  <div class="row">
+   <div class="col-md-12">
+    <div class="box box-primary">
+     <div class="box-header">
+      <i class="ion ion-clipboard"></i>
+       <h3 class="box-title">Relatório Geral de Revenda</h3>
+       <small class="pull-right">Data do Relatório: <?php echo $DataRelatorio; ?> </small>
+     </div>
+     <div class="box-body">
+      <div class="col-sm-4 invoice-col">
+       <address>
+        <h4>Revenda: </h4>
+         <li class="list-group-item">
            <?php 
            echo $Revenda; 
            echo '<small class="pull-right">';
-			echo '<a class="btn btn-default btn-xs" href="';
-            echo "javascript:abrir('../revendas/vRevenda.php?ID=" . $Revenda . "');";
+           echo '<a class="btn btn-default btn-xs" href="';
+            echo "javascript:abrir('../revendas/vRevenda.php?ID=" . $idRevenda . "');";
             echo '"><i class="fa fa-search"></i></a>'; 
             echo '</small>';
            ?>
@@ -112,85 +119,92 @@ $teste = "teste";
           <li class="list-group-item">
            <code><?php echo $qtAtendPendente; ?></code>
           </li>
-        </address>
-       </div>
-        <div class="col-sm-4 invoice-col">
-          <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">Atendimentos da Revenda</h3>
-            </div>
-            <div class="box-body chart-responsive">
-			 <div id="AtendimentosRevenda" style="height: 220px; width: 100%;">
-     		</div>
-            <strong>PENDENTES:</strong>
-             <span class="badge bg-red pull-right"><?php echo $qtAtendPendente; ?></span><br  />
-            <strong>FINALIZADOS:</strong>
-             <span class="badge bg-green pull-right"><?php echo $qtAtendFinal; ?></span>
-
-
-
-          </div>
-        </div>
-        </div>
-       <div class="col-sm-4 invoice-col">
-          <div class="box box-danger">
-            <div class="box-header with-border">
-              <h3 class="box-title">Atendimentos da Revenda</h3>
-            </div>
-            <div class="box-body chart-responsive">
-			 <div id="AtendimentosGerais" style="height: 220px; width: 100%;">
-
-
-     		</div>
-            <strong>ATENDIMENTOS DA REVENDA:</strong>
-             <span class="badge bg-red pull-right"><?php echo $qtAtendTotal; ?></span><br  />
-            <strong>TODOS OS ATENDIMENTOS:</strong>
-             <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
-
-          </div>
-        </div>
-        </div>
+       </address>
       </div>
-      <h3> Resumo dos chamados no período selecionado </h3>
-      <!-- AQUI COMEÇA A TABELA DE LISTA DOS CHAMADOS REALIZADOS NO PERÍODO -->
-      <!-- QUERY DE BUSCA DOS CHAMADOS -->
-       <?php
-        $ChamaChamados = "SELECT * FROM atendimento WHERE Revenda='$Revenda'";
-        $ChChama = $PDO->prepare($ChamaChamados);
-        $ChChama->execute();
-       ?>
-       <table id="pendente" class="table table-hover table-striped table-responsive">
-        <thead>
-         <tr>
-          <td>Cham.</td>
-          <td>Equipamento</td>
-          <td>Técnico da Revenda</td>
-          <td>Atendente</td>
-          <td>Cadastro</td>
-          <td>Data de Cadastro</td>
-          <td></td>
-         </tr>
-        </thead>
-        <tbody>
-        <?php while ($chamadosChamados = $ChChama->fetch(PDO::FETCH_ASSOC)): 
-         echo '<tr>';
-          echo '<td>' . $chamadosChamados["id"] . '</td>';
-          echo '<td>' . $chamadosChamados["Equip"] . '</td>';
-          echo '<td>' . $chamadosChamados["RevendaTecnico"] . '</td>'; 
-          echo '<td>' . $chamadosChamados["UserAtendente"] . '</td>';   
-          echo '<td>' . $chamadosChamados["DescSolicita"] . '</td>';   
-          echo '<td>' . $chamadosChamados["DataCadastro"] . '</td>';
-          echo '<td>';
-           echo '<a class="btn btn-default btn-xs" href="';
-           echo "javascript:abrir('../atendimento/Visualizar.php?ID=" . $chamadosChamados["id"] . "');";
-           echo '"><i class="fa fa-search"></i></a>';    
-          echo '</td>';
-         echo '</tr>';
-          endwhile;
-         ?>
-        </tbody>
-       </table>
-    </section>
+      <div class="col-sm-4 invoice-col">
+       <div class="box box-danger">
+        <div class="box-header with-border">
+         <h3 class="box-title">Atendimentos da Revenda</h3>
+        </div>
+        <div class="box-body chart-responsive">
+         <div id="AtendimentosRevenda" style="height: 220px; width: 100%;"></div>
+         <strong>PENDENTES:</strong>
+         <span class="badge bg-red pull-right"><?php echo $qtAtendPendente; ?></span><br  />
+         <strong>FINALIZADOS:</strong>
+         <span class="badge bg-green pull-right"><?php echo $qtAtendFinal; ?></span>
+        </div>
+       </div>
+      </div>
+      <div class="col-sm-4 invoice-col">
+       <div class="box box-danger">
+        <div class="box-header with-border">
+         <h3 class="box-title">Atendimentos da Revenda</h3>
+        </div>
+        <div class="box-body chart-responsive">
+         <div id="AtendimentosGerais" style="height: 220px; width: 100%;"></div>
+          <strong>ATENDIMENTOS DA REVENDA:</strong>
+          <span class="badge bg-red pull-right"><?php echo $qtAtendTotal; ?></span><br  />
+          <strong>TODOS OS ATENDIMENTOS:</strong>
+          <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
+        </div>
+       </div>
+      </div>
+
+
+     </div>
+    </div>
+   </div>
+  </div><!-- CLASS ROW -->
+ </section>
+
+
+ <section class="content">
+  <div class="row">
+   <div class="col-md-12">
+    <div class="box box-primary">
+     <div class="box-header">
+      <i class="ion ion-clipboard"></i>
+       <h3 class="box-title">Lista de Atendimentos</h3>
+     </div>
+     <div class="box-body">
+      <table id="finalizadosUser" class="table table-hover table-striped table-responsive">
+ <thead>
+  <tr>
+   <td>Cham.</td>
+   <td>Modelo</td>
+   <td>Revenda</td>
+   <td>Técnico da Revenda</td>
+   <td>Cadastro</td>
+   <td>Atendente</td>
+   <td></td>
+
+  </tr>
+ </thead>
+ <tbody>
+<tr>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+<td></td>
+</tr>
+ </tbody>
+</table>
+
+
+
+
+
+     </div>
+    </div>
+   </div>
+  </div><!-- CLASS ROW -->
+ </section>
+
+
+
   </div>
  </div>
 <?php include_once '../footer.php'; ?></div>
@@ -205,6 +219,23 @@ $teste = "teste";
 <script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="../plugins/canvas/jquery.canvasjs.min.js"></script>
 <script src="../plugins/canvas/canvasjs.min.js"></script>
+<script src="../plugins/select2/select2.full.min.js"></script>
+
+<script>
+  $(function () {
+    $('#pendente').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });
+    $('#finalizadosUser').DataTable();
+  });
+</script>
+
+
 	<script type="text/javascript">
 window.onload = function () {
 	var chart = new CanvasJS.Chart("AtendimentosRevenda",
@@ -229,6 +260,7 @@ window.onload = function () {
 	chart.render();
 	}
 	</script>
+
 <script type="text/javascript">
 		$(function () {
 			//Better to construct options first and then pass it as a parameter
@@ -248,8 +280,8 @@ window.onload = function () {
 					indexLabelLineColor: "darkgrey",
 					toolTipContent: "{y} %",
 					dataPoints: [
-						{ y: <?php echo $qtGeralAtende; ?>, legendText: "Geral #percent%", indexLabel: "Geral #percent%" },
-						{ y: <?php echo $qtAtendTotal; ?>, legendText: "Revenda #percent%", indexLabel: "Revenda #percent%" }
+						{ y: 55, legendText: "Geral #percent%", indexLabel: "Geral #percent%" },
+						{ y: 55, legendText: "Revenda #percent%", indexLabel: "Revenda #percent%" }
 					]
 				}
 
@@ -260,25 +292,15 @@ window.onload = function () {
 
 
 	</script>
-<script>
-  $(function () {
-    $('#pendente').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-    $('#finalizadosUser').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-  });
+
+<script language="JavaScript">
+function abrir(URL) { 
+  var width = 1200;
+  var height = 650;
+  var left = 99;
+  var top = 99;
+  window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
+}
 </script>
 </body>
 </html>
