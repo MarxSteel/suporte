@@ -3,7 +3,6 @@ require("../restritos.php");
 require_once '../init.php';
 $cAtend = "active";
 $PDO = db_connect();
-$PDO2 = db_connect2();
 require_once '../QueryUser.php';
 ?>
 <!DOCTYPE html>
