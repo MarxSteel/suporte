@@ -91,20 +91,75 @@ $QryUser->execute();
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content"><br /><h4>Relatório por Usuário</h4></div>
+      <div class="info-box-content">X<br /><h4>Relatório de Usuário Geral</h4></div>
      </div>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#modalModelo"">
+      <a data-toggle="modal" data-target="#ruserPeriodo"">
        <span class="info-box-icon bg-yellow">
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content"><br /><h4>Relatório por Modelo</h4></div>
+      <div class="info-box-content">X<br /><h4>Relatório de Usuário por período</h4></div>
      </div>
     </div>
-  <?php  include_once 'modalRelatorio.php'; } else{ ?>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+     </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#ruserPeriodo"">
+       <span class="info-box-icon bg-blue">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content">X<br /><h4>Relatório de Modelo Geral</h4></div>
+     </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#ruserPeriodo"">
+       <span class="info-box-icon bg-blue">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content">X<br /><h4>Relatório de Modelo por período</h4></div>
+     </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+     </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#revendaGeral"">
+       <span class="info-box-icon bg-red">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content">X<br /><h4>Relatório de Revenda Geral</h4></div>
+     </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+      <a data-toggle="modal" data-target="#revendaPeriodo"">
+       <span class="info-box-icon bg-red">
+        <i class="fa fa-plus"></i>
+       </span>
+      </a>
+      <div class="info-box-content">X<br /><h4>Relatório de Revenda por período</h4></div>
+     </div>
+    </div>
+    <div class="col-md-4 col-sm-6 col-xs-12">
+     <div class="info-box">
+     </div>
+    </div>
+   <?php  
+   include_once 'modalRelatorio.php'; 
+   require_once 'modalRevenda.php';
+   } else{ ?>
    <div class="col-md-12 col-sm-6 col-xs-12">
     <div class="info-box">
       <span class="info-box-icon bg-red">
@@ -157,5 +212,33 @@ function formatar(mascara, documento){
     //Initialize Select2 Elements
     $(".select2").select2();
   });
+</script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select3").select2();
+  });
+</script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".revendaGeral").select2();
+  });
+</script>
+
+<script type="text/javascript">
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever')
+  var idvalor = button.data('idvalue') 
+  var botao = button.data('botao')
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+  modal.find('.modal-valor input').val(idvalor)
+  modal.find('.modal-botao input').val(botao)
+  modal.find('.modal-titulo input').val(recipient)
+})
+
 </script>
 </html>
