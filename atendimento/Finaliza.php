@@ -8,6 +8,8 @@ require_once '../QueryUser.php';
    $dFor->execute();
     $campo = $dFor->fetch();
     $Resumo = $campo['DescAtend'];
+    $DescAtend = $campo['DescAtend'];
+
 ?>
 <!DOCTYPE html>
 <html>

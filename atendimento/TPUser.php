@@ -33,7 +33,7 @@ $PU->execute();
       echo '<a class="btn btn-warning btn-xs" href="';
       echo "javascript:abrir('Atualizar.php?ID=" . $PUser["id"] . "');";
       echo '"><i class="fa fa-refresh"></i></a>&nbsp;';    
-      echo '<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="' . $PUser["id"] . '" data-idvalue="' . $PUser["id"] . '" data-botao="FINALIZAR"><i class="fa fa-check"></i></button></td>';
+      echo '<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="' . $PUser["id"] . '" data-idvalue="' . $PUser["id"] . '" data-botao="FINALIZAR" data-obs="' . $PUser["DescAtend"] . '"><i class="fa fa-check"></i></button></td>';
    echo '</td>';
    echo '</tr>';
    endwhile;
@@ -83,7 +83,7 @@ $PU->execute();
             $V1 = "<br /><strong>Chamado Finalizado</strong>";
             $V2 = "<br />Data: " . $dataFin;
             $V3 = "<br /><strong<Usuário: " . $NomeUserLogado . "</strong><br />";
-            $Obs = $Observa . $V1 . $V2 . $V3 . $Observa;
+            $Obs = $ObservaAntigo . $V1 . $V2 . $V3 . $Observa;
           
           $Finalizar = $PDO->query("UPDATE atendimento SET Status='1', DescAtend='$Obs' WHERE id='$iProd'");
          if ($Finalizar) 
