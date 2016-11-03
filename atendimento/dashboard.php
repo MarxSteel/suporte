@@ -185,7 +185,8 @@ function abrir(URL) {
 $('#exampleModal').on('show.bs.modal', function (event) {
   var button = $(event.relatedTarget) // Button that triggered the modal
   var recipient = button.data('whatever')
-  var idvalor = button.data('idvalue') 
+  var idvalor = button.data('idvalue')
+  var obs = button.data('obs') 
   var botao = button.data('botao')
   var modal = $(this)
   modal.find('.modal-title').text('New message to ' + recipient)
@@ -193,8 +194,12 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   modal.find('.modal-valor input').val(idvalor)
   modal.find('.modal-botao input').val(botao)
   modal.find('.modal-titulo input').val(recipient)
+  modal.find('.modal-obs input').val(obs)
 })
 
+
+
+data-obs
 </script>
 
 </html>
