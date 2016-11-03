@@ -19,7 +19,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
- <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="../plugins/select2/select2.min.css">
  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 
 </head>
@@ -158,7 +158,28 @@ function abrir(URL) {
   $(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
-
   });
 </script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $(".select3").select2();
+  });
+</script>
+<script type="text/javascript">
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever')
+  var idvalor = button.data('idvalue') 
+  var botao = button.data('botao')
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+  modal.find('.modal-valor input').val(idvalor)
+  modal.find('.modal-botao input').val(botao)
+  modal.find('.modal-titulo input').val(recipient)
+})
+
+</script>
+
 </html>
