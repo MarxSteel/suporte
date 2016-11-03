@@ -2,10 +2,9 @@
  require("../restritos.php"); 
  require_once '../init.php';
  $PDO = db_connect();
- $PDO2 = db_connect2();
 require_once '../QueryUser.php';
    $id = $_GET['ID'];
-   $dFor = $PDO2->prepare("SELECT * FROM cad_empresa WHERE EMPRESA_ID='$id'");
+   $dFor = $PDO->prepare("SELECT * FROM cad_empresa WHERE EMPRESA_ID='$id'");
    $dFor->execute();
     $campo = $dFor->fetch();    
 ?>
