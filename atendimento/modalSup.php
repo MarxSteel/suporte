@@ -5,8 +5,11 @@ $ChamaProduto = "SELECT * FROM produto";
  $prod->execute();
  
 
-$ChamaRevenda = "SELECT NOME_FANTASIA FROM cad_empresa";
- $Rev = $PDO2->prepare($ChamaRevenda);
+
+
+
+$ChamaRevenda = "SELECT * FROM lista_revenda";
+ $Rev = $PDO->prepare($ChamaRevenda);
  $Rev->execute();
 
 
@@ -30,7 +33,7 @@ $ChamaRevenda = "SELECT NOME_FANTASIA FROM cad_empresa";
        <select class="form-control select3" name="revenda" style="width: 100%;">
         <option value="" selected="selected">SELECIONE</option>
         <?php while ($r = $Rev->fetch(PDO::FETCH_ASSOC)): ?>
-        <option value="<?php echo $r['NOME_FANTASIA'] ?>"><?php echo $r['NOME_FANTASIA'] ?></option>
+        <option value="<?php echo $r['RAZAO_SOCIAL'] ?>"><?php echo $r['RAZAO_SOCIAL'] ?></option>
         <?php endwhile; ?>
        </select>
       </div>
@@ -155,7 +158,7 @@ $ChamaRevenda = "SELECT NOME_FANTASIA FROM cad_empresa";
    <div class="col-xs-4">
     <button class="btn btn-success btn-block"><i class="fa fa-check"></i></button>
    </div>
-   <div class="col-xs-8" align="left"><h4>BOTÃO PARA ATUALIZAR OBSERVAÇÕES DE CHAMADO</h4>
+   <div class="col-xs-8" align="left"><h4>BOTÃO PARA FINALIZAR CHAMADO</h4>
    </div><br />
 
    <div class="modal-footer"></div>
