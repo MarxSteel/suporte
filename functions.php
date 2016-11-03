@@ -10,13 +10,6 @@ function db_connect()
     return $PDO;
 }
   
-
-  function db_connect2()
-{
-    $PDO2 = new PDO('mysql:host=' . DB_HOST2 . ';dbname=' . DB_NAME2 . ';charset=utf8', DB_USER2, DB_PASS2);
-  
-    return $PDO2;
-}
  
 /**
  * Converte datas entre os padrões ISO e brasileiro
