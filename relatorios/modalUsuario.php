@@ -31,7 +31,7 @@ process = function()
 	?>
     <form name="rusg" action="rUsuarioGeral.php" target="_blank">
      <div class="col-xs-12">Selecione o Usuário
-       <select class="form-control revendaGeral" name="revenda" style="width: 100%;">
+       <select class="form-control revendaGeral" name="atendente" style="width: 100%;">
         <option value="" selected="selected">SELECIONE</option>
         <?php while ($R1 = $P1->fetch(PDO::FETCH_ASSOC)): ?>
         <option value="<?php echo $R1['nome'] ?>"><?php echo $R1['nome'] ?></option>
