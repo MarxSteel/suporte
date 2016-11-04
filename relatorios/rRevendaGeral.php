@@ -53,12 +53,7 @@ $teste = "teste";
 <link href="../plugins/pizza/dist/css/pizza.css" media="screen, projector, print" rel="stylesheet" type="text/css" />
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="js/vendor/snap.svg.js"></script>
-<script src="./plugins/pizza/dist/js/jquery.pizza.js"></script>
-
-
-<script src="../plugins/chartist/chartist.min.js"></script>
-<link href="../plugins/chartist/chartist.min.css" rel="stylesheet" type="text/css" />
+ <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
 
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
 
@@ -127,37 +122,34 @@ $teste = "teste";
          <h3 class="box-title">Atendimentos da Revenda</h3>
         </div>
         <div class="box-body chart-responsive">
-         <div id="AtendimentosRevenda" style="height: 220px; width: 100%;"></div>
+         <div id="chartContainer1" style="width: 100%; height: 400px;display: inline-block;"></div>
+        </div>
+
          <strong>PENDENTES:</strong>
          <span class="badge bg-red pull-right"><?php echo $qtAtendPendente; ?></span><br  />
          <strong>FINALIZADOS:</strong>
          <span class="badge bg-green pull-right"><?php echo $qtAtendFinal; ?></span>
-        </div>
        </div>
       </div>
       <div class="col-sm-4 invoice-col">
        <div class="box box-danger">
         <div class="box-header with-border">
-         <h3 class="box-title">Atendimentos da Revenda</h3>
+         <h3 class="box-title">Atendimentos da Gerais</h3>
         </div>
         <div class="box-body chart-responsive">
-         <div id="AtendimentosGerais" style="height: 220px; width: 100%;"></div>
+  <div id="chartContainer2" style="width: 100%; height: 400px;display: inline-block;"></div>
+        </div>
           <strong>ATENDIMENTOS DA REVENDA:</strong>
           <span class="badge bg-red pull-right"><?php echo $qtAtendTotal; ?></span><br  />
           <strong>TODOS OS ATENDIMENTOS:</strong>
           <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
-        </div>
        </div>
       </div>
-
-
      </div>
     </div>
    </div>
   </div><!-- CLASS ROW -->
  </section>
-
-
  <section class="content">
   <div class="row">
    <div class="col-md-12">
@@ -167,44 +159,45 @@ $teste = "teste";
        <h3 class="box-title">Lista de Atendimentos</h3>
      </div>
      <div class="box-body">
-      <table id="finalizadosUser" class="table table-hover table-striped table-responsive">
- <thead>
-  <tr>
-   <td>Cham.</td>
-   <td>Modelo</td>
-   <td>Revenda</td>
-   <td>Técnico da Revenda</td>
-   <td>Cadastro</td>
-   <td>Atendente</td>
-   <td></td>
-
-  </tr>
- </thead>
- <tbody>
-<tr>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-<td></td>
-</tr>
- </tbody>
-</table>
-
-
-
-
-
+      <?php
+      $PUsr = "SELECT * FROM atendimento WHERE Revenda='$Revenda'";
+      $PU = $PDO->prepare($PUsr);
+      $PU->execute();
+      ?>
+      <table id="revenda" class="table table-hover table-responsive" cellspacing="0" width="100%">
+       <thead>
+        <tr>
+         <td>Cham.</td>
+         <td>Modelo</td>
+         <td>Técnico da Revenda</td>
+         <td>Cadastro</td>
+         <td>Atendente</td>
+         <td></td>
+        </tr>
+       </thead>
+       <tbody>
+       <?php while ($PUser = $PU->fetch(PDO::FETCH_ASSOC)): 
+        echo '<tr>';
+        echo '<td>' . $PUser["id"] . '</td>';
+         echo '<td><span class="badge bg-blue">' . $PUser["Equip"] . '</span></td>';
+         echo '<td>' . $PUser["RevendaTecnico"] . '</td>';   
+         echo '<td>' . $PUser["DescSolicita"] . '</td>';   
+         echo '<td>' . $PUser["UserAtendente"] . '</td>';
+         echo '<td>';
+          echo '<a class="btn btn-default btn-xs" href="';
+          echo "javascript:abrir('../atendimento/Visualizar.php?ID=" . $PUser["id"] . "');";
+          echo '"><i class="fa fa-search"></i></a>';  
+         echo '</td>';
+        echo '</tr>';
+        endwhile;
+        ?>
+       </tbody>
+      </table>
      </div>
     </div>
    </div>
   </div><!-- CLASS ROW -->
  </section>
-
-
-
   </div>
  </div>
 <?php include_once '../footer.php'; ?></div>
@@ -219,79 +212,62 @@ $teste = "teste";
 <script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="../plugins/canvas/jquery.canvasjs.min.js"></script>
 <script src="../plugins/canvas/canvasjs.min.js"></script>
-<script src="../plugins/select2/select2.full.min.js"></script>
 
-<script>
-  $(function () {
-    $('#pendente').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-    $('#finalizadosUser').DataTable();
-  });
-</script>
-
-
-	<script type="text/javascript">
-window.onload = function () {
-	var chart = new CanvasJS.Chart("AtendimentosRevenda",
-	{
-     animationEnabled: true,
-     data: [
-		{
-					type: "doughnut",
-					indexLabelFontFamily: "Helvetica",
-					indexLabelFontSize: 15,
-					startAngle: 130,
-					indexLabelFontColor: "dimgrey",
-					indexLabelLineColor: "darkgrey",
-					toolTipContent: "{y} %",
-			dataPoints: [
-				{y: <?php echo $qtAtendFinal; ?>, indexLabel: "Finalizados #percent%", legendText: "Finalizados" },
-				{y: <?php echo $qtAtendPendente; ?>, indexLabel: "Pendentes #percent%", legendText: "Pendentes" }
-			]
-		}
-		]
-	});
-	chart.render();
-	}
-	</script>
 
 <script type="text/javascript">
-		$(function () {
-			//Better to construct options first and then pass it as a parameter
-			var options = {
-				animationEnabled: true,
-				legend: {
-					verticalAlign: "bottom",
-					horizontalAlign: "center"
-				},
-				data: [
-				{
-					type: "doughnut",
-					indexLabelFontFamily: "Helvetica",
-					indexLabelFontSize: 15,
-					startAngle: 11,
-					indexLabelFontColor: "dimgrey",
-					indexLabelLineColor: "darkgrey",
-					toolTipContent: "{y} %",
-					dataPoints: [
-						{ y: 55, legendText: "Geral #percent%", indexLabel: "Geral #percent%" },
-						{ y: 55, legendText: "Revenda #percent%", indexLabel: "Revenda #percent%" }
-					]
-				}
+    $(function () {
+      //Better to construct options first and then pass it as a parameter
+      var options = {
+        animationEnabled: true,
+        legend: {
+          verticalAlign: "bottom",
+          horizontalAlign: "center"
+        },
+        data: [
+        {
+          type: "pie",
+                    startAngle: 90,
 
-				]
-			};
-			$("#AtendimentosGerais").CanvasJSChart(options);
-		});
+          showInLegend: false,
+          toolTipContent: "{y} - <strong>#percent%</strong>",
+          dataPoints: [
+            { y: <?php echo $qtAtendFinal; ?>, legendText: "Finalizados", exploded: true, indexLabel: "Finalizados #percent%" },
+            { y: <?php echo $qtAtendPendente; ?>, legendText: "Pendentes", indexLabel: "Pendentes #percent%" }
+          ]
+        }
+        ]
+      };
+      $("#chartContainer1").CanvasJSChart(options);
+    });
+
+    $(function () {
+      //Better to construct options first and then pass it as a parameter
+      var options = {
+        animationEnabled: true,
+        legend: {
+          verticalAlign: "bottom",
+          horizontalAlign: "center"
+        },
+        data: [
+        {
+          type: "pie",
+                    startAngle: 1,
+
+          showInLegend: false,
+          toolTipContent: "{y} - <strong>#percent%</strong>",
+          dataPoints: [
+            { y: <?php echo $qtGeralAtende; ?>, legendText: "Geral", exploded: true, indexLabel: "Geral #percent%" },
+            { y: <?php echo $qtAtendTotal; ?>, legendText: "Revenda", indexLabel: "Revenda #percent%" }
+          ]
+        }
+        ]
+      };
+      $("#chartContainer2").CanvasJSChart(options);
+    });
+
+  </script>
 
 
-	</script>
 
 <script language="JavaScript">
 function abrir(URL) { 
@@ -301,6 +277,26 @@ function abrir(URL) {
   var top = 99;
   window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
 }
+</script>
+<script>
+  $(function () {
+    $('#revenda').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });
+    $('#finalizadosUser').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });
+  });
 </script>
 </body>
 </html>
