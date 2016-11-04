@@ -1,9 +1,9 @@
 <?php
 /* Database connection start */
-$servername = "192.168.1.1:3306";
-$username = "marquistei";
-$password = "qaz654wsx";
-$dbname = "erp_henry";
+$servername = "localhost:8889";
+$username = "root";
+$password = "root";
+$dbname = "henrySuporte";
 
 $conn = mysqli_connect($servername, $username, $password, $dbname) or die("Connection failed: " . mysqli_connect_error());
 
@@ -54,7 +54,7 @@ while( $row=mysqli_fetch_array($query) ) {  // preparing an array
 	$nestedData[] = $row["RAZAO_SOCIAL"];
 	$nestedData[] = $row["CIDADE"];
 	$nestedData[] = $row["DDD1"] . " - " . $row["TELEFONE1"];
-	$nestedData[] = $bt1 . $Bt2 . $row["EMPRESA_ID"] . $bt3 . $bt4;
+	$nestedData[] = $row["EMAIL"];
 
 
 
