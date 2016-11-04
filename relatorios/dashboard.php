@@ -96,12 +96,12 @@ $QryUser->execute();
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#ruserPeriodo"">
+      <a data-toggle="modal" data-target="#usuarioPeriodo"">
        <span class="info-box-icon bg-yellow">
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content">X<br /><h4>Relatório de Usuário por período</h4></div>
+      <div class="info-box-content"><br /><h4>Relatório de Usuário por período</h4></div>
      </div>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -120,12 +120,12 @@ $QryUser->execute();
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#ruserPeriodo"">
+      <a data-toggle="modal" data-target="#modeloPeriodo"">
        <span class="info-box-icon bg-blue">
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content">X<br /><h4>Relatório de Modelo por período</h4></div>
+      <div class="info-box-content"><br /><h4>Relatório de Modelo por período</h4></div>
      </div>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
