@@ -1,40 +1,32 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
-$Revenda = $_GET['revenda'];
+$Modelo = $_GET['modelo'];
 $PDO = db_connect();
-$PDO2 = db_connect();
 require_once '../QueryUser.php';
 $DataRelatorio = date('d/m/Y H:i:s');
-$teste = "teste";
 
-
-   $dFor = $PDO->prepare("SELECT * FROM lista_revenda WHERE RAZAO_SOCIAL='$Revenda'");
-   $dFor->execute();
-    $campo = $dFor->fetch();
-    $idRevenda = $campo['EMPRESA_ID'];
 
 	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS 
-  	$GeralAtende = "SELECT COUNT(*) FROM atendimento ";
+  	$GeralAtende = "SELECT COUNT(*) FROM atendimento";
   	 $qGeralAtende = $PDO->prepare($GeralAtende);
   	 $qGeralAtende->execute();
   	 $qtGeralAtende = $qGeralAtende->fetchColumn();
 
+  //CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS  APENAS DO MODELO
+    $ModeloAtende = "SELECT COUNT(*) FROM atendimento WHERE Equip='$Modelo' ";
+     $qModeloAtende = $PDO->prepare($ModeloAtende);
+     $qModeloAtende->execute();
+     $qtModeloAtende = $qModeloAtende->fetchColumn();
+
+  //QUANTIDADE DE ATENDIMENTOS COM RETORNO DE ASSISTENCIA
+    $AtendRetorno = "SELECT COUNT(*) FROM atendimento WHERE Equip='$Modelo' AND TipoAtendimento='2'";
+     $qAtendRetorno = $PDO->prepare($AtendRetorno);
+     $qAtendRetorno->execute();
+     $qtAtendRetorno = $qAtendRetorno->fetchColumn();
 
 
-	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS DA REVENDA
-  	$AtendTotal = "SELECT COUNT(*) FROM atendimento WHERE Revenda='$Revenda'";
-  	 $qAtendTotal = $PDO->prepare($AtendTotal);
-  	 $qAtendTotal->execute();
-  	 $qtAtendTotal = $qAtendTotal->fetchColumn();
 
-	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS DA REVENDA
-  	$AtendPendente = "SELECT COUNT(*) FROM atendimento WHERE Revenda='$Revenda' AND Status='2'";
-  	 $qAtendPendente = $PDO->prepare($AtendPendente);
-  	 $qAtendPendente->execute();
-  	 $qtAtendPendente = $qAtendPendente->fetchColumn();
-
-  	 $qtAtendFinal = $qtAtendTotal - $qtAtendPendente;
 
 ?>
 <!DOCTYPE html>
@@ -85,21 +77,16 @@ $teste = "teste";
     <div class="box box-primary">
      <div class="box-header">
       <i class="ion ion-clipboard"></i>
-       <h3 class="box-title">Relatório Geral de Revenda</h3>
+       <h3 class="box-title">Relatório Geral de Modelo</h3>
        <small class="pull-right">Data do Relatório: <?php echo $DataRelatorio; ?> </small>
      </div>
      <div class="box-body">
       <div class="col-sm-4 invoice-col">
        <address>
-        <h4>Revenda: </h4>
+        <h4>Modelo: </h4>
          <li class="list-group-item">
            <?php 
-           echo $Revenda; 
-           echo '<small class="pull-right">';
-           echo '<a class="btn btn-default btn-xs" href="';
-            echo "javascript:abrir('../revendas/vRevenda.php?ID=" . $idRevenda . "');";
-            echo '"><i class="fa fa-search"></i></a>'; 
-            echo '</small>';
+           echo $Modelo; 
            ?>
           </li>
          <h4>Relatório Emitido por: </h4>
@@ -108,39 +95,39 @@ $teste = "teste";
           </li>
          <h4>Quantidade Total de Atendimentos: </h4>
           <li class="list-group-item">
-           <code><?php echo $qtAtendTotal; ?></code>
+           <code><?php echo $qtGeralAtende; ?></code>
           </li>
-         <h4>Quantidade de Atendimentos Pendentes: </h4>
+         <h4>Atendimentos para o Modelo: </h4>
           <li class="list-group-item">
-           <code><?php echo $qtAtendPendente; ?></code>
+           <code><?php echo $qtModeloAtende; ?></code>
           </li>
        </address>
       </div>
       <div class="col-sm-4 invoice-col">
        <div class="box box-danger">
         <div class="box-header with-border">
-         <h3 class="box-title">Atendimentos da Revenda</h3>
+         <h3 class="box-title">Atendimentos do Equipamento</h3>
         </div>
         <div class="box-body chart-responsive">
          <div id="chartContainer1" style="width: 100%; height: 400px;display: inline-block;"></div>
         </div>
 
-         <strong>PENDENTES:</strong>
-         <span class="badge bg-red pull-right"><?php echo $qtAtendPendente; ?></span><br  />
-         <strong>FINALIZADOS:</strong>
-         <span class="badge bg-green pull-right"><?php echo $qtAtendFinal; ?></span>
+         <strong>ATENDIMENTOS DO MODELO:</strong>
+         <span class="badge bg-red pull-right"><?php echo $qtModeloAtende; ?></span><br  />
+         <strong>TODOS ATENDIMENTOS:</strong>
+         <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
        </div>
       </div>
       <div class="col-sm-4 invoice-col">
        <div class="box box-danger">
         <div class="box-header with-border">
-         <h3 class="box-title">Atendimentos da Gerais</h3>
+         <h3 class="box-title">Retorno de Assistência</h3>
         </div>
         <div class="box-body chart-responsive">
   <div id="chartContainer2" style="width: 100%; height: 400px;display: inline-block;"></div>
         </div>
-          <strong>ATENDIMENTOS DA REVENDA:</strong>
-          <span class="badge bg-red pull-right"><?php echo $qtAtendTotal; ?></span><br  />
+          <strong>ATENDIMENTOS COM RETORNO:</strong>
+          <span class="badge bg-red pull-right"><?php echo $qtAtendRetorno; ?></span><br  />
           <strong>TODOS OS ATENDIMENTOS:</strong>
           <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
        </div>
@@ -160,15 +147,17 @@ $teste = "teste";
      </div>
      <div class="box-body">
       <?php
-      $PUsr = "SELECT * FROM atendimento WHERE Revenda='$Revenda'";
+      $PUsr = "SELECT * FROM atendimento WHERE Equip='$Modelo'";
       $PU = $PDO->prepare($PUsr);
       $PU->execute();
       ?>
       <table id="revenda" class="table table-hover table-responsive" cellspacing="0" width="100%">
        <thead>
         <tr>
-         <td>Cham.</td>
+         <td>Cham.</td> 
+         <td>Status</td>
          <td>Modelo</td>
+         <td>Revenda</td>
          <td>Técnico da Revenda</td>
          <td>Cadastro</td>
          <td>Atendente</td>
@@ -179,7 +168,18 @@ $teste = "teste";
        <?php while ($PUser = $PU->fetch(PDO::FETCH_ASSOC)): 
         echo '<tr>';
         echo '<td>' . $PUser["id"] . '</td>';
+         $StatusAtend = $PUser["Status"];
+         if ($StatusAtend === "1") {
+         echo '<td><span class="badge bg-green">FINALIZADO</span></td>';
+         }
+         elseif ($StatusAtend === "2") {
+         echo '<td><span class="badge bg-red">PENDENTE</span></td>';
+         }
+         else{
+          echo '<td></td>';
+         }
          echo '<td><span class="badge bg-blue">' . $PUser["Equip"] . '</span></td>';
+         echo '<td>' . $PUser["Revenda"] . '</td>';   
          echo '<td>' . $PUser["RevendaTecnico"] . '</td>';   
          echo '<td>' . $PUser["DescSolicita"] . '</td>';   
          echo '<td>' . $PUser["UserAtendente"] . '</td>';
@@ -231,9 +231,10 @@ $teste = "teste";
           showInLegend: false,
           toolTipContent: "{y} - <strong>#percent%</strong>",
           dataPoints: [
-            { y: <?php echo $qtAtendFinal; ?>, legendText: "Finalizados", exploded: true, indexLabel: "Finalizados #percent%" },
-            { y: <?php echo $qtAtendPendente; ?>, legendText: "Pendentes", indexLabel: "Pendentes #percent%" }
+            { y: <?php echo $qtModeloAtende; ?>, legendText: "Modelo", exploded: true, indexLabel: "Modelos #percent%" },
+            { y: <?php echo $qtGeralAtende; ?>, legendText: "Todos os Modelos", indexLabel: "Todos os Modelos #percent%" }
           ]
+
         }
         ]
       };
@@ -251,13 +252,13 @@ $teste = "teste";
         data: [
         {
           type: "pie",
-                    startAngle: 1,
+                    startAngle: 90,
 
           showInLegend: false,
           toolTipContent: "{y} - <strong>#percent%</strong>",
           dataPoints: [
             { y: <?php echo $qtGeralAtende; ?>, legendText: "Geral", exploded: true, indexLabel: "Geral #percent%" },
-            { y: <?php echo $qtAtendTotal; ?>, legendText: "Revenda", indexLabel: "Revenda #percent%" }
+            { y: <?php echo $qtAtendRetorno; ?>, legendText: "Retorno", indexLabel: "Retorno #percent%" }
           ]
         }
         ]
