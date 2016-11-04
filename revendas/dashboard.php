@@ -19,8 +19,17 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
- <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../dist/tabela/css/jquery.dataTables.css">
+
+
+  </head>
+
+
+
+
+
+
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -78,46 +87,23 @@ require_once '../QueryUser.php';
        <h3 class="box-title">Lista de Revendas</h3>
      </div>
      <div class="box-body">
-     <?php
-      $sql = "SELECT EMPRESA_ID, CIDADE, DDD1, EMAIL, RAZAO_SOCIAL, TELEFONE1 FROM lista_revenda";
-       $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
-     ?>
-      <table id="revenda" class="table table-striped" width="100%" cellspacing="0">
-       <thead>
-        <tr>
-         <td width="5%"></td>
-         <td width="50%">Razão Social</td>
-         <td width="15%">Cidade</td>
-         <td width="15%">Telefone</td>
-         <td width="15%">E-Mail</td>         
-        </tr>
-       </thead>
-       <tbody>
-       <?php
-        while($row = $result->fetch_assoc()) {
-
-        echo '<tr>';
-         echo '<td>';
-         echo '<a class="btn btn-default btn-xs" href="';
-         echo "javascript:abrir('vRevenda.php?ID=" . $row["EMPRESA_ID"] . "');";
-         echo '"><i class="fa fa-search"></i></a>';  
-        echo '</td>';
-         echo '<td>' . $row["RAZAO_SOCIAL"] . '</td>';
-         echo '<td>' . $row["CIDADE"] . '</td>';
-         echo '<td>' . $row["DDD1"] . '-' .  $row["TELEFONE1"] . '</td>';
-         echo '<td>' . $row["EMAIL"] . '</td>';
-        echo '</tr>';
-
-       }
-     }
-     else{
-
-     }
-       $conn->close();
-       ?>
-       </tbody>
-     </table>
+     <?php 
+      $bt1 = '<a class="btn btn-default btn-xs" href="';
+      $bt2 = "javascript:abrir('vRevenda.php?ID=";
+      $bt3 = "');";
+      $bt4 =  '"><i class="fa fa-search"></i></a>';  
+      ?>
+      <table id="employee-grid"  cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Razão Social</th>
+              <th>Cidade</th>
+              <th>Telefone</th>
+              <th>E-Mail</th>
+            </tr>
+          </thead>
+      </table>
      </div>
     </div>
    </div>
@@ -126,18 +112,30 @@ require_once '../QueryUser.php';
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once '../footer.php'; ?>
 <script src="../plugins/tabela/jquery-1.12.3.js"></script>
-<script src="../plugins/tabela/jquery.dataTables.min.js"></script>
-<script src="../plugins/tabela/dataTables.scroller.min.js"></script>
-<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
-<script>
-  $(function () {
-    $('#revenda').DataTable();
-  });
-</script>
+    <script type="text/javascript" language="javascript" src="../dist/tabela/js/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="../dist/tabela/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" language="javascript" >
+      $(document).ready(function() {
+        var dataTable = $('#employee-grid').DataTable( {
+          "processing": true,
+          "serverSide": true,
+          "ajax":{
+            url :"employee-grid-data.php", // json datasource
+            type: "get",  // method  , by default get
+            error: function(){  // error handling
+              $(".employee-grid-error").html("");
+              $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+              $("#employee-grid_processing").css("display","none");
+              
+            }
+          }
+        } );
+      } );
+    </script>
 <script language="JavaScript">
 function abrir(URL) { 
   var width = 1200;
