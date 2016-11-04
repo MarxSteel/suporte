@@ -86,12 +86,12 @@ $QryUser->execute();
   <?php if ($permRel === "1") { ?>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#ruserPeriodo"">
+      <a data-toggle="modal" data-target="#usuarioGeral"">
        <span class="info-box-icon bg-yellow">
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content">X<br /><h4>Relatório de Usuário Geral</h4></div>
+      <div class="info-box-content"><br /><h4>Relatório de Usuário Geral</h4></div>
      </div>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -110,12 +110,12 @@ $QryUser->execute();
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
      <div class="info-box">
-      <a data-toggle="modal" data-target="#ruserPeriodo"">
+      <a data-toggle="modal" data-target="#modeloGeral"">
        <span class="info-box-icon bg-blue">
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content">X<br /><h4>Relatório de Modelo Geral</h4></div>
+      <div class="info-box-content"><br /><h4>Relatório de Modelo Geral</h4></div>
      </div>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -139,7 +139,7 @@ $QryUser->execute();
         <i class="fa fa-plus"></i>
        </span>
       </a>
-      <div class="info-box-content">X<br /><h4>Relatório de Revenda Geral</h4></div>
+      <div class="info-box-content"><br /><h4>Relatório de Revenda Geral</h4></div>
      </div>
     </div>
     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -157,8 +157,9 @@ $QryUser->execute();
      </div>
     </div>
    <?php  
-   include_once 'modalRelatorio.php'; 
+   require_once 'modalUsuario.php'; 
    require_once 'modalRevenda.php';
+   require_once 'modalModelo.php';
    } else{ ?>
    <div class="col-md-12 col-sm-6 col-xs-12">
     <div class="info-box">
