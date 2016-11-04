@@ -1,13 +1,13 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
-$Modelo = $_GET['modelo2'];
+$Atendente = $_GET['usuario'];
 $DataIni = $_GET['dtInicio'];       // DATA DE INICIO DA PESQUISA (DD/MM/AAAA)
 $DataFim = $_GET['dtFinal'];          // DATA DE FIM DA PESQUISA (DD/MM/AAAA)
-
 $PDO = db_connect();
 require_once '../QueryUser.php';
 $DataRelatorio = date('d/m/Y H:i:s');
+
 
 
   //TRATANDO DATA FINAL
@@ -17,26 +17,30 @@ $DataRelatorio = date('d/m/Y H:i:s');
   $DataIniInt = explode("/",$DataIni);
   $DataInicial = $DataIniInt[2].'-'.$DataIniInt[1].'-'.$DataIniInt[0] . " 00:00:00";
 
+    //QUANTIDADE DE ATENDIMENTOS FINALIZADOS DO USUARIO
+    $AtendFinalUser = "SELECT COUNT(*) FROM atendimento WHERE UserAtendente='$Atendente' AND Status='1' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal' ";
+     $qAtendFinalUser = $PDO->prepare($AtendFinalUser);
+     $qAtendFinalUser->execute();
+     $qtAtendFinalUser = $qAtendFinalUser->fetchColumn();
+
+
+    //QUANTIDADE DE ATENDIMENTOS PENDENTES DO USUARIO
+    $AtendPenUser = "SELECT COUNT(*) FROM atendimento WHERE UserAtendente='$Atendente' AND Status='2' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
+     $qAtendPenUser = $PDO->prepare($AtendPenUser);
+     $qAtendPenUser->execute();
+     $qtAtendPenUser = $qAtendPenUser->fetchColumn();
+
+    $AtendTotalUsuario = $qtAtendPenUser + $qtAtendFinalUser;
+
+
+
+
+
 	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS 
   	$GeralAtende = "SELECT COUNT(*) FROM atendimento WHERE DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
   	 $qGeralAtende = $PDO->prepare($GeralAtende);
   	 $qGeralAtende->execute();
   	 $qtGeralAtende = $qGeralAtende->fetchColumn();
-
-  //CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS  APENAS DO MODELO
-    $ModeloAtende = "SELECT COUNT(*) FROM atendimento WHERE Equip='$Modelo' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
-     $qModeloAtende = $PDO->prepare($ModeloAtende);
-     $qModeloAtende->execute();
-     $qtModeloAtende = $qModeloAtende->fetchColumn();
-
-  //QUANTIDADE DE ATENDIMENTOS COM RETORNO DE ASSISTENCIA
-    $AtendRetorno = "SELECT COUNT(*) FROM atendimento WHERE Equip='$Modelo' AND TipoAtendimento='2' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
-     $qAtendRetorno = $PDO->prepare($AtendRetorno);
-     $qAtendRetorno->execute();
-     $qtAtendRetorno = $qAtendRetorno->fetchColumn();
-
-
-
 
 
 
@@ -89,16 +93,19 @@ $DataRelatorio = date('d/m/Y H:i:s');
     <div class="box box-primary">
      <div class="box-header">
       <i class="ion ion-clipboard"></i>
-       <h3 class="box-title">Relatório de Modelo por Período</h3>
+       <h3 class="box-title">Relatório Usuário por Período  </h3>
+
+
+
        <small class="pull-right">Data do Relatório: <?php echo $DataRelatorio; ?> </small>
      </div>
      <div class="box-body">
       <div class="col-sm-4 invoice-col">
        <address>
-        <h4>Modelo: </h4>
+        <h4>Atendente: </h4>
          <li class="list-group-item">
            <?php 
-           echo $Modelo; 
+           echo $Atendente; 
            ?>
           </li>
          <h4>Relatório Emitido por: </h4>
@@ -107,11 +114,11 @@ $DataRelatorio = date('d/m/Y H:i:s');
           </li>
          <h4>Quantidade Total de Atendimentos: </h4>
           <li class="list-group-item">
-           <code><?php echo $qtGeralAtende; ?></code>
+           <code><?php echo $AtendTotalUsuario; ?></code>
           </li>
-         <h4>Atendimentos para o Modelo: </h4>
+         <h4>Atendimentos Finalizados: </h4>
           <li class="list-group-item">
-           <code><?php echo $qtModeloAtende; ?></code>
+           <code><?php echo $qtAtendFinalUser; ?></code>
           </li>
          <h4>Data Inicial do Relatório: </h4>
           <li class="list-group-item">
@@ -126,13 +133,14 @@ $DataRelatorio = date('d/m/Y H:i:s');
       <div class="col-sm-4 invoice-col">
        <div class="box box-danger">
         <div class="box-header with-border">
-         <h3 class="box-title">Atendimentos do Equipamento</h3>
+         <h3 class="box-title">Atendimentos Gerais X Usuário</h3>
         </div>
         <div class="box-body chart-responsive">
          <div id="chartContainer1" style="width: 100%; height: 400px;display: inline-block;"></div>
         </div>
-         <strong>ATENDIMENTOS DO MODELO:</strong>
-         <span class="badge bg-red pull-right"><?php echo $qtModeloAtende; ?></span><br  />
+
+         <strong>ATENDIMENTOS DO ATENDENTE:</strong>
+         <span class="badge bg-red pull-right"><?php echo $AtendTotalUsuario; ?></span><br  />
          <strong>TODOS ATENDIMENTOS:</strong>
          <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
        </div>
@@ -140,20 +148,21 @@ $DataRelatorio = date('d/m/Y H:i:s');
       <div class="col-sm-4 invoice-col">
        <div class="box box-danger">
         <div class="box-header with-border">
-         <h3 class="box-title">Retorno de Assistência</h3>
+         <h3 class="box-title">Pendentes X Finalizados</h3>
         </div>
         <div class="box-body chart-responsive">
   <div id="chartContainer2" style="width: 100%; height: 400px;display: inline-block;"></div>
         </div>
-          <strong>ATENDIMENTOS COM RETORNO:</strong>
-          <span class="badge bg-red pull-right"><?php echo $qtAtendRetorno; ?></span><br  />
-          <strong>TODOS OS ATENDIMENTOS:</strong>
-          <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
+          <strong>PENDENTES:</strong>
+          <span class="badge bg-red pull-right"><?php echo $qtAtendPenUser; ?></span><br  />
+          <strong>FINALIZADOS:</strong>
+          <span class="badge bg-green pull-right"><?php echo $qtAtendFinalUser; ?></span>
        </div>
       </div>
      </div>
     </div>
    </div>
+
   </div><!-- CLASS ROW -->
  </section>
  <section class="content">
@@ -166,7 +175,7 @@ $DataRelatorio = date('d/m/Y H:i:s');
      </div>
      <div class="box-body">
       <?php
-      $PUsr = "SELECT * FROM atendimento WHERE Equip='$Modelo' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
+      $PUsr = "SELECT * FROM atendimento WHERE UserAtendente='$Atendente' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
       $PU = $PDO->prepare($PUsr);
       $PU->execute();
       ?>
@@ -179,7 +188,7 @@ $DataRelatorio = date('d/m/Y H:i:s');
          <td>Revenda</td>
          <td>Técnico da Revenda</td>
          <td>Cadastro</td>
-         <td>Atendente</td>
+         <td>Retorno Assist.</td>
          <td></td>
         </tr>
        </thead>
@@ -201,7 +210,18 @@ $DataRelatorio = date('d/m/Y H:i:s');
          echo '<td>' . $PUser["Revenda"] . '</td>';   
          echo '<td>' . $PUser["RevendaTecnico"] . '</td>';   
          echo '<td>' . $PUser["DescSolicita"] . '</td>';   
-         echo '<td>' . $PUser["UserAtendente"] . '</td>';
+          $TipoAtendimento = $PUser["TipoAtendimento"];
+          if ($TipoAtendimento === "1") {
+          echo '<td><span class="badge bg-green">NÃO</span></td>';
+         }
+         elseif ($TipoAtendimento === "2") {
+         echo '<td><span class="badge bg-red">SIM</span></td>';
+         }
+         else{
+          echo '<td></td>';
+         }
+
+
          echo '<td>';
           echo '<a class="btn btn-default btn-xs" href="';
           echo "javascript:abrir('../atendimento/Visualizar.php?ID=" . $PUser["id"] . "');";
@@ -245,13 +265,13 @@ $DataRelatorio = date('d/m/Y H:i:s');
         data: [
         {
           type: "pie",
-                    startAngle: 90,
+                    startAngle: 33,
 
           showInLegend: false,
           toolTipContent: "{y} - <strong>#percent%</strong>",
           dataPoints: [
-            { y: <?php echo $qtModeloAtende; ?>, legendText: "Modelo", exploded: true, indexLabel: "Modelos #percent%" },
-            { y: <?php echo $qtGeralAtende; ?>, legendText: "Todos os Modelos", indexLabel: "Todos os Modelos #percent%" }
+            { y: <?php echo $qtAtendFinalUser; ?>, legendText: "Usuário", exploded: true, indexLabel: "Usuário #percent%" },
+            { y: <?php echo $qtGeralAtende; ?>, legendText: "Todos", indexLabel: "Todos #percent%" }
           ]
 
         }
@@ -276,14 +296,15 @@ $DataRelatorio = date('d/m/Y H:i:s');
           showInLegend: false,
           toolTipContent: "{y} - <strong>#percent%</strong>",
           dataPoints: [
-            { y: <?php echo $qtGeralAtende; ?>, legendText: "Geral", exploded: true, indexLabel: "Geral #percent%" },
-            { y: <?php echo $qtAtendRetorno; ?>, legendText: "Retorno", indexLabel: "Retorno #percent%" }
+            { y: <?php echo $qtAtendFinalUser; ?>, legendText: "Finalizados", exploded: true, indexLabel: "Finalizados #percent%" },
+            { y: <?php echo $qtAtendPenUser; ?>, legendText: "Pendentes", indexLabel: "Pendentes #percent%" }
           ]
         }
         ]
       };
       $("#chartContainer2").CanvasJSChart(options);
     });
+
 
   </script>
 

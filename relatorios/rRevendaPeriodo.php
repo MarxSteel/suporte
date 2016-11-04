@@ -1,11 +1,11 @@
 <?php
 require("../restritos.php"); 
 require_once '../init.php';
-$Modelo = $_GET['modelo2'];
+$Revenda = $_GET['revenda'];
 $DataIni = $_GET['dtInicio'];       // DATA DE INICIO DA PESQUISA (DD/MM/AAAA)
 $DataFim = $_GET['dtFinal'];          // DATA DE FIM DA PESQUISA (DD/MM/AAAA)
-
 $PDO = db_connect();
+$PDO2 = db_connect();
 require_once '../QueryUser.php';
 $DataRelatorio = date('d/m/Y H:i:s');
 
@@ -17,28 +17,33 @@ $DataRelatorio = date('d/m/Y H:i:s');
   $DataIniInt = explode("/",$DataIni);
   $DataInicial = $DataIniInt[2].'-'.$DataIniInt[1].'-'.$DataIniInt[0] . " 00:00:00";
 
+
+   $dFor = $PDO->prepare("SELECT * FROM lista_revenda WHERE RAZAO_SOCIAL='$Revenda'");
+   $dFor->execute();
+    $campo = $dFor->fetch();
+    $idRevenda = $campo['EMPRESA_ID'];
+
 	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS 
-  	$GeralAtende = "SELECT COUNT(*) FROM atendimento WHERE DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
+  	$GeralAtende = "SELECT COUNT(*) FROM atendimento ";
   	 $qGeralAtende = $PDO->prepare($GeralAtende);
   	 $qGeralAtende->execute();
   	 $qtGeralAtende = $qGeralAtende->fetchColumn();
 
-  //CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS  APENAS DO MODELO
-    $ModeloAtende = "SELECT COUNT(*) FROM atendimento WHERE Equip='$Modelo' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
-     $qModeloAtende = $PDO->prepare($ModeloAtende);
-     $qModeloAtende->execute();
-     $qtModeloAtende = $qModeloAtende->fetchColumn();
-
-  //QUANTIDADE DE ATENDIMENTOS COM RETORNO DE ASSISTENCIA
-    $AtendRetorno = "SELECT COUNT(*) FROM atendimento WHERE Equip='$Modelo' AND TipoAtendimento='2' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
-     $qAtendRetorno = $PDO->prepare($AtendRetorno);
-     $qAtendRetorno->execute();
-     $qtAtendRetorno = $qAtendRetorno->fetchColumn();
 
 
+	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS DA REVENDA
+  	$AtendTotal = "SELECT COUNT(*) FROM atendimento WHERE Revenda='$Revenda' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
+  	 $qAtendTotal = $PDO->prepare($AtendTotal);
+  	 $qAtendTotal->execute();
+  	 $qtAtendTotal = $qAtendTotal->fetchColumn();
 
+	//CHAMANDO A QUANTIDADE DE ATENDIMENTOS TOTAIS DA REVENDA
+  	$AtendPendente = "SELECT COUNT(*) FROM atendimento WHERE Revenda='$Revenda' AND Status='2' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
+  	 $qAtendPendente = $PDO->prepare($AtendPendente);
+  	 $qAtendPendente->execute();
+  	 $qtAtendPendente = $qAtendPendente->fetchColumn();
 
-
+  	 $qtAtendFinal = $qtAtendTotal - $qtAtendPendente;
 
 ?>
 <!DOCTYPE html>
@@ -89,16 +94,21 @@ $DataRelatorio = date('d/m/Y H:i:s');
     <div class="box box-primary">
      <div class="box-header">
       <i class="ion ion-clipboard"></i>
-       <h3 class="box-title">Relatório de Modelo por Período</h3>
+       <h3 class="box-title">Relatório Geral de Revenda</h3>
        <small class="pull-right">Data do Relatório: <?php echo $DataRelatorio; ?> </small>
      </div>
      <div class="box-body">
       <div class="col-sm-4 invoice-col">
        <address>
-        <h4>Modelo: </h4>
+        <h4>Revenda: </h4>
          <li class="list-group-item">
            <?php 
-           echo $Modelo; 
+           echo $Revenda; 
+           echo '<small class="pull-right">';
+           echo '<a class="btn btn-default btn-xs" href="';
+            echo "javascript:abrir('../revendas/vRevenda.php?ID=" . $idRevenda . "');";
+            echo '"><i class="fa fa-search"></i></a>'; 
+            echo '</small>';
            ?>
           </li>
          <h4>Relatório Emitido por: </h4>
@@ -107,11 +117,11 @@ $DataRelatorio = date('d/m/Y H:i:s');
           </li>
          <h4>Quantidade Total de Atendimentos: </h4>
           <li class="list-group-item">
-           <code><?php echo $qtGeralAtende; ?></code>
+           <code><?php echo $qtAtendTotal; ?></code>
           </li>
-         <h4>Atendimentos para o Modelo: </h4>
+         <h4>Quantidade de Atendimentos Pendentes: </h4>
           <li class="list-group-item">
-           <code><?php echo $qtModeloAtende; ?></code>
+           <code><?php echo $qtAtendPendente; ?></code>
           </li>
          <h4>Data Inicial do Relatório: </h4>
           <li class="list-group-item">
@@ -126,27 +136,28 @@ $DataRelatorio = date('d/m/Y H:i:s');
       <div class="col-sm-4 invoice-col">
        <div class="box box-danger">
         <div class="box-header with-border">
-         <h3 class="box-title">Atendimentos do Equipamento</h3>
+         <h3 class="box-title">Atendimentos da Revenda</h3>
         </div>
         <div class="box-body chart-responsive">
          <div id="chartContainer1" style="width: 100%; height: 400px;display: inline-block;"></div>
         </div>
-         <strong>ATENDIMENTOS DO MODELO:</strong>
-         <span class="badge bg-red pull-right"><?php echo $qtModeloAtende; ?></span><br  />
-         <strong>TODOS ATENDIMENTOS:</strong>
-         <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
+
+         <strong>PENDENTES:</strong>
+         <span class="badge bg-red pull-right"><?php echo $qtAtendPendente; ?></span><br  />
+         <strong>FINALIZADOS:</strong>
+         <span class="badge bg-green pull-right"><?php echo $qtAtendFinal; ?></span>
        </div>
       </div>
       <div class="col-sm-4 invoice-col">
        <div class="box box-danger">
         <div class="box-header with-border">
-         <h3 class="box-title">Retorno de Assistência</h3>
+         <h3 class="box-title">Atendimentos da Gerais</h3>
         </div>
         <div class="box-body chart-responsive">
   <div id="chartContainer2" style="width: 100%; height: 400px;display: inline-block;"></div>
         </div>
-          <strong>ATENDIMENTOS COM RETORNO:</strong>
-          <span class="badge bg-red pull-right"><?php echo $qtAtendRetorno; ?></span><br  />
+          <strong>ATENDIMENTOS DA REVENDA:</strong>
+          <span class="badge bg-red pull-right"><?php echo $qtAtendTotal; ?></span><br  />
           <strong>TODOS OS ATENDIMENTOS:</strong>
           <span class="badge bg-green pull-right"><?php echo $qtGeralAtende; ?></span>
        </div>
@@ -166,17 +177,15 @@ $DataRelatorio = date('d/m/Y H:i:s');
      </div>
      <div class="box-body">
       <?php
-      $PUsr = "SELECT * FROM atendimento WHERE Equip='$Modelo' AND DataCadastro BETWEEN '$DataInicial' AND '$DataFinal'";
+      $PUsr = "SELECT * FROM atendimento WHERE Revenda='$Revenda'";
       $PU = $PDO->prepare($PUsr);
       $PU->execute();
       ?>
       <table id="revenda" class="table table-hover table-responsive" cellspacing="0" width="100%">
        <thead>
         <tr>
-         <td>Cham.</td> 
-         <td>Status</td>
+         <td>Cham.</td>
          <td>Modelo</td>
-         <td>Revenda</td>
          <td>Técnico da Revenda</td>
          <td>Cadastro</td>
          <td>Atendente</td>
@@ -187,18 +196,7 @@ $DataRelatorio = date('d/m/Y H:i:s');
        <?php while ($PUser = $PU->fetch(PDO::FETCH_ASSOC)): 
         echo '<tr>';
         echo '<td>' . $PUser["id"] . '</td>';
-         $StatusAtend = $PUser["Status"];
-         if ($StatusAtend === "1") {
-         echo '<td><span class="badge bg-green">FINALIZADO</span></td>';
-         }
-         elseif ($StatusAtend === "2") {
-         echo '<td><span class="badge bg-red">PENDENTE</span></td>';
-         }
-         else{
-          echo '<td></td>';
-         }
          echo '<td><span class="badge bg-blue">' . $PUser["Equip"] . '</span></td>';
-         echo '<td>' . $PUser["Revenda"] . '</td>';   
          echo '<td>' . $PUser["RevendaTecnico"] . '</td>';   
          echo '<td>' . $PUser["DescSolicita"] . '</td>';   
          echo '<td>' . $PUser["UserAtendente"] . '</td>';
@@ -231,8 +229,6 @@ $DataRelatorio = date('d/m/Y H:i:s');
 <script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="../plugins/canvas/jquery.canvasjs.min.js"></script>
 <script src="../plugins/canvas/canvasjs.min.js"></script>
-
-
 <script type="text/javascript">
     $(function () {
       //Better to construct options first and then pass it as a parameter
@@ -250,10 +246,9 @@ $DataRelatorio = date('d/m/Y H:i:s');
           showInLegend: false,
           toolTipContent: "{y} - <strong>#percent%</strong>",
           dataPoints: [
-            { y: <?php echo $qtModeloAtende; ?>, legendText: "Modelo", exploded: true, indexLabel: "Modelos #percent%" },
-            { y: <?php echo $qtGeralAtende; ?>, legendText: "Todos os Modelos", indexLabel: "Todos os Modelos #percent%" }
+            { y: <?php echo $qtAtendFinal; ?>, legendText: "Finalizados", exploded: true, indexLabel: "Finalizados #percent%" },
+            { y: <?php echo $qtAtendPendente; ?>, legendText: "Pendentes", indexLabel: "Pendentes #percent%" }
           ]
-
         }
         ]
       };
@@ -271,13 +266,13 @@ $DataRelatorio = date('d/m/Y H:i:s');
         data: [
         {
           type: "pie",
-                    startAngle: 90,
+                    startAngle: 1,
 
           showInLegend: false,
           toolTipContent: "{y} - <strong>#percent%</strong>",
           dataPoints: [
             { y: <?php echo $qtGeralAtende; ?>, legendText: "Geral", exploded: true, indexLabel: "Geral #percent%" },
-            { y: <?php echo $qtAtendRetorno; ?>, legendText: "Retorno", indexLabel: "Retorno #percent%" }
+            { y: <?php echo $qtAtendTotal; ?>, legendText: "Revenda", indexLabel: "Revenda #percent%" }
           ]
         }
         ]
