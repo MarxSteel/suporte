@@ -64,15 +64,15 @@ process = function()
    </div>
    <div class="modal-body">
   <?php
-     $ChamaModelo2 = "SELECT nome FROM produto";
+     $ChamaModelo2 = "SELECT nome FROM login WHERE Tipo='1'";
      $P2 = $PDO->prepare($ChamaModelo2);
      $P2->execute();
   ?>
-    <form name="ruserper" action="rModeloPeriodo.php" target="_blank">
+    <form name="ruserper" action="rUsuarioPeriodo.php" target="_blank">
 
-     <div class="col-md-4">Modelo de Equipamento:
+     <div class="col-md-4">Usuário
       <div class="form-group">
-       <select class="form-control select2" name="modelo2" style="width: 100%;">
+       <select class="form-control select2" name="usuario" style="width: 100%;">
         <option value="" selected="selected">SELECIONE</option>
         <?php while ($p2 = $P2->fetch(PDO::FETCH_ASSOC)): ?>
         <option value="<?php echo $p2['nome'] ?>"><?php echo $p2['nome'] ?></option>
