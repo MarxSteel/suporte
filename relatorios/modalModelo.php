@@ -25,8 +25,8 @@ process = function()
    </div>
    <div class="modal-body">
 	<?php
-     $ChamaRevenda = "SELECT nome FROM produto";
-     $P1 = $PDO->prepare($ChamaRevenda);
+     $ChamaModelo = "SELECT nome FROM produto";
+     $P1 = $PDO->prepare($ChamaModelo);
      $P1->execute();
 	?>
     <form name="rmog" action="rModeloGeral.php" target="_blank">
@@ -55,15 +55,51 @@ process = function()
 
 
 <!-- MODAL REVENDA GERAL-->
-<div id="revendaPeriodo" class="modal fade" role="dialog">
+<div id="modeloPeriodo" class="modal fade" role="dialog">
  <div class="modal-dialog modal-lg">
   <div class="modal-content">
-   <div class="modal-header bg-red">
+   <div class="modal-header bg-blue">
     <button type="button" class="close" data-dismiss="modal">X</button>
-     <h4 class="modal-title">Relatório de revenda por período</h4>
+     <h4 class="modal-title">Relatório de Modelo por período</h4>
    </div>
    <div class="modal-body">
+  <?php
+     $ChamaModelo2 = "SELECT nome FROM produto";
+     $P2 = $PDO->prepare($ChamaModelo2);
+     $P2->execute();
+  ?>
+    <form name="rmoper" action="rModeloPeriodo.php" target="_blank">
 
+     <div class="col-md-4">Modelo de Equipamento:
+      <div class="form-group">
+       <select class="form-control select2" name="modelo2" style="width: 100%;">
+        <option value="" selected="selected">SELECIONE</option>
+        <?php while ($p2 = $P2->fetch(PDO::FETCH_ASSOC)): ?>
+        <option value="<?php echo $p2['nome'] ?>"><?php echo $p2['nome'] ?></option>
+        <?php endwhile; ?>
+       </select>
+      </div>
+     </div>
+     <div class="col-xs-4">Data Inicial
+      <div class="input-group">
+       <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+       </div>
+        <input type="text" name="dtInicio" class="form-control" minlength="10" maxlength="10" OnKeyPress="formatar('##/##/####', this)" required="required">
+      </div>
+     </div>
+     <div class="col-xs-4">Data Final
+      <div class="input-group">
+       <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+       </div>
+        <input type="text" name="dtFinal" class="form-control" minlength="10" maxlength="10" OnKeyPress="formatar('##/##/####', this)" required="required">
+      </div>
+     </div>
+     <div class="col-xs-12"><br />
+      <input name="rmoper" type="submit" class="btn btn-primary btn-block btn-lg" value="Visualizar"  /> 
+     </div>
+    </form>
    </div>
    <div class="modal-footer"></div>
   </div>
