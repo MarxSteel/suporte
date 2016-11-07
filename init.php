@@ -15,7 +15,6 @@ define('DB_NAME', $banco);
 
 // DECLARANDO CONEXÃO MYSQLI
  	$conn = new mysqli($host, $user, $pass, $banco);
-	//Checando a Conexão
 	if ($conn->connect_error) 
 	{
     	die("Erro de Conexão: " . $conn->connect_error);
