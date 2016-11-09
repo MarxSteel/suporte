@@ -91,9 +91,9 @@ word-wrap: break-word;
      <div class="callout callout-success">
       <h4>
        <span class="glyphicon glyphicon-exclamation-sign"></span>
-       Atenção!
+       Aten&ccedil;&atilde;o!
       </h4>
-       Ao adicionar alguma atualização em um chamado que não é seu, automaticamente será vinculado ao seu usuário.
+       Ao adicionar alguma atualiza&ccedil;&atilde;o em um chamado que n&atilde;o &eacute; seu, automaticamente ser&aacute; vinculado ao seu usu&aacute;rio.
      </div>
      <div class="box-body">
       <div class="col-xs-4">REVENDA
@@ -101,7 +101,7 @@ word-wrap: break-word;
         <?php echo $Revenda; ?>
        </li>
       </div>
-      <div class="col-xs-4">TÉCNICO RESPONSÁVEL (REVENDA)
+      <div class="col-xs-4">T&Eacute;CNICO RESPONS&Aacute;VEL (REVENDA)
        <li class="list-group-item">
         <?php echo $RevendaTecnico; ?>
        </li>
@@ -138,7 +138,7 @@ word-wrap: break-word;
       </div>
       <div class="col-xs-12">ATENDIMENTO
        <li class="list-group-item">
-       <h4>Solicitação do Cliente:</h4>
+       <h4>Solicita&ccedil;ão do Cliente:</h4>
         <i class="texto">
          <?php echo $DescSolicita; ?>
         </i>
@@ -150,7 +150,7 @@ word-wrap: break-word;
       </div>
 
       <form name="finaliza" id="name" method="post" action="" enctype="multipart/form-data">
-       <div class="col-xs-12">Nova Observação
+       <div class="col-xs-12">Nova Observa&ccedil;ão
         <textarea name="final" cols="45" rows="3" class="form-control" id="obs" required="required"></textarea>
        </div>
        <div class="col-xs-12"><br />
@@ -161,7 +161,7 @@ word-wrap: break-word;
        if(@$_POST["finaliza"])
        {
         $dataFin = date('d/m/Y - H:i:s');
-          $V1 = "<br /><strong>Nova Atualização</strong>";
+          $V1 = "<br /><strong>Nova Atualiza&ccedil;ão</strong>";
           $V2 = "<br />Data: " . $dataFin;
           $V3 = "<br /><strong>Usuário: " . $NomeUserLogado . "<strong><br />";
           $Observa = str_replace("\r\n", "<br/>", strip_tags($_POST["final"]));
@@ -172,11 +172,11 @@ word-wrap: break-word;
           $DataLog = date('Y-m-d - H:i:s');
           if ($NomeUserLogado === $UserAtendente) {
             $Loog = "Chamado Atualizado";
-            $LogCod = "12";
+            $LogCod = "112";
           }
           else{
             $Loog = "Chamado Atualizado, Responsavel pelo chamado atualizado";
-            $LogCod = "13";
+            $LogCod = "114";
 
           }
           $Loog = "Chamado Atualizado";
