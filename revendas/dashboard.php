@@ -8,7 +8,6 @@ require_once '../QueryUser.php';
 <!DOCTYPE html>
 <html>
 <head>
-
  <meta charset="utf-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <title><?php echo $titulo; ?></title>
@@ -18,14 +17,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
- <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" type="text/css" href="../dist/tabela/css/jquery.dataTables.css">
-
-
-  </head>
-
-
+ <link href="dist/jquery.bootgrid.css" rel="stylesheet" />
 
 
 
@@ -66,8 +58,8 @@ require_once '../QueryUser.php';
        <a href="../logout.php" class="btn btn-danger btn-flat">Sair</a>
      </li>
     </ul>
-    </div>
-    </nav>
+   </div>
+  </nav>
   </header>
   <aside class="main-sidebar">
    <section class="sidebar">
@@ -87,23 +79,19 @@ require_once '../QueryUser.php';
        <h3 class="box-title">Lista de Revendas</h3>
      </div>
      <div class="box-body">
-     <?php 
-      $bt1 = '<a class="btn btn-default btn-xs" href="';
-      $bt2 = "javascript:abrir('vRevenda.php?ID=";
-      $bt3 = "');";
-      $bt4 =  '"><i class="fa fa-search"></i></a>';  
-      ?>
-      <table id="employee-grid"  cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Razão Social</th>
-              <th>Cidade</th>
-              <th>Telefone</th>
-              <th>E-Mail</th>
-            </tr>
-          </thead>
-      </table>
+      <table id="tabelaRevenda" class="table table-hover table=responsive table-striped" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+         <th data-column-id="RAZAO_SOCIAL">Razão Social</th>
+         <th data-column-id="CIDADE">Cidade</th>
+         <th data-column-id="EMAIL">E-Mail</th>
+         <th data-column-id="TELEFONE1">TELEFONE</th>
+         <th data-column-id="link" data-formatter="link" data-sortable="false">Link</th>
+         <th data-column-id="link2" data-formatter="link" data-sortable="false">Link</th>
+
+        </tr>
+        </thead>        
+    </table>
      </div>
     </div>
    </div>
@@ -116,33 +104,33 @@ require_once '../QueryUser.php';
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
-    <script type="text/javascript" language="javascript" src="../dist/tabela/js/jquery.js"></script>
-    <script type="text/javascript" language="javascript" src="../dist/tabela/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" language="javascript" >
-      $(document).ready(function() {
-        var dataTable = $('#employee-grid').DataTable( {
-          "processing": true,
-          "serverSide": true,
-          "ajax":{
-            url :"employee-grid-data.php", // json datasource
-            type: "get",  // method  , by default get
-            error: function(){  // error handling
-              $(".employee-grid-error").html("");
-              $("#employee-grid").append('<tbody class="employee-grid-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
-              $("#employee-grid_processing").css("display","none");
-              
-            }
-          }
-        } );
-      } );
-    </script>
-<script language="JavaScript">
-function abrir(URL) { 
-  var width = 1200;
-  var height = 650;
-  var left = 99;
-  var top = 99;
-  window.open(URL,'janela', 'width='+width+', height='+height+', top='+top+', left='+left+', scrollbars=yes, status=no, toolbar=no, location=no, directories=no, menubar=no, resizable=no, fullscreen=no');
-}
+<script src="dist/jquery-1.11.1.min.js"></script>
+<script src="dist/jquery.bootgrid.min.js"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+  $("#tabelaRevenda").bootgrid({
+    ajax: true,
+    post: function ()
+    {
+      return {
+        id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+      };
+    },
+    url: "response.php",
+    formatters: 
+     {
+            "link": function(row)
+        {
+            return "<a href=\"vRevenda.php?ID=" + row.EMPRESA_ID + "\" class=\"btn btn-default btn-xs\" target=\"_blank\"> <i class=\"fa fa-search\"></i></a>";
+        }
+                "commands": function(column, row)
+        {
+            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-pencil\"></span></button> " + 
+                "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-trash-o\"></span></button>";
+        }
+    }
+   });
+});
 </script>
+
 </html>
