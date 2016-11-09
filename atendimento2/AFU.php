@@ -11,8 +11,8 @@ $FU->execute();
    <td width="15%">Modelo</td>
    <td width="30%">Revenda</td>
    <td width="15%">T&eacute;cnico da Revenda</td>
-   <td width="30%">Atendimento</td>
-   <td width="5%"></td>
+   <td width="25%">Atendimento</td>
+   <td width="10%"></td>
   </tr>
  </thead>
  <tbody>
