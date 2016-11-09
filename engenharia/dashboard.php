@@ -9,7 +9,7 @@ require_once '../QueryUser.php';
 <html>
 <head>
 
- <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <title><?php echo $titulo; ?></title>
  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
