@@ -116,31 +116,18 @@ word-wrap: break-word;
       </ul>
       <div class="tab-content no-padding">
        <div class="tab-pane active" id="pendentes">
-
-        <table id="PendentesUsuario" class="table table-hover table=responsive table-striped" width="100%" cellspacing="0">
-        <thead>
-        <tr>
-         <th data-column-id="RAZAO_SOCIAL">Razão Social</th>
-         <th data-column-id="CIDADE">Cidade</th>
-         <th data-column-id="EMAIL">E-Mail</th>
-         <th data-column-id="TELEFONE1">TELEFONE</th>
-         <th data-column-id="link" data-formatter="link" data-sortable="false">Link</th>
-         <th data-column-id="link2" data-formatter="link" data-sortable="false">Link</th>
-        </tr>
-        </thead>        
-    </table>
-
+          TABELA DE PENDENTES
 
 
        </div>
        <div class="tab-pane" id="finalizados">
-        <?php include_once 'TFUser.php'; ?>
+       TABELA DE FINALIZADOS
        </div>
       </div>
      </div>
     </section>
   </div><!-- CLASS ROW -->
-  <?php include_once 'modalSup.php'; ?>
+  <?php include_once 'modalSuporte.php'; ?>
 
  
 
@@ -154,29 +141,6 @@ word-wrap: break-word;
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
 <script src="../plugins/select2/select2.full.min.js"></script>
-<script src="dist/jquery-1.11.1.min.js"></script>
-<script src="dist/jquery.bootgrid.min.js"></script>
-
-<script>
-  $(function () {
-    $('#pendente').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-    $('#finalizadosUser').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": false,
-      "info": true,
-      "autoWidth": true
-    });
-  });
-</script>
 <script language="JavaScript">
 function abrir(URL) { 
   var width = 1200;
@@ -215,52 +179,4 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 })
 
 </script>
-<script type="text/javascript">
-$( document ).ready(function() {
-  $("#tabelaRevenda").bootgrid({
-    ajax: true,
-    post: function ()
-    {
-      return {
-        id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
-      };
-    },
-    url: "response.php",
-
-    formatters: {
-    }
-   });
-});
-</script>
-<script type="text/javascript">
-  
-$( document ).ready(function() {
-  $("#PendentesUsuario").bootgrid({
-    ajax: true,
-    post: function ()
-    {
-      return {
-        id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
-      };
-    },
-    url: "PendentesUsuario.php",
-    formatters: 
-     {
-            "link": function(row)
-        {
-            return "<a href=\"vRevenda.php?ID=" + row.EMPRESA_ID + "\" class=\"btn btn-default btn-xs\" target=\"_blank\"> <i class=\"fa fa-search\"></i></a>";
-        }
-                "commands": function(column, row)
-        {
-            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-pencil\"></span></button> " + 
-                "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-trash-o\"></span></button>";
-        }
-    }
-   });
-});
-</script>
-
-
-</script>
-
 </html>
