@@ -3,18 +3,10 @@ $DataAtual = date('Y/m/d - H:i:s'); //TRATANDO DATA E HORA, DD/MM/YYYY - HH:MM:S
 $ChamaProduto = "SELECT * FROM produto";
  $prod = $PDO->prepare($ChamaProduto);
  $prod->execute();
- 
-
-
-
-
 $ChamaRevenda = "SELECT * FROM lista_revenda";
  $Rev = $PDO->prepare($ChamaRevenda);
  $Rev->execute();
-
-
 ?>
-
 <!-- MODAL DE CADASTRO DE FIRMWARE -->
 <div id="nAtend" class="modal fade" role="dialog">
  <div class="modal-dialog modal-lg">
@@ -51,28 +43,28 @@ $ChamaRevenda = "SELECT * FROM lista_revenda";
      <div class="col-md-3">Técnico da Revenda:
       <input class="form-control" type="text" name="tecnico" required="required">
      </div>
-     <div class="col-xs-3">Retorno de Assistência?
+     <div class="col-xs-3">Retorno de Assist&ecirc;ncia?
       <select class="form-control" name="tipo" required="required">
        <option value="" selected="selected">SELECIONE</option>
-       <option value="1">NÃO É RETORNO</option>
-       <option value="2">RETORNO DE ASSISTÊNCIA</option>
+       <option value="1">N&Atilde;O &Eacute; RETORNO</option>
+       <option value="2">RETORNO DE ASSIST&Ecirc;NCIA</option>
       </select>
      </div>
 
-     <div class="col-md-3">Possível envio à Assistência:
+     <div class="col-md-3">Poss&iacute;vel envio &agrave; Assist&ecirc;ncia:
       <select class="form-control" name="assist" required="required">
        <option value="" selected="selected">SELECIONE</option>
        <option value="1">PRETENDE ENVIAR</option>
-       <option value="2">NÃO PRETENDE ENVIAR</option>
+       <option value="2">N&Atilde;O PRETENDE ENVIAR</option>
       </select>     
      </div>
-     <div class="col-md-3">Número de Série:
+     <div class="col-md-3">N&uacute;mero de S&eacute;rie:
       <input class="form-control" type="text" name="nser" maxlength="17">
      </div>
-     <div class="col-xs-12">Solicitação do Cliente (Descreva aqui o item que o cliente quer solução):
+     <div class="col-xs-12">Solicita&ccedil;&atilde;o do Cliente (Descreva aqui o item que o cliente quer solu&ccedil;&atilde;o):
       <textarea name="requis" cols="45" rows="3" class="form-control" required="required"></textarea>
      </div>
-     <div class="col-xs-12">Solução (Descreva aqui a instrução passada ao cliente):
+     <div class="col-xs-12">Solu&ccedil;&atilde;o (Descreva aqui a instru&ccedil;&atilde;o passada ao cliente):
       <textarea name="atend" cols="45" rows="3" class="form-control" required="required"></textarea><hr>
      </div>
      <div class="pull-right">
@@ -85,23 +77,21 @@ $ChamaRevenda = "SELECT * FROM lista_revenda";
     {
      $nRevenda = $_POST['revenda'];      //DESCRIÇÃO DA REVENDA
      $nTecnico = $_POST['tecnico'];      //TECNICO RESPONSÁVEL PELO ATENDIMENTO
+      $nTecnico = TiraCaractere($nTecnico);
      $nTipo = $_POST['tipo'];            //É OU NÃO RETORNO (1 - NÃO É, 2 - É)
      $nEquip = $_POST['equip'];    //EQUIPAMENTO DO ATENDIMENTO
      $nAssist = $_POST['assist'];        //INFORMA SE PRETENDE OU NÃO ENVIAR À ASSISTÊNCIA
      $nSer = $_POST['nser'];             //NÚMERO DE SÉRIE
-
      $Nome = $NomeUserLogado;            //DECLARANDO A STRING DE LOGIN, SÓ PRA FICAR MENOR
-    
-
-
-
      $nReq = str_replace("\r\n", "<br/>", strip_tags($_POST["requis"]));
+      $nReq = TiraCaractere($nReq);
      $nAten = str_replace("\r\n", "<br/>", strip_tags($_POST["atend"]));
+      $nAten = TiraCaractere($nAtend);
       $InsereAtendimento = $PDO->query("INSERT INTO atendimento (Status, TipoAtendimento, DescAtend, DescSolicita, UserCadastro, UserAtendente, DataCadastro, Revenda, RevendaTecnico, NumSerie, Equip) VALUES ('2', '$nTipo', '$nAten', '$nReq', '$Nome', '$Nome', '$DataAtual', '$nRevenda', '$nTecnico', '$nSer', '$nEquip')");
 
         if ($InsereAtendimento) {
           $TpLog = "Cadastrado novo Firmware";
-         $InsLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro) VALUES ('1', '$TpLog', '$DataAtual', '$NomeUserLogado')");
+         $InsLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro) VALUES ('111', '$TpLog', '$DataAtual', '$NomeUserLogado')");
         if ($InsLog) 
         {
          echo '<script type="text/JavaScript">alert("Cadastrado com Sucesso");
@@ -137,28 +127,28 @@ $ChamaRevenda = "SELECT * FROM lista_revenda";
      <h4 class="modal-title">AJUDA</h4>
    </div>
    <div class="modal-body">
-   <h3> Descrição dos Botões da área de suporte: </h3>
-   <div class="col-xs-4" align="center">BOTÃO</div>
-   <div class="col-xs-8" align="center">FUNÇÃO</div><br />
+   <h3> Descri&ccedil;&atilde;o dos Bot&otilde;es da &aacute;rea de suporte: </h3>
+   <div class="col-xs-4" align="center">BOT&Atilde;O</div>
+   <div class="col-xs-8" align="center">FUN&Ccedil;&Atilde;O</div><br />
    <div class="col-xs-4">
     <button class="btn bg-navy btn-block"><i class="fa fa-reply-all"></i></button>
    </div>
-   <div class="col-xs-8" align="left"><h4>BOTÃO PARA REABRIR CHAMADO FINALIZADO</h4>
+   <div class="col-xs-8" align="left"><h4>BOT&Atilde;O PARA REABRIR CHAMADO FINALIZADO</h4>
    </div><br />
    <div class="col-xs-4">
     <button class="btn btn-default btn-block"><i class="fa fa-search"></i></button>
    </div>
-   <div class="col-xs-8" align="left"><h4>BOTÃO PARA VISUALIZAR CHAMADO</h4>
+   <div class="col-xs-8" align="left"><h4>BOT&Atilde;O PARA VISUALIZAR CHAMADO</h4>
    </div><br />
    <div class="col-xs-4">
     <button class="btn bg-orange btn-block"><i class="fa fa-refresh"></i></button>
    </div>
-   <div class="col-xs-8" align="left"><h4>BOTÃO PARA ATUALIZAR OBSERVAÇÕES DE CHAMADO</h4>
+   <div class="col-xs-8" align="left"><h4>BOT&Atilde;O PARA ATUALIZAR OBSERVA&Ccedil;&Otilde;ES DE CHAMADO</h4>
    </div><br />
    <div class="col-xs-4">
     <button class="btn btn-success btn-block"><i class="fa fa-check"></i></button>
    </div>
-   <div class="col-xs-8" align="left"><h4>BOTÃO PARA FINALIZAR CHAMADO</h4>
+   <div class="col-xs-8" align="left"><h4>BOT&Atilde;O PARA FINALIZAR CHAMADO</h4>
    </div><br />
 
    <div class="modal-footer"></div>

@@ -19,7 +19,7 @@ require_once '../QueryUser.php';
     $NumSerie = $campo['NumSerie'];
 
      if ($TipoAtendimento === "1") {
-       $Retorno = '<button class="btn btn-success btn-block btn-xs">NÃO</button>';
+       $Retorno = '<button class="btn btn-success btn-block btn-xs">N&Atilde;O</button>';
      }
      elseif ($TipoAtendimento === "2") {
        $Retorno = '<button class="btn btn-danger btn-block btn-xs">SIM</button>';
@@ -42,7 +42,7 @@ require_once '../QueryUser.php';
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta http-equiv="Content-Language" content="pt-br">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo $Titulo; ?></title>
@@ -76,7 +76,7 @@ word-wrap: break-word;
      <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
        <a href="../#" class="dropdown-toggle" data-toggle="dropdown">
-        <span class="hidden-xs">Olá, <?php echo $NomeUserLogado; ?></span>
+        <span class="hidden-xs">Ol&aacute;, <?php echo $NomeUserLogado; ?></span>
        </a>
       </li>
      </ul>
@@ -94,7 +94,7 @@ word-wrap: break-word;
         <?php echo $Revenda; ?>
        </li>
       </div>
-      <div class="col-xs-4">TÉCNICO RESPONSÁVEL (REVENDA)
+      <div class="col-xs-4">T&Eacute;CNICO RESPONS&Aacute;VEL (REVENDA)
        <li class="list-group-item">
         <?php echo $RevendaTecnico; ?>
        </li>
@@ -143,7 +143,7 @@ word-wrap: break-word;
       </div>
 
       <form name="finaliza" id="name" method="post" action="" enctype="multipart/form-data">
-       <div class="col-xs-12">Nova Observação
+       <div class="col-xs-12">Nova Observa&ccedil;&atilde;o
         <textarea name="final" cols="45" rows="3" class="form-control" id="obs" required="required"></textarea>
        </div>
        <div class="col-xs-12"><br />
@@ -164,7 +164,7 @@ word-wrap: break-word;
          {
           $DataLog = date('Y-m-d - H:i:s');
           $Loog = "Chamado Atualizado";
-          $InsereLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro, Descreve) VALUES ('12', '$Loog', '$DataLog', '$NomeUserLogado', '$Obs')");
+          $InsereLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro, Descreve) VALUES ('112', '$Loog', '$DataLog', '$NomeUserLogado', '$Obs')");
           if ($InsereLog) 
           {
            echo '<script type="text/JavaScript">alert("Atualizado com Sucesso");</script>';
@@ -179,7 +179,7 @@ word-wrap: break-word;
          else
          {
          echo '<script type="text/javascript">alert("NÃO FOI POSSÍVEL ATUALIZAR");</script>';
-         echo '<script type="text/javascript">window.close();</script>';
+         echo '<script type="text/javascript">window. close();</script>';
          }
        }
       ?>

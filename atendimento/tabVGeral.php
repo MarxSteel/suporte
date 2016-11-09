@@ -10,8 +10,8 @@ $VG->execute();
    <td>Chamado</td>
    <td>Modelo</td>
    <td>Revenda</td>
-   <td>Técnico da Revenda</td>
-   <td>Técnico</td>
+   <td>T&eacute;cnico da Revenda</td>
+   <td>T&eacute;cnico</td>
    <td>Cadastro</td>
    <td></td>
   </tr>

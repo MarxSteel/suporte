@@ -10,7 +10,7 @@ $FU->execute();
    <td>Cham.</td>
    <td>Modelo</td>
    <td>Revenda</td>
-   <td>Técnico da Revenda</td>
+   <td>T&eacute;cnico da Revenda</td>
    <td>Cadastro</td>
    <td>Atendente</td>
    <td></td>

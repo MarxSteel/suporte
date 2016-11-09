@@ -8,7 +8,7 @@ echo '<table id="tabprod" class="table table-hover table-responsive" cellspacing
           <th>#</th>
           <th>Produto</th>
           <th>Data de Cadastro</th>
-          <th>Observações</th>
+          <th>Observa&ccedil;&otilde;es</th>
          </tr>
         </thead>
         <tbody>';
@@ -17,8 +17,16 @@ echo '<table id="tabprod" class="table table-hover table-responsive" cellspacing
           <td>' . $Rs["id"] . '</td>
           <td>' . $Rs["nome"] . '</td>
           <td>' . $Rs["DataCadastro"] . '</td>
-          <td class="texto">' . $Rs["Obs"] . '</td>
-         </td>';
+          <td class="texto">' . $Rs["Obs"] . '</td>';
+    echo '<td>';
+     echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
+      echo "'Deleta.php?ID=" . $Rs['nome'] . "');";
+      echo '"><i class="fa fa-remove"></i></a>&nbsp;';
+     echo '<a class="btn btn-warning btn-xs" href="javascript:abrir(';
+      echo "'Atualiza.php?ID=" . $Rs['nome'] . "');";
+      echo '"><i class="fa fa-refresh"></i></a>&nbsp;';
+    echo "</td>";
+   echo '</tr>';
         endwhile;
   echo '</tbody>
       </table>';  

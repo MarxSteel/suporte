@@ -17,7 +17,7 @@ require_once '../QueryUser.php';
     $DescAtend = $campo['DescAtend'];
     $TipoAtendimento = $campo['TipoAtendimento'];
      if ($TipoAtendimento === "1") {
-       $Retorno = '<button class="btn btn-success btn-block btn-xs">NÃO</button>';
+       $Retorno = '<button class="btn btn-success btn-block btn-xs">N&Atilde;O</button>';
      }
      elseif ($TipoAtendimento === "2") {
        $Retorno = '<button class="btn btn-danger btn-block btn-xs">SIM</button>';
@@ -42,7 +42,7 @@ require_once '../QueryUser.php';
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta http-equiv="Content-Language" content="pt-br">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo $Titulo; ?></title>
@@ -76,7 +76,7 @@ word-wrap: break-word;
      <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
        <a href="../#" class="dropdown-toggle" data-toggle="dropdown">
-        <span class="hidden-xs">Olá, <?php echo $NomeUserLogado; ?></span>
+        <span class="hidden-xs">Ol&aacute;, <?php echo $NomeUserLogado; ?></span>
        </a>
       </li>
      </ul>
@@ -114,7 +114,7 @@ word-wrap: break-word;
         <?php echo $UserCadastro; ?>
        </li>
       </div>
-      <div class="col-xs-3">RETORNO DE ASSISTÊNCIA
+      <div class="col-xs-3">RETORNO DE ASSIST&EcircNCIA
        <li class="list-group-item">
         <?php echo $Retorno; ?>
        </li>
@@ -137,7 +137,7 @@ word-wrap: break-word;
        </li>
       </div>
       <form name="finaliza" id="name" method="post" action="" enctype="multipart/form-data">
-       <div class="col-md-6 col-xs-12">Selecione o responsável pelo chamado
+       <div class="col-md-6 col-xs-12">Selecione o respons&aacute;vel pelo chamado
         <select class="form-control" name="usuario" required="required">
          <option value="" selected="selected">SELECIONE</option>
          <?php while ($Userss = $USR->fetch(PDO::FETCH_ASSOC)): ?>
@@ -164,7 +164,7 @@ word-wrap: break-word;
          {
           $DataLog = date('Y-m-d - H:i:s');
           $Loog = "Chamado Reaberto";
-          $InsereLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro, Descreve) VALUES ('14', '$Loog', '$DataLog', '$NomeUserLogado', '$Obs')");
+          $InsereLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro, Descreve) VALUES ('115', '$Loog', '$DataLog', '$NomeUserLogado', '$Obs')");
           if ($InsereLog) 
           {
            echo '<script type="text/JavaScript">alert("Finalizado com Sucesso");</script>';

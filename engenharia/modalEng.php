@@ -38,17 +38,27 @@
       $DataCadastro = date('Y-m-d H:i:s');
       
     $novoProd = $PDO->query("INSERT INTO produto (nome, Obs, DataCadastro) VALUES ('$produto', '$Release', '$DataCadastro')");
-     if($novoProd)
-     {
-      $TpLog = "Cadastrado novo Firmware";  //DESCRIÇÃO DO ATENDIMENTO (LOG)
-      echo '<script type="text/JavaScript">alert("Modelo Adicionado!");
+         if ($novoProd) 
+         {
+          $DataLog = date('Y-m-d - H:i:s');
+          $Loog = "Equipamento Adicionado";
+          $InsereLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro, Descreve) VALUES ('143', '$Loog', '$DataLog', '$NomeUserLogado', '$Release')");
+          if ($InsereLog) 
+          {
+              echo '<script type="text/JavaScript">alert("Cadastrado com Sucesso");
               location.href="dashboard.php"</script>';
-     }
-     else
-     {
-      echo '<script type="text/JavaScript">alert("ERRO! Não foi possível adicionar o equipamento");
-              location.href="dashboard.php"</script>';        
-     }
+          }
+          else
+          {
+         echo '<script type="text/JavaScript">alert("Erro ao salvar Log");
+              location.href="dashboard.php"</script>';
+          }
+         }
+         else
+         {
+         echo '<script type="text/JavaScript">alert("N&atilde;o foi poss&iacute;vel Cadastrar");
+              location.href="dashboard.php"</script>';
+         }
     }
     ?>
    </div>

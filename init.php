@@ -13,14 +13,6 @@ define('DB_NAME', $banco);
 
 
 
-// DECLARANDO CONEXÃO MYSQLI
- 	$conn = new mysqli($host, $user, $pass, $banco);
-	//Checando a Conexão
-	if ($conn->connect_error) 
-	{
-    	die("Erro de Conexão: " . $conn->connect_error);
-	} 
-
 
 
 date_default_timezone_set('America/Sao_Paulo'); //DEFININDO O TIMEZONE PARA TODAS AS PÁGINAS
@@ -43,3 +35,15 @@ $Titulo = "Henry Controle de Estoque";
 
 
 require_once 'functions.php';
+
+function TiraCaractere($string) {
+
+    // matriz de entrada
+    $what = array( 'ä','ã','à','á','â','ê','ë','è','é','ï','ì','í','ö','õ','ò','ó','ô','ü','ù','ú','û','À','Á','É','Í','Ó','Ú','ñ','Ñ','ç','Ç',' ','-','(',')',',',';',':','|','!','"','#','$','%','&','/','=','?','~','^','>','<','ª','º' );
+
+    // matriz de saída
+    $by   = array( 'a','a','a','a','a','e','e','e','e','i','i','i','o','o','o','o','o','u','u','u','u','A','A','E','I','O','U','n','n','c','C','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_' );
+
+    // devolver a string
+    return str_replace($what, $by, $string);
+}
