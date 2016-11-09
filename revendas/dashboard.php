@@ -86,8 +86,7 @@ require_once '../QueryUser.php';
          <th data-column-id="CIDADE">Cidade</th>
          <th data-column-id="EMAIL">E-Mail</th>
          <th data-column-id="TELEFONE1">TELEFONE</th>
-         <th data-column-id="link" data-formatter="link" data-sortable="false">Link</th>
-         <th data-column-id="link2" data-formatter="link" data-sortable="false">Link</th>
+         <th data-column-id="link" data-formatter="link" data-sortable="false"></th>
 
         </tr>
         </thead>        
@@ -119,14 +118,9 @@ $( document ).ready(function() {
     url: "response.php",
     formatters: 
      {
-            "link": function(row)
+            "link": function(column, row)
         {
             return "<a href=\"vRevenda.php?ID=" + row.EMPRESA_ID + "\" class=\"btn btn-default btn-xs\" target=\"_blank\"> <i class=\"fa fa-search\"></i></a>";
-        }
-                "commands": function(column, row)
-        {
-            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-pencil\"></span></button> " + 
-                "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-trash-o\"></span></button>";
         }
     }
    });
