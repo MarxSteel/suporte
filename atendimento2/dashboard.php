@@ -18,15 +18,8 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
  <link rel="stylesheet" href="../dist/css/skins/_all-skins.min.css">
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
-    <link rel="stylesheet" href="../plugins/select2/select2.min.css">
+ <link rel="stylesheet" href="../plugins/select2/select2.min.css">
  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
-  <link href="dist/jquery.bootgrid.css" rel="stylesheet" />
-
-<style type="text/css">
-.texto {
-word-wrap: break-word;
-}
-</style>
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -116,34 +109,49 @@ word-wrap: break-word;
       </ul>
       <div class="tab-content no-padding">
        <div class="tab-pane active" id="pendentes">
-          TABELA DE PENDENTES
-
-
+        <?php include_once 'APU.php'; ?>
        </div>
        <div class="tab-pane" id="finalizados">
-       TABELA DE FINALIZADOS
+        <?php include_once 'AFU.php'; ?>
        </div>
       </div>
      </div>
     </section>
   </div><!-- CLASS ROW -->
   <?php include_once 'modalSuporte.php'; ?>
-
- 
-
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once '../footer.php'; ?>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
-<script src="../dist/js/demo.js"></script>
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="../plugins/select2/select2.full.min.js"></script>
+<script>
+  $(function () {
+    $('#APU').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });    
+    $('#AFU').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });   
+  });
+</script>
+
 <script language="JavaScript">
 function abrir(URL) { 
-  var width = 1200;
+  var width = 1250;
   var height = 650;
   var left = 99;
   var top = 99;
@@ -177,6 +185,28 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   modal.find('.modal-titulo input').val(recipient)
   modal.find('.modal-obs input').val(obs)
 })
-
 </script>
+<script type="text/javascript">
+$( document ).ready(function() {
+  $("#AtendimentoRevenda").bootgrid({
+    ajax: true,
+    post: function ()
+    {
+      /* To accumulate custom parameter with the request object */
+      return {
+        id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+      };
+    },
+    url: "APU.php",
+
+    formatters: {
+    "link": function(column, row)
+        {
+            return "<a href=\"teste.php?ID" + row.id + "\">" + column.id + ": " + row.id + "</a>";
+        }
+    }
+   });
+});
+</script>
+
 </html>

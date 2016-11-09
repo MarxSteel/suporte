@@ -18,6 +18,16 @@ define('DB_NAME', $banco);
 date_default_timezone_set('America/Sao_Paulo'); //DEFININDO O TIMEZONE PARA TODAS AS PÁGINAS
 
 
+$conn = mysqli_connect($host, $user, $pass, $banco) or die("Connection failed: " . mysqli_connect_error());
+
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+
+
 //FUNÇÃO PORCENTAGEM_NNX
 function porcentagem_nnx ($parcial, $porcentagem ) {
  return ($parcial / $porcentagem) * 100;
