@@ -32,7 +32,7 @@ $PU->execute();
       echo '<a class="btn btn-warning btn-xs" href="';
       echo "javascript:abrir('Atualizar.php?ID=" . $PUser["id"] . "');";
       echo '"><i class="fa fa-refresh"></i></a>&nbsp;';    
-      echo '<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="' . $PUser["id"] . '" data-idvalue="' . $PUser["id"] . '" data-botao="FINALIZAR" data-obs="' . $PUser["DescAtend"] . '"><i class="fa fa-check"></i></button></td>';
+      echo '<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" data-whatever="' . $PUser["id"] . '" data-idvalue="' . $PUser["id"] . '" data-botao="FINALIZAR" data-obs="' . $PUser["DescAtend"] . '"><i class="fa fa-check"></i></button>';
    echo '</td>';
    echo '</tr>';
    endwhile;
