@@ -89,12 +89,12 @@ word-wrap: break-word;
      <div class="box-body">
       <div class="col-xs-4">REVENDA
        <li class="list-group-item">
-        <?php echo $Revenda; ?>
+        <?php echo utf8_encode($Revenda); ?>
        </li>
       </div>
       <div class="col-xs-3">T&Eacute;CNICO RESPONSÁVEL (REVENDA)
        <li class="list-group-item">
-        <?php echo $RevendaTecnico; ?>
+        <?php echo utf8_encode($RevendaTecnico); ?>
        </li>
       </div>
       <div class="col-xs-3">DATA DE CADASTRO
@@ -109,7 +109,7 @@ word-wrap: break-word;
       </div>
       <div class="col-xs-3">USER. ATENDENTE
        <li class="list-group-item">
-        <?php echo $UserAtendente; ?>
+        <?php echo utf8_encode($UserAtendente); ?>
        </li>
       </div>
       <div class="col-xs-2">USER. CADASTRO
@@ -119,12 +119,12 @@ word-wrap: break-word;
       </div>
       <div class="col-xs-2">RETORNO DE ASSIST.
        <li class="list-group-item">
-        <?php echo $Retorno; ?>
+        <?php echo utf8_encode($Retorno); ?>
        </li>
       </div>
       <div class="col-xs-2">STATUS
        <li class="list-group-item">
-        <?php echo $RStatus; ?>
+       <?php echo utf8_encode($RStatus); ?>
        </li>
       </div>
       <div class="col-xs-3">Num. Serie
