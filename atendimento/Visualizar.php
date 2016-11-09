@@ -40,7 +40,7 @@ require_once '../QueryUser.php';
 <!DOCTYPE html>
 <html>
 <head>
- <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="Content-Language" content="pt-br">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo $Titulo; ?></title>
@@ -89,12 +89,12 @@ word-wrap: break-word;
      <div class="box-body">
       <div class="col-xs-4">REVENDA
        <li class="list-group-item">
-        <?php echo $Revenda; ?>
+        <?php echo utf8_encode($Revenda); ?>
        </li>
       </div>
       <div class="col-xs-3">T&Eacute;CNICO RESPONSÁVEL (REVENDA)
        <li class="list-group-item">
-        <?php echo $RevendaTecnico; ?>
+        <?php echo utf8_encode($RevendaTecnico); ?>
        </li>
       </div>
       <div class="col-xs-3">DATA DE CADASTRO
@@ -109,7 +109,7 @@ word-wrap: break-word;
       </div>
       <div class="col-xs-3">USER. ATENDENTE
        <li class="list-group-item">
-        <?php echo $UserAtendente; ?>
+        <?php echo utf8_encode($UserAtendente); ?>
        </li>
       </div>
       <div class="col-xs-2">USER. CADASTRO
@@ -119,12 +119,12 @@ word-wrap: break-word;
       </div>
       <div class="col-xs-2">RETORNO DE ASSIST.
        <li class="list-group-item">
-        <?php echo $Retorno; ?>
+        <?php echo utf8_encode($Retorno); ?>
        </li>
       </div>
       <div class="col-xs-2">STATUS
        <li class="list-group-item">
-        <?php echo $RStatus; ?>
+       <?php echo utf8_encode($RStatus); ?>
        </li>
       </div>
       <div class="col-xs-3">Num. Serie
@@ -134,14 +134,10 @@ word-wrap: break-word;
       </div>
       <div class="col-xs-12">ATENDIMENTO
        <li class="list-group-item">
-       <h4>Solicita&ccedil;&atilde;o do Cliente:</h4>
-        <i class="texto">
-         <?php echo $DescSolicita; ?>
-        </i>
-       <h4>Resumo do Atendimento:</h4>
-        <i class="texto">
-         <?php echo $DescAtend; ?>
-        </i>
+        <h4>Solicita&ccedil;&atilde;o do Cliente:</h4>
+         <i class="texto"><?php echo utf8_encode($DescSolicita); ?></i>
+        <h4>Resumo do Atendimento:</h4>
+         <i class="texto"><?php echo utf8_encode($DescAtend); ?></i>
        </li>
       </div>
      </div>

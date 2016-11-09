@@ -91,12 +91,12 @@ word-wrap: break-word;
      <div class="box-body">
       <div class="col-xs-4">REVENDA
        <li class="list-group-item">
-        <?php echo $Revenda; ?>
+        <?php echo utf8_encode($Revenda); ?>
        </li>
       </div>
       <div class="col-xs-4">TÉCNICO RESPONSÁVEL (REVENDA)
        <li class="list-group-item">
-        <?php echo $RevendaTecnico; ?>
+       <?php echo utf8_encode($RevendaTecnico); ?>
        </li>
       </div>
       <div class="col-xs-4">DATA DE CADASTRO
@@ -106,33 +106,33 @@ word-wrap: break-word;
       </div>
       <div class="col-xs-3">USER. ATENDENTE
        <li class="list-group-item">
-        <?php echo $UserAtendente; ?>
+       <?php echo utf8_encode($UserAtendente); ?>
        </li>
       </div>
       <div class="col-xs-3">USER. CADASTRO
        <li class="list-group-item">
-        <?php echo $UserCadastro; ?>
+       <?php echo utf8_encode($UserCadastro); ?>
        </li>
       </div>
       <div class="col-xs-3">RETORNO DE ASSIST&EcircNCIA
        <li class="list-group-item">
-        <?php echo $Retorno; ?>
+       <?php echo utf8_encode($Retorno); ?>
        </li>
       </div>
       <div class="col-xs-3">STATUS
        <li class="list-group-item">
-        <?php echo $RStatus; ?>
+       <?php echo utf8_encode($RStatus); ?>
        </li>
       </div>
       <div class="col-xs-12">ATENDIMENTO
        <li class="list-group-item">
        <h4>Solicitação do Cliente:</h4>
         <i class="texto">
-         <?php echo $DescSolicita; ?>
+        <?php echo utf8_encode($DescSolicita); ?>
         </i>
        <h4>Resumo do Atendimento:</h4>
         <i class="texto">
-         <?php echo $DescAtend; ?>
+        <?php echo utf8_encode($DescAtend); ?>
         </i>
        </li>
       </div>

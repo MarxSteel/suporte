@@ -20,6 +20,7 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -110,13 +111,13 @@ require_once '../QueryUser.php';
       </ul>
       <div class="tab-content no-padding">
        <div class="tab-pane active" id="geral">
-            GERAL
+              <?php include_once 'AGG.php'; ?>
        </div>
        <div class="tab-pane" id="pendentes">
-            pendente geral
+              <?php include_once 'APG.php'; ?>
        </div>
        <div class="tab-pane" id="finalizados">
-            finalizados
+              <?php include_once 'AFG.php'; ?>
        </div>
       </div>
      </div>
@@ -138,9 +139,31 @@ require_once '../QueryUser.php';
 
 <script>
   $(function () {
-    $('#tabVGeral').DataTable();
-    $('#tabFinalGeral').DataTable();
-    $('#tabPendenteGeral').DataTable();
+    $('#APG').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });  
+    $('#AFG').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });  
+    $('#AGG').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": false,
+      "info": true,
+      "autoWidth": true
+    });  
+
   });
 </script>
 <script language="JavaScript">
