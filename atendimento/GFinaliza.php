@@ -12,7 +12,7 @@ require_once '../QueryUser.php';
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+ <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta http-equiv="Content-Language" content="pt-br">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo $Titulo; ?></title>
@@ -91,7 +91,7 @@ word-wrap: break-word;
          {
           $DataLog = date('Y-m-d - H:i:s');
           $Loog = "Chamado Finalizado";
-          $InsereLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro, Descreve) VALUES ('11', '$Loog', '$DataLog', '$NomeUserLogado', '$Obs')");
+          $InsereLog = $PDO->query("INSERT INTO log (Cod, TipoLog, DataCadastro, UserCadastro, Descreve) VALUES ('113', '$Loog', '$DataLog', '$NomeUserLogado', '$Obs')");
           if ($InsereLog) 
           {
            echo '<script type="text/JavaScript">alert("Finalizado com Sucesso");</script>';
