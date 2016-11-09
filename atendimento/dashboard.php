@@ -8,8 +8,7 @@ require_once '../QueryUser.php';
 <!DOCTYPE html>
 <html>
 <head>
-
- <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
  <title><?php echo $titulo; ?></title>
  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -21,7 +20,13 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+  <link href="dist/jquery.bootgrid.css" rel="stylesheet" />
 
+<style type="text/css">
+.texto {
+word-wrap: break-word;
+}
+</style>
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -68,7 +73,7 @@ require_once '../QueryUser.php';
   </aside>
 <div class="content-wrapper">
  <section class="content-header">
-  <h1>Suporte Técnico - Controle de Atendimentos por Técnico<small><?php echo $titulo; ?></small></h1>
+  <h1>Suporte T&eacute;cnico - Controle de Atendimentos por T&eacute;cnico<small><?php echo $titulo; ?></small></h1>
  </section>
  <section class="content">
   <div class="row">
@@ -95,9 +100,6 @@ require_once '../QueryUser.php';
      </div>                  
     </div>
    </div> 
-
-
-
     <?php } else { } ?>
     <section class="col-lg-12 connectedSortable">
      <div class="nav-tabs-custom">
@@ -105,7 +107,7 @@ require_once '../QueryUser.php';
        <li class="active"><a href="#pendentes" data-toggle="tab">Atendimentos Pendentes</a></li>
         <li><a href="#finalizados" data-toggle="tab">Atendimentos Finalizados</a></li>
         <li class="pull-left header">
-         <i class="fa fa-inbox"></i> Lista de Atendimentos do Usuário
+         <i class="fa fa-inbox"></i> Lista de Atendimentos do Usu&aacute;rio
         <li>
          <button type="button" class="btn bg-navy btn-sm" data-toggle="modal" data-target="#help">
           <i class="fa fa-question"></i> AJUDA
@@ -114,7 +116,22 @@ require_once '../QueryUser.php';
       </ul>
       <div class="tab-content no-padding">
        <div class="tab-pane active" id="pendentes">
-        <?php include_once 'TPUser.php'; ?>
+
+        <table id="PendentesUsuario" class="table table-hover table=responsive table-striped" width="100%" cellspacing="0">
+        <thead>
+        <tr>
+         <th data-column-id="RAZAO_SOCIAL">Razão Social</th>
+         <th data-column-id="CIDADE">Cidade</th>
+         <th data-column-id="EMAIL">E-Mail</th>
+         <th data-column-id="TELEFONE1">TELEFONE</th>
+         <th data-column-id="link" data-formatter="link" data-sortable="false">Link</th>
+         <th data-column-id="link2" data-formatter="link" data-sortable="false">Link</th>
+        </tr>
+        </thead>        
+    </table>
+
+
+
        </div>
        <div class="tab-pane" id="finalizados">
         <?php include_once 'TFUser.php'; ?>
@@ -132,13 +149,13 @@ require_once '../QueryUser.php';
 <?php include_once '../footer.php'; ?>
 <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
 <script src="../plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="../plugins/fastclick/fastclick.js"></script>
 <script src="../dist/js/app.min.js"></script>
 <script src="../dist/js/demo.js"></script>
 <script src="../plugins/select2/select2.full.min.js"></script>
+<script src="dist/jquery-1.11.1.min.js"></script>
+<script src="dist/jquery.bootgrid.min.js"></script>
 
 <script>
   $(function () {
@@ -197,9 +214,53 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   modal.find('.modal-obs input').val(obs)
 })
 
+</script>
+<script type="text/javascript">
+$( document ).ready(function() {
+  $("#tabelaRevenda").bootgrid({
+    ajax: true,
+    post: function ()
+    {
+      return {
+        id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+      };
+    },
+    url: "response.php",
+
+    formatters: {
+    }
+   });
+});
+</script>
+<script type="text/javascript">
+  
+$( document ).ready(function() {
+  $("#PendentesUsuario").bootgrid({
+    ajax: true,
+    post: function ()
+    {
+      return {
+        id: "b0df282a-0d67-40e5-8558-c9e93b7befed"
+      };
+    },
+    url: "PendentesUsuario.php",
+    formatters: 
+     {
+            "link": function(row)
+        {
+            return "<a href=\"vRevenda.php?ID=" + row.EMPRESA_ID + "\" class=\"btn btn-default btn-xs\" target=\"_blank\"> <i class=\"fa fa-search\"></i></a>";
+        }
+                "commands": function(column, row)
+        {
+            return "<button type=\"button\" class=\"btn btn-xs btn-default command-edit\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-pencil\"></span></button> " + 
+                "<button type=\"button\" class=\"btn btn-xs btn-default command-delete\" data-row-id=\"" + row.id + "\"><span class=\"fa fa-trash-o\"></span></button>";
+        }
+    }
+   });
+});
+</script>
 
 
-data-obs
 </script>
 
 </html>
