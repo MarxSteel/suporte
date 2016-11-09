@@ -20,7 +20,6 @@ require_once '../QueryUser.php';
  <link rel="stylesheet" href="../plugins/iCheck/flat/blue.css">
     <link rel="stylesheet" href="../plugins/select2/select2.min.css">
  <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
-
 </head>
 <body class="hold-transition skin-blue-light fixed sidebar-mini">
 <div class="wrapper">
@@ -111,19 +110,19 @@ require_once '../QueryUser.php';
       </ul>
       <div class="tab-content no-padding">
        <div class="tab-pane active" id="geral">
-      <?php include_once 'tabVGeral.php'; ?>
+            GERAL
        </div>
        <div class="tab-pane" id="pendentes">
-      <?php include_once 'tabPendenteGeral.php'; ?>
+            pendente geral
        </div>
        <div class="tab-pane" id="finalizados">
-      <?php include_once 'tabFinalGeral.php'; ?>      
+            finalizados
        </div>
       </div>
      </div>
     </section>
   </div><!-- CLASS ROW -->
-  <?php include_once 'modalSup.php'; ?>
+  <?php include_once 'modalSuporte.php'; ?>
  </section>
 </div><!-- CONTENT-WRAPPER -->
 <?php include_once '../footer.php'; ?>
