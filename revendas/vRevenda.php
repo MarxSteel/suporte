@@ -60,7 +60,7 @@ word-wrap: break-word;
     <div class="box box-default">
      <div class="box-body">
       <h4>Dados da Revenda</h4>
-      <div class="col-xs-9">RAZÃO SOCIAL
+      <div class="col-xs-9">RAZ&Atilde;O SOCIAL
        <li class="list-group-item">
         <strong><?php echo $campo['RAZAO_SOCIAL']; ?></strong>
        </li>
@@ -110,13 +110,13 @@ word-wrap: break-word;
        <strong>(<?php echo $campo['DDD4']; ?>) - <?php echo $campo['TELEFONE4']; ?></strong>
        </li>
       </div>
-      <h4>Dados de Endereço</h4>
-      <div class="col-xs-6">ENDEREÇO
+      <h4>Dados de Endere&ccedil;o</h4>
+      <div class="col-xs-6">ENDERE&Ccedil;O
        <li class="list-group-item">
         <?php echo $campo['ENDERECO']; ?>
        </li>
       </div>
-      <div class="col-xs-2">Nº
+      <div class="col-xs-2">Num.
        <li class="list-group-item">
         <?php echo $campo['NUMERO_END']; ?>
        </li>
@@ -161,7 +161,7 @@ word-wrap: break-word;
         <?php echo $campo['UF']; ?>
        </li>
       </div>
-      <div class="col-xs-12">OBSERVAÇÕES
+      <div class="col-xs-12">OBSERVA&Ccedil;&Otilde;ES
        <li class="list-group-item">
         <i class="texto">
         <?php echo $campo['OBSERVACOES']; ?>
