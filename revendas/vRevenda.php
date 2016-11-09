@@ -2,16 +2,17 @@
  require("../restritos.php"); 
  require_once '../init.php';
  $PDO = db_connect();
+ $PDO2 = db_connect2();
 require_once '../QueryUser.php';
    $id = $_GET['ID'];
-   $dFor = $PDO->prepare("SELECT * FROM cad_empresa WHERE EMPRESA_ID='$id'");
+   $dFor = $PDO2->prepare("SELECT * FROM cad_empresa WHERE EMPRESA_ID='$id'");
    $dFor->execute();
     $campo = $dFor->fetch();    
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
   <meta http-equiv="Content-Language" content="pt-br">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo $Titulo; ?></title>
