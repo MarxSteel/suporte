@@ -102,7 +102,7 @@ require_once 'QueryUser.php';
         <i class="fa fa-file-code-o"></i>
        </span>
       </a>
-      <div class="info-box-content"><h4>DOCUMENTAÇÃO</h4></div>
+      <div class="info-box-content"><h4>CADASTRO DE EQUIPS.</h4></div>
      </div>                  
     </div>
    </div>
@@ -123,12 +123,12 @@ require_once 'QueryUser.php';
    <div class="col-md-4 col-sm-6 col-xs-12">
     <div class="box box-widget widget-user">
      <div class="info-box">
-      <a href="admin/dashboard.php" >
+      <a href="usuarios/dashboard.php" >
        <span class="info-box-icon bg-purple ">
-        <i class="fa fa-whrench"></i>
+        <i class="fa fa-users"></i>
        </span>
       </a>
-      <div class="info-box-content"><h4>ADMINISTRAÇÃO</h4></div>
+      <div class="info-box-content"><h4>USU&Aacute;RIOS</h4></div>
      </div>                  
     </div>
    </div> 
