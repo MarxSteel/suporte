@@ -11,7 +11,7 @@ $PU->execute();
    <td>Cham.</td>
    <td>Modelo</td>
    <td>Revenda</td>
-   <td>Técnico da Revenda</td>
+   <td>T&eacute;cnico da Revenda</td>
    <td>Cadastro</td>
    <td>Atendente</td>
    <td></td>
@@ -49,11 +49,9 @@ $PU->execute();
       </div>
       <div class="modal-body">
        <div class="callout callout-success">
-       <h3><span class="glyphicon glyphicon-exclamation-sign"></span>Atenção!</h3>
-       <h4>
-       Ao finalizar, não é possivel mais abrir o chamado. Caso necessite reabri-lo será necessário entrar em contato com a Engenharia, para que possa ser reaberto. 
-       </h4>
-       <h3>TEM CERTEZA QUE DESEJA FINALIZAR ?</h3>  
+       <h4><span class="glyphicon glyphicon-exclamation-sign"></span>Aten&ccedil;&atilde;o!</h4>
+       Ao finalizar, n&atilde;o &eacute; possivel mais abrir o chamado. Caso necessite reabri-lo ser&aacute; necess&aacute;rio entrar em contato com a Engenharia, para que possa ser reaberto. 
+       <h4>TEM CERTEZA QUE DESEJA FINALIZAR ?</h4>  
       </div>
        <form name="adProd" id="adProd" method="post" action="" enctype="multipart/form-data">
        <div class="col-xs-12">Chamado:
@@ -61,7 +59,7 @@ $PU->execute();
          <input type="text" class="form-control" name="IDP" id="modal-valor">
         </div>
        </div>
-       <div class="col-xs-12">Observações Finais
+       <div class="col-xs-12">Observa&ccedil;&otilde;es Finais
         <textarea name="final" cols="45" rows="3" class="form-control" id="obs" required="required"></textarea><br />
        </div>
        <br />
@@ -73,19 +71,17 @@ $PU->execute();
         {
          $iProd = $_POST['IDP']; //ID DO PRODUTO
          $Observa = str_replace("\r\n", "<br/>", strip_tags($_POST["final"]));
-            //CHAMANDO OBSERVAÇÃO ANTIGA DO ITEM
-            $ChamaAtendimento = $PDO->prepare("SELECT * FROM atendimento WHERE id='$iProd'");
-            $ChamaAtendimento->execute();
-             $Dados = $ChamaAtendimento->fetch();
-              $ObservaAntigo = $Dados['Obs'];
-            
+          $dFor = $PDO->prepare("SELECT * FROM atendimento WHERE id='$iProd'");
+          $dFor->execute();
+            $campo = $dFor->fetch();
+            $Resumo = $campo['DescAtend'];
             $dataFin = date('d/m/Y - H:i:s');
             $V1 = "<br /><strong>Chamado Finalizado</strong>";
             $V2 = "<br />Data: " . $dataFin;
-            $V3 = "<br /><strong<Usuário: " . $NomeUserLogado . "</strong><br />";
-            $Obs = $ObservaAntigo . $V1 . $V2 . $V3 . $Observa;
+            $V3 = "<br /><strong<Usuário: " . $NomeUserLogado . "</strong>";
+            $Obs = $Resumo . $V1 . $V2 . $V3 . $Observa;
           
-          $Finalizar = $PDO->query("UPDATE atendimento SET Status='1', DescAtend='$Obs' WHERE id='$iProd'");
+          $Finalizar = $PDO->query("UPDATE atendimento SET DescAtend='$Obs', Status='1' WHERE id='$iProd'");
          if ($Finalizar) 
          {
           $DataLog = date('Y-m-d - H:i:s');
