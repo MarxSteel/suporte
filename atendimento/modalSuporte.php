@@ -82,7 +82,7 @@ $ChamaRevenda = "SELECT * FROM lista_revenda";
        </select>
       </div>
      </div>
-     <div class="col-md-3">Técnico da Revenda:
+     <div class="col-md-3">T&eacute;cnico da Revenda:
       <input class="form-control" type="text" name="tecnico" required="required">
      </div>
      <div class="col-xs-3">Retorno de Assist&ecirc;ncia?
@@ -119,16 +119,13 @@ $ChamaRevenda = "SELECT * FROM lista_revenda";
     {
      $nRevenda = $_POST['revenda'];      //DESCRIÇÃO DA REVENDA
      $nTecnico = $_POST['tecnico'];      //TECNICO RESPONSÁVEL PELO ATENDIMENTO
-      $nTecnico = TiraCaractere($nTecnico);
      $nTipo = $_POST['tipo'];            //É OU NÃO RETORNO (1 - NÃO É, 2 - É)
      $nEquip = $_POST['equip'];    //EQUIPAMENTO DO ATENDIMENTO
      $nAssist = $_POST['assist'];        //INFORMA SE PRETENDE OU NÃO ENVIAR À ASSISTÊNCIA
      $nSer = $_POST['nser'];             //NÚMERO DE SÉRIE
      $Nome = $NomeUserLogado;            //DECLARANDO A STRING DE LOGIN, SÓ PRA FICAR MENOR
      $nReq = str_replace("\r\n", "<br/>", strip_tags($_POST["requis"]));
-      $nReq = TiraCaractere($nReq);
      $nAten = str_replace("\r\n", "<br/>", strip_tags($_POST["atend"]));
-      $nAten = TiraCaractere($nAtend);
       $InsereAtendimento = $PDO->query("INSERT INTO atendimento (Status, TipoAtendimento, DescAtend, DescSolicita, UserCadastro, UserAtendente, DataCadastro, Revenda, RevendaTecnico, NumSerie, Equip) VALUES ('2', '$nTipo', '$nAten', '$nReq', '$Nome', '$Nome', '$DataAtual', '$nRevenda', '$nTecnico', '$nSer', '$nEquip')");
 
         if ($InsereAtendimento) {

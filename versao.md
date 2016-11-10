@@ -11,3 +11,6 @@ INICIO DE DOCUMENTAÇÃO DE VERSIONAMENTO:
 - Atualizado charset página
 - Atualizada Tabela de Pendentes para Bootgrid
 -- Página: atendimentos/dashboard.php
+
+3.3.14
+-Corrigida página de Cadastro de Atendimento

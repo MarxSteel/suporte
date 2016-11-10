@@ -83,9 +83,9 @@ require_once '../QueryUser.php';
         <thead>
         <tr>
          <th data-column-id="RAZAO_SOCIAL">Razão Social</th>
+         <th data-column-id="NOME_FANTASIA">Nome Fantasia</th>
          <th data-column-id="CIDADE">Cidade</th>
          <th data-column-id="EMAIL">E-Mail</th>
-         <th data-column-id="TELEFONE1">TELEFONE</th>
          <th data-column-id="link" data-formatter="link" data-sortable="false"></th>
 
         </tr>
