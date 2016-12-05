@@ -73,15 +73,15 @@ $QryUser->execute();
  <section class="content">
   <div class="row">
   <?php if ($permUsr === "1") { ?>
-     <div class="col-md-8">
+     <div class="col-md-9">
       <div class="info-box">
-       <table id="cadREP" class="table table-responsive">
+       <table id="cadREP" class="table table-responsive" cellspacing="0">
         <thead>
          <tr>
-          <th>#</th>
-          <th>Nome</th>
-          <th>Usuário</th>
-          <th></th>
+          <th width="5%">#</th>
+          <th width="35%">Nome</th>
+          <th width="20%">Usuário</th>
+          <th width="40%"></th>
          </tr> 
         </thead>
         <tbody>
@@ -94,6 +94,12 @@ $QryUser->execute();
           echo '<a class="btn btn-danger btn-xs" href="javascript:abrir(';
           echo "'DeletaUser.php?ID=" . $User['codLogin'] . "');";
           echo '"><i class="fa fa-remove"></i></a>&nbsp;';
+          echo '<a class="btn btn-primary btn-xs" href="javascript:abrir(';
+          echo "'TrocaSenha.php?ID=" . $User['codLogin'] . "');";
+          echo '"><i class="fa fa-lock"></i> Trocar Senha</a>&nbsp;';
+          echo '<a class="btn btn-warning btn-xs" href="javascript:abrir(';
+          echo "'TrocaPrivilegio.php?ID=" . $User['codLogin'] . "');";
+          echo '"><i class="fa fa-refresh"></i> Trocar Privilégios</a>&nbsp;';          
          echo "</td>";
          echo "</tr>";
          endwhile;
@@ -102,7 +108,7 @@ $QryUser->execute();
         </table>  
       </div>
     </div>
-    <div class="col-md-4 col-sm-6 col-xs-12">
+    <div class="col-md-3 col-sm-6 col-xs-12">
      <div class="info-box">
       <a data-toggle="modal" data-target="#NovoUser"">
        <span class="info-box-icon bg-yellow">
